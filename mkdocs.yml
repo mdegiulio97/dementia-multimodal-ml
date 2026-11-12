@@ -1,0 +1,26 @@
+site_name: dementia-multimodal-ml
+site_url: https://mdegiulio97.github.io/dementia-multimodal-ml/
+repo_url: https://github.com/mdegiulio97/dementia-multimodal-ml
+theme:
+  name: material
+  palette:
+    - scheme: default
+      toggle: {icon: material/brightness-7, name: Dark mode}
+    - scheme: slate
+      toggle: {icon: material/brightness-4, name: Light mode}
+exclude_docs: |
+  superpowers/
+nav:
+  - Home: index.md
+  - Results: RESULTS.md
+  - Figures: FIGURES.md
+  - Data sources: DATA_SOURCES.md
+  - ADNI download list: ADNI_DOWNLOAD_LIST.md
+  - Model cards:
+      - Conversion: model_cards/conversion.md
+      - EEG: model_cards/eeg.md
+      - Mendelian randomisation: model_cards/mr.md
+  - Agent: agent.md
+markdown_extensions:
+  - tables
+  - admonition

@@ -196,11 +196,12 @@
           "n_estimators": 300,
           "learning_rate": 0.05
         }
-      }
+      },
+      "n_boot_models": 50
     },
     "seed": 0,
-    "git_commit": "65d86f7e1b52c1df1e816ab6182ad17692d719d8-dirty",
+    "git_commit": "a0ff6ebb461b795184f5b2e9607269f79655984e",
     "package_version": "0.1.0.dev0",
-    "created_utc": "2026-11-12T15:00:04+00:00"
+    "created_utc": "2026-11-12T15:38:38+00:00"
   }
 }
