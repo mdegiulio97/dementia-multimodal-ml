@@ -1,0 +1,239 @@
+{
+  "question": "Does resting-state EEG separate AD, FTD and controls at the participant level?",
+  "dataset": "OpenNeuro ds004504",
+  "n_subjects": 88,
+  "n_epochs": 34788,
+  "results": {
+    "AD_vs_CN": {
+      "logreg": {
+        "task": "AD_vs_CN",
+        "model": "logreg",
+        "classes": [
+          "CN",
+          "AD"
+        ],
+        "n_subjects": 65,
+        "n_epochs": 26526,
+        "class_counts": {
+          "CN": 29,
+          "AD": 36
+        },
+        "auc": {
+          "estimate": 0.9080459770114943,
+          "ci_low": 0.8235157106320788,
+          "ci_high": 0.9679148480778915
+        },
+        "balanced_accuracy": {
+          "estimate": 0.8132183908045978,
+          "ci_low": 0.6991315594974132,
+          "ci_high": 0.9068400621118011
+        }
+      },
+      "lgbm": {
+        "task": "AD_vs_CN",
+        "model": "lgbm",
+        "classes": [
+          "CN",
+          "AD"
+        ],
+        "n_subjects": 65,
+        "n_epochs": 26526,
+        "class_counts": {
+          "CN": 29,
+          "AD": 36
+        },
+        "auc": {
+          "estimate": 0.9003831417624522,
+          "ci_low": 0.8083778772040968,
+          "ci_high": 0.967561423396338
+        },
+        "balanced_accuracy": {
+          "estimate": 0.8132183908045978,
+          "ci_low": 0.7,
+          "ci_high": 0.9076789096320347
+        }
+      }
+    },
+    "FTD_vs_CN": {
+      "logreg": {
+        "task": "FTD_vs_CN",
+        "model": "logreg",
+        "classes": [
+          "CN",
+          "FTD"
+        ],
+        "n_subjects": 52,
+        "n_epochs": 20274,
+        "class_counts": {
+          "CN": 29,
+          "FTD": 23
+        },
+        "auc": {
+          "estimate": 0.7376311844077961,
+          "ci_low": 0.5852463028222041,
+          "ci_high": 0.8706001411059177
+        },
+        "balanced_accuracy": {
+          "estimate": 0.6484257871064467,
+          "ci_low": 0.5269646858598351,
+          "ci_high": 0.7614814814814814
+        }
+      },
+      "lgbm": {
+        "task": "FTD_vs_CN",
+        "model": "lgbm",
+        "classes": [
+          "CN",
+          "FTD"
+        ],
+        "n_subjects": 52,
+        "n_epochs": 20274,
+        "class_counts": {
+          "CN": 29,
+          "FTD": 23
+        },
+        "auc": {
+          "estimate": 0.8335832083958021,
+          "ci_low": 0.6953639425267717,
+          "ci_high": 0.9416366647465437
+        },
+        "balanced_accuracy": {
+          "estimate": 0.7308845577211394,
+          "ci_low": 0.6094674688057041,
+          "ci_high": 0.8424960127591706
+        }
+      }
+    },
+    "AD_vs_FTD": {
+      "logreg": {
+        "task": "AD_vs_FTD",
+        "model": "logreg",
+        "classes": [
+          "FTD",
+          "AD"
+        ],
+        "n_subjects": 59,
+        "n_epochs": 22776,
+        "class_counts": {
+          "FTD": 23,
+          "AD": 36
+        },
+        "auc": {
+          "estimate": 0.605072463768116,
+          "ci_low": 0.43760564080704745,
+          "ci_high": 0.760474537037037
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5670289855072463,
+          "ci_low": 0.4778869778869779,
+          "ci_high": 0.6643047480620154
+        }
+      },
+      "lgbm": {
+        "task": "AD_vs_FTD",
+        "model": "lgbm",
+        "classes": [
+          "FTD",
+          "AD"
+        ],
+        "n_subjects": 59,
+        "n_epochs": 22776,
+        "class_counts": {
+          "FTD": 23,
+          "AD": 36
+        },
+        "auc": {
+          "estimate": 0.5289855072463768,
+          "ci_low": 0.360687656641604,
+          "ci_high": 0.6933480514298742
+        },
+        "balanced_accuracy": {
+          "estimate": 0.5948067632850241,
+          "ci_low": 0.5081585081585082,
+          "ci_high": 0.6910638348138348
+        }
+      }
+    },
+    "3class": {
+      "logreg": {
+        "task": "3class",
+        "model": "logreg",
+        "classes": [
+          "CN",
+          "AD",
+          "FTD"
+        ],
+        "n_subjects": 88,
+        "n_epochs": 34788,
+        "class_counts": {
+          "CN": 29,
+          "AD": 36,
+          "FTD": 23
+        },
+        "auc": {
+          "estimate": 0.723194038211953,
+          "ci_low": 0.6392959415839847,
+          "ci_high": 0.797652110901644
+        },
+        "balanced_accuracy": {
+          "estimate": 0.577128102615359,
+          "ci_low": 0.48357368319378574,
+          "ci_high": 0.6616285922695219
+        }
+      },
+      "lgbm": {
+        "task": "3class",
+        "model": "lgbm",
+        "classes": [
+          "CN",
+          "AD",
+          "FTD"
+        ],
+        "n_subjects": 88,
+        "n_epochs": 34788,
+        "class_counts": {
+          "CN": 29,
+          "AD": 36,
+          "FTD": 23
+        },
+        "auc": {
+          "estimate": 0.7442242173857299,
+          "ci_low": 0.6589048367620882,
+          "ci_high": 0.8203836289192942
+        },
+        "balanced_accuracy": {
+          "estimate": 0.626103614859237,
+          "ci_low": 0.5373585115864528,
+          "ci_high": 0.7106618738971681
+        }
+      }
+    }
+  },
+  "provenance": {
+    "dataset": "OpenNeuro ds004504",
+    "dataset_version": "10.18112/openneuro.ds004504.v1.0.9",
+    "config": {
+      "bids_dir": "eeg/ds004504",
+      "use_derivatives": true,
+      "epoch_s": 4.0,
+      "overlap": 0.5,
+      "tasks": [
+        "AD_vs_CN",
+        "FTD_vs_CN",
+        "AD_vs_FTD",
+        "3class"
+      ],
+      "models": [
+        "logreg",
+        "lgbm"
+      ],
+      "n_repeats": 5,
+      "n_boot": 1000,
+      "seed": 0
+    },
+    "seed": 0,
+    "git_commit": "0e0c49823a81bcd64db2571cf81d46d7f1d2c81c-dirty",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-12T15:27:08+00:00"
+  }
+}
