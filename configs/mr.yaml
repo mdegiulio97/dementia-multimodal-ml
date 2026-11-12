@@ -4,3 +4,7 @@ window_kb: 500        # distance-based pruning (approximation of LD clumping)
 fdr: 0.05             # Benjamini-Hochberg, within each exposure family
 n_boot: 1000          # weighted-median bootstrap
 seed: 0
+# Instruments in the APOE region are dropped: its huge, pleiotropic effect on AD would
+# otherwise dominate any exposure with a nearby QTL (GRCh37, both exposure tables).
+exclude_regions:
+  - {chrom: 19, start: 44400000, end: 46500000, name: APOE}

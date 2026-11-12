@@ -92,6 +92,7 @@ def run(
             cis_only=CIS_ONLY.get(kind, True),
             n_boot=config["n_boot"],
             seed=config["seed"],
+            exclude_regions=config.get("exclude_regions"),
         )
         tables.append(res)
         instruments.update(inst)

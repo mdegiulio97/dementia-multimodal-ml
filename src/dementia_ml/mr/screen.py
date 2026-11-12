@@ -61,12 +61,25 @@ def run_screen(
     cis_only: bool = True,
     n_boot: int = 1000,
     seed: int = 0,
+    exclude_regions: list[dict] | None = None,
 ) -> tuple[pd.DataFrame, dict[str, list[str]], pd.DataFrame]:
-    """Return (one row per trait, instruments used per trait, harmonisation log)."""
+    """Return (one row per trait, instruments used per trait, harmonisation log).
+
+    ``exclude_regions``: [{"chrom", "start", "end"}] in the exposure's build; instruments
+    inside are dropped before pruning (e.g. the APOE region, strongly pleiotropic for AD).
+    """
     sel = exposures[exposures["pval"] < p_threshold]
     if cis_only and "cis" in sel:
         sel = sel[sel["cis"].astype(bool)]
     rows, instruments, logs = [], {}, []
+    in_region = pd.Series(False, index=sel.index)
+    for r in exclude_regions or []:
+        in_region |= (sel["chrom"] == r["chrom"]) & sel["pos"].between(r["start"], r["end"])
+    if in_region.any():
+        logs.append(
+            sel.loc[in_region, ["snp", "trait"]].assign(kind=kind, dropped_reason="excluded_region")
+        )
+    sel = sel[~in_region]
     for trait, exp in sel.groupby("trait", sort=True):
         exp = prune_by_distance(exp, window_kb)
         h = harmonise(exp, outcome)

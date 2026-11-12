@@ -103,3 +103,16 @@ def test_pipeline_on_fixtures(tmp_path):
     assert set(CAUSAL) <= set(selected)
     assert (tmp_path / "figures/open/mr_volcano.png").exists()
     assert (tmp_path / "figures/open/mr_top_forest.png").exists()
+
+
+def test_excluded_region_instruments_are_dropped():
+    exp, out = _fixture()
+    chrom_a = exp.loc[exp["trait"] == "PROT_A", "chrom"].iloc[0]
+    res, inst, log = screen.run_screen(
+        exp[exp["cis"]],
+        out,
+        "pqtl",
+        exclude_regions=[{"chrom": int(chrom_a), "start": 0, "end": 10_000_000}],
+    )
+    assert "PROT_A" not in inst
+    assert (log.loc[log["trait"] == "PROT_A", "dropped_reason"] == "excluded_region").all()
