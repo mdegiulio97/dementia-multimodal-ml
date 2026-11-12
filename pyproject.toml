@@ -16,6 +16,7 @@ dependencies = [
     "mne>=1.13.2",
     "mne-bids>=0.20.0",
     "numpy>=2.5.4",
+    "openpyxl>=3.1.5",
     "pandas>=2.3.3",
     "pyarrow>=26.0.1",
     "pyyaml>=6.0.3",

@@ -1,0 +1,6 @@
+# Open-data MR screen: circulating proteins (UKB-PPP) and NMR metabolites -> Alzheimer's disease
+p_threshold: 5.0e-8
+window_kb: 500        # distance-based pruning (approximation of LD clumping)
+fdr: 0.05             # Benjamini-Hochberg, within each exposure family
+n_boot: 1000          # weighted-median bootstrap
+seed: 0
