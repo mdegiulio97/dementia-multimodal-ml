@@ -130,9 +130,10 @@ Mixed model with random intercept and slope:
 
 ### ADNI
 
-The same code runs locally on ADNIMERGE. ADNI aggregate results will be added here once their
-publication is confirmed against the ADNI Data Use Agreement. Until then, the ADNI numbers
-stay in the gitignored `results/adni/`.
+The same code runs locally on ADNIMERGE. ADNI results will be added here as aggregate tables
+and figures only, with no per-participant data, as the ADNI Data Use Agreement allows. Trained
+ADNI models and per-participant predictions always stay in the gitignored `results/adni/` and
+`models/`.
 
 ## Agent
 

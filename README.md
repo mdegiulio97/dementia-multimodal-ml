@@ -19,8 +19,8 @@ so no access-controlled data is needed to try the code.
 ![Conversion by risk tertile](figures/synthetic/conversion_km_by_risk_tertile.png)
 
 *Main figure: cumulative conversion to dementia by tertile of out-of-fold predicted risk (full
-Cox model). Shown on the **synthetic** cohort, because ADNI aggregate results are published
-here only once their release is confirmed against the ADNI Data Use Agreement.*
+Cox model). Shown on the **synthetic** cohort until the ADNI run is added; ADNI results will appear
+as aggregates only.*
 
 ## How the parts fit together
 
@@ -136,7 +136,8 @@ tests/             101 tests; CI on Ubuntu and Windows
 
 - **Phase 2.** ADNI proteomics and metabolomics, testing the MR-selected molecules against all
   others with FDR; FreeSurfer volumes; EEGNet with the same subject-level folds; a sensitivity
-  analysis with delta at 1-4 Hz; colocalisation for the MR hits.
+  analysis with delta at 1-4 Hz; colocalisation for the MR hits; MR repeated with an AD GWAS
+  without UK Biobank (Kunkle et al. 2019) to address sample overlap.
 - **Phase 3.** A multimodal fusion model with missing modalities, compared with the best single
   modality and the baseline.
 

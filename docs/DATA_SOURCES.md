@@ -322,6 +322,12 @@ download date in the README; keep `models/adni/` and `conversion_predictions.par
 optionally notify the DPC through the IDA "Publication Update" route; any later manuscript goes
 through the DPC as required.
 
+**Owner decision (2026-11-12): the conservative route.** ADNI conversion results will be
+published as aggregate tables and figures only, with the acknowledgement below and the
+ADNIMERGE download date; models and per-participant predictions stay local.
+`publish_adni_aggregates` is set to `true` in the same commit that adds the first ADNI
+aggregates.
+
 ### 5.3 Required acknowledgement text ✓ (current DUA)
 
 By-line: "for the Alzheimer's Disease Neuroimaging Initiative*", with the footnote:
