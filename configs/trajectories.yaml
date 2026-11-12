@@ -1,0 +1,4 @@
+n_subjects: 1500   # synthetic only
+seed: 0
+outcomes: [MMSE, ADAS13]   # add CDRSB for ADNI (constant in the synthetic cohort)
+adnimerge_file: adni/ADNIMERGE.csv

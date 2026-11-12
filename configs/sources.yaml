@@ -162,12 +162,33 @@ mqtl:
   full_sumstats_gwas_catalog: "GCST90301941-GCST90302173"  # from the paper, not queried
 
 adni:
-  url: https://adni.loni.usc.edu
+  url: https://adni.loni.usc.edu   # data via https://ida.loni.usc.edu (Study Files)
   doi: null
   paper_doi: null
-  version: null                     # record the download date of each table
+  version: null                     # record the download date of each table in DOWNLOADED.txt
   license: "ADNI Data Use Agreement"
+  dua_url: https://adni.loni.usc.edu/wp-content/themes/adni_2023/documents/ADNI_Data_Use_Agreement.pdf
+  acknowledgement_list_url: http://adni.loni.usc.edu/wp-content/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf
   size_bytes: null
   sha256: null
   access: dua
-  status: partial
+  status: partial                   # DUA read; GitHub posting not addressed; file names to confirm on IDA
+  summary_data_publication_allowed: true      # DUA term 3
+  individual_level_redistribution: forbidden  # DUA terms 3, 5, 6
+  dpc_review_required_for: manuscripts        # before journal submission; web/GitHub not mentioned
+  never_publish: [models/adni/, results/adni/conversion_predictions.parquet]
+  local_dir: adni                   # under DEMENTIA_ML_DATA
+  files:
+    adnimerge:
+      name: ADNIMERGE.csv
+      ida_path: "Search and Download > Study Files > Study Info (Data & Database); else Archive"
+      covers: [ADNI1, ADNIGO, ADNI2, ADNI3]   # not ADNI4
+      status: verified
+    dxsum:
+      name: DXSUM_PDXCONV_ADNIALL.csv
+      ida_path: "Study Files > Assessments > Diagnosis"
+      status: partial
+  columns: [RID, VISCODE, EXAMDATE, M, DX_bl, DX, AGE, PTGENDER, PTEDUCAT, APOE4, MMSE, ADAS13, CDRSB, FAQ, Hippocampus, ICV, ABETA, TAU, PTAU]
+  dx_bl_codes: [CN, SMC, EMCI, LMCI, MCI, AD]  # MCI = ADNI3 recruits
+  dx_bl_mci: [EMCI, LMCI, MCI]
+  dx_codes: [CN, MCI, Dementia]

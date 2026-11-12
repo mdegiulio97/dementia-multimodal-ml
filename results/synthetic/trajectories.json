@@ -1,0 +1,111 @@
+{
+  "question": "How much faster do converters decline than stable MCI participants?",
+  "model": "y ~ years * converter, random intercept and slope per participant (REML)",
+  "outcomes": {
+    "MMSE": {
+      "slope_difference": {
+        "estimate": -1.1501503834747004,
+        "ci_low": -1.2370267226419518,
+        "ci_high": -1.063274044307449,
+        "units": "per year"
+      },
+      "fixed_effects": [
+        {
+          "term": "Intercept",
+          "coef": 27.148902077175684,
+          "se": 0.06201048411155359,
+          "ci_low": 27.027363761653145,
+          "ci_high": 27.270440392698223,
+          "p": 0.0
+        },
+        {
+          "term": "years",
+          "coef": -0.8413926053459633,
+          "se": 0.025878388462162928,
+          "ci_low": -0.8921133147097395,
+          "ci_high": -0.790671895982187,
+          "p": 6.91031729031605e-232
+        },
+        {
+          "term": "group",
+          "coef": -0.25368393789530996,
+          "se": 0.11533116321380471,
+          "ci_low": -0.47972886408947796,
+          "ci_high": -0.02763901170114197,
+          "p": 0.027834356673830118
+        },
+        {
+          "term": "years:group",
+          "coef": -1.1501503834747004,
+          "se": 0.044325477331481976,
+          "ci_low": -1.2370267226419518,
+          "ci_high": -1.063274044307449,
+          "p": 1.923295165716624e-148
+        }
+      ],
+      "n_subjects": 787,
+      "n_obs": 4571
+    },
+    "ADAS13": {
+      "slope_difference": {
+        "estimate": 1.7677998769041914,
+        "ci_low": 1.6173440828879744,
+        "ci_high": 1.9182556709204084,
+        "units": "per year"
+      },
+      "fixed_effects": [
+        {
+          "term": "Intercept",
+          "coef": 16.315304170820134,
+          "se": 0.22661007832034266,
+          "ci_low": 15.871156578778463,
+          "ci_high": 16.759451762861808,
+          "p": 0.0
+        },
+        {
+          "term": "years",
+          "coef": 1.2204663278422023,
+          "se": 0.04552809788179883,
+          "ci_low": 1.1312328957092623,
+          "ci_high": 1.3096997599751423,
+          "p": 2.6862825744478485e-158
+        },
+        {
+          "term": "group",
+          "coef": 1.4777411653558958,
+          "se": 0.4229776441783462,
+          "ci_low": 0.6487202165007392,
+          "ci_high": 2.3067621142110526,
+          "p": 0.00047644279113330897
+        },
+        {
+          "term": "years:group",
+          "coef": 1.7677998769041914,
+          "se": 0.0767645707793578,
+          "ci_low": 1.6173440828879744,
+          "ci_high": 1.9182556709204084,
+          "p": 2.396588783291371e-117
+        }
+      ],
+      "n_subjects": 787,
+      "n_obs": 4571
+    }
+  },
+  "provenance": {
+    "dataset": "synthetic",
+    "dataset_version": "make_cohort(n=1500, seed=0)",
+    "config": {
+      "n_subjects": 1500,
+      "seed": 0,
+      "outcomes": [
+        "MMSE",
+        "ADAS13"
+      ],
+      "adnimerge_file": "adni/ADNIMERGE.csv"
+    },
+    "seed": 0,
+    "git_commit": "1fb3e28a0e800917951ead16a9363ec08e8d6507-dirty",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-12T15:01:48+00:00"
+  }
+}
