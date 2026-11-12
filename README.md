@@ -27,7 +27,7 @@ here only once their release is confirmed against the ADNI Data Use Agreement.*
 ```mermaid
 flowchart LR
     subgraph open["Open data (anyone can rerun)"]
-        GWAS["AD GWAS<br/>Bellenguez 2022"] --> MR["Mendelian randomisation<br/>1,585 proteins, 233 metabolites"]
+        GWAS["AD GWAS<br/>Bellenguez 2022"] --> MR["Mendelian randomisation<br/>1,584 proteins, 233 metabolites"]
         PQTL["cis-pQTL UKB-PPP<br/>NMR mQTL"] --> MR
         EEG["OpenNeuro ds004504<br/>resting EEG, 88 people"] --> EEGM["Spectral features +<br/>subject-level classifiers"]
     end
@@ -36,7 +36,7 @@ flowchart LR
         CLIN --> LMM["Mixed models<br/>cognitive trajectories"]
         OMICS["CSF/plasma proteomics<br/>metabolomics"]
     end
-    MR -- "44 candidate proteins" --> OMICS
+    MR -- "44 proteins, 6 metabolites" --> OMICS
     OMICS -. "phase 2" .-> SURV
     SURV --> AGENT["Local agent (Ollama)<br/>tools + provenance"]
     LMM --> AGENT
@@ -77,8 +77,8 @@ licences and checksums are listed in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md
 | EEG, AD vs controls | ds004504, 65 participants | AUC 0.91 (0.82-0.97), balanced accuracy 0.81 |
 | EEG, FTD vs controls | ds004504, 52 participants | AUC 0.83 (0.70-0.94), balanced accuracy 0.73 |
 | EEG, AD vs FTD | ds004504, 59 participants | near chance (AUC 0.53-0.61) |
-| MR, proteins on AD | UKB-PPP + Bellenguez 2022 | 44 of 1,585 proteins at FDR < 0.05 (CR1, TREM2, CD2AP, GRN, EPHA1, ACE, CD33, ...) |
-| MR, metabolites on AD | Karjalainen 2024 + Bellenguez 2022 | 0 of 233 at FDR < 0.05 |
+| MR, proteins on AD | UKB-PPP + Bellenguez 2022 | 44 of 1,584 proteins at FDR < 0.05 (CR1, TREM2, CD2AP, GRN, EPHA1, ACE, CD33, ...) |
+| MR, metabolites on AD | Karjalainen 2024 + Bellenguez 2022 | 7 of 233 at FDR < 0.05, mostly LDL/VLDL lipid composition; 6 pass the pleiotropy check |
 | Conversion, method check | synthetic, 787 MCI | full Cox C-index 0.72 (0.68-0.76) vs baseline 0.64 (0.60-0.68) |
 
 Details, comparisons with published results and limitations are in
@@ -129,7 +129,7 @@ pipelines/         one thin script per analysis (config in configs/)
 results/           open/ and synthetic/ result files (ADNI results stay local)
 figures/           PNG figures, indexed in docs/FIGURES.md
 docs/              data sources, results, model cards, agent
-tests/             90 tests; CI on Ubuntu and Windows
+tests/             101 tests; CI on Ubuntu and Windows
 ```
 
 ## Roadmap

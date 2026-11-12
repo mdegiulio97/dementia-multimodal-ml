@@ -56,8 +56,8 @@ this leakage as the reason; our splits exclude it by construction and a test che
 
 | Family | Tested | FDR < 0.05 | Selected for ADNI |
 |---|---|---|---|
-| Proteins (cis-pQTL) | 1,585 | 44 | 44 |
-| Metabolites (NMR) | 233 | 0 | 0 |
+| Proteins (cis-pQTL) | 1,584 | 44 | 44 |
+| Metabolites (NMR) | 233 | 7 | 6 |
 
 **Strongest protein signals.** CR1, TREM2, PILRA/PILRB, CD2AP, GRN, EPHA1, ACE, CD55, CD33 and
 others.
@@ -68,10 +68,21 @@ others.
 - The full table is `results/open/mr_candidates.csv`, and the list passed to ADNI is
   `results/open/mr_candidates_selected.txt`.
 
+**Metabolites.** The seven FDR-significant traits are lipoprotein composition measures and
+glutamine, each with 18-47 instruments, so the sensitivity estimators apply. Six (Gln, L-VLDL-TG%, M-LDL-FC%, M-LDL-PL%, XS-VLDL-FC, XXL-VLDL-CE%)
+are passed to ADNI. L-VLDL-C% is held back because its Egger intercept is borderline
+(p = 0.049).
+
 **Known-answer check ✓.** For CD33 we estimate +0.032 log-odds of AD per SD (95% CI
 0.017-0.047). This is the same direction as the colocalised estimate in Zheng et al. 2020
 (doi:10.1038/s41588-020-0682-6, Table S7: +0.100). The magnitudes differ because the studies
 use different pQTL sources, outcome GWAS and scaling.
+
+**Correcting a harmonisation bug mattered.** An earlier version flipped the sign of
+palindromic instruments (A/T, C/G) whose alleles were listed in the opposite order. This
+corrupted the multi-instrument metabolite estimates (0 significant before the fix, 7 after),
+while the single-instrument protein results stayed the same. Tests now cover both orderings
+and the strand flip.
 
 **Excluding the APOE region mattered.** In the first run, proteins next to APOE (BCAM, NECTIN2,
 PVR, CEACAM19) passed FDR. They disappear once APOE-region instruments are dropped, as they

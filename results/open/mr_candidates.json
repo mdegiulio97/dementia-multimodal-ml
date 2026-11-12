@@ -1,12 +1,12 @@
 {
   "question": "Which circulating proteins and metabolites have genetic evidence of a causal effect on Alzheimer's disease?",
   "n_traits_tested": {
-    "pqtl": 1585,
+    "pqtl": 1584,
     "mqtl": 233
   },
   "n_fdr_significant": {
     "pqtl": 44,
-    "mqtl": 0
+    "mqtl": 7
   },
   "selected_for_adni": [
     "ACE",
@@ -31,12 +31,16 @@
     "GC",
     "GNAS",
     "GRN",
+    "Gln",
     "HDGF",
     "IDUA",
     "IL34",
+    "L-VLDL-TG_percent",
     "LILRB5",
     "LRP11",
     "LRRC37A2",
+    "M-LDL-FC_percent",
+    "M-LDL-PL_percent",
     "MME",
     "PILRA",
     "PILRB",
@@ -52,12 +56,14 @@
     "SULT1A1",
     "TREM2",
     "TREML2",
+    "XS-VLDL-FC",
+    "XXL-VLDL-CE_percent",
     "ZBTB16"
   ],
   "instruments_dropped": {
     "missing_in_outcome": 570,
     "excluded_region": 222,
-    "ambiguous_palindrome": 185
+    "ambiguous_palindrome": 187
   },
   "provenance": {
     "dataset": {
@@ -82,8 +88,8 @@
       ]
     },
     "seed": 0,
-    "git_commit": "94d9e22b5f6f25f714595f06f81609f430f74207-dirty",
+    "git_commit": "61c5587b040a2611175c931ba320f04210830805-dirty",
     "package_version": "0.1.0.dev0",
-    "created_utc": "2026-11-12T15:37:10+00:00"
+    "created_utc": "2026-11-12T16:11:20+00:00"
   }
 }

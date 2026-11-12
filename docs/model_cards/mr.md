@@ -20,7 +20,7 @@ MR-Egger and weighted median as sensitivity analyses (three or more). Benjamini-
 within each exposure family.
 
 **Selection for ADNI.** FDR < 0.05 and no evidence of directional pleiotropy (Egger intercept
-p ≥ 0.05 when estimable): 44 proteins, 0 metabolites.
+p ≥ 0.05 when estimable): 44 proteins and 6 metabolites (Gln, L-VLDL-TG%, M-LDL-FC%, M-LDL-PL%, XS-VLDL-FC, XXL-VLDL-CE%).
 
 **Known-answer check.** CD33: +0.032 log-odds per SD (0.017-0.047), same direction as the
 colocalised estimate reported by Zheng et al. 2020 (doi:10.1038/s41588-020-0682-6).

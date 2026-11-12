@@ -67,7 +67,7 @@ better than it separates the two dementias, which matches the subject-level lite
 ### `figures/open/mr_volcano.png`
 Every circulating protein (UKB-PPP cis-pQTL) and NMR metabolite tested against Alzheimer's
 disease (Bellenguez et al. 2022): MR estimate vs significance. Large points pass FDR < 0.05
-within their family. 44 proteins pass, no metabolite does.
+within their family. 44 proteins and 7 metabolites pass.
 
 ### `figures/open/mr_top_forest.png`
 The 20 most significant MR estimates with 95% confidence intervals (log-odds of AD per SD of
