@@ -2,7 +2,7 @@
 
 Usage: python scripts/check_no_adni.py FILE [FILE ...]
 Exit code 1 if any file is under results/adni, figures/adni or models/adni,
-has 'ADNIMERGE' in its name, or is a CSV/TSV/Parquet table with an RID or
+is a data file with 'ADNIMERGE' in its name, or is a CSV/TSV/Parquet table with an RID or
 PTID column. Only headers/schemas are read, never the data.
 """
 
@@ -13,6 +13,18 @@ import sys
 from pathlib import Path
 
 PRIVATE_DIRS = ("results/adni/", "figures/adni/", "models/adni/")
+DATA_SUFFIXES = {
+    ".csv",
+    ".tsv",
+    ".txt",
+    ".parquet",
+    ".xlsx",
+    ".xls",
+    ".rda",
+    ".rdata",
+    ".zip",
+    ".gz",
+}
 ID_COLUMNS = {"RID", "PTID"}
 
 
@@ -39,7 +51,7 @@ def offending_reason(name: str) -> str | None:
     posix = name.replace("\\", "/")
     if any(d in posix for d in PRIVATE_DIRS):
         return "private ADNI output directory"
-    if "ADNIMERGE" in Path(posix).name.upper():
+    if "ADNIMERGE" in Path(posix).name.upper() and Path(posix).suffix.lower() in DATA_SUFFIXES:
         return "ADNIMERGE file"
     path = Path(name)
     if path.is_file() and _header(path) & ID_COLUMNS:

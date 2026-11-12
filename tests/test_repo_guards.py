@@ -71,3 +71,7 @@ def test_results_dir_rejects_unknown_kind():
 
     with pytest.raises(ValueError):
         paths.results_dir("private")
+
+
+def test_check_no_adni_accepts_source_code_named_adnimerge():
+    assert _run("src/dementia_ml/data/adnimerge.py") == 0

@@ -49,7 +49,6 @@ def _hippocampus_z(bl: pd.DataFrame) -> pd.Series:
     return pd.Series((resid - resid.mean()) / resid.std(), index=bl.index)
 
 
-@pytest.mark.xfail(reason="needs conversion.build (Task 3)", strict=True)
 def test_cox_recovers_true_log_hr():
     from lifelines import CoxPHFitter
 
