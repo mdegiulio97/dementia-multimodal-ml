@@ -1,0 +1,10 @@
+# Resting-state EEG on OpenNeuro ds004504 (group codes in configs/sources.yaml)
+bids_dir: eeg/ds004504        # relative to DEMENTIA_ML_DATA
+use_derivatives: true         # preprocessing shipped with the dataset (band-pass, ASR, ICA)
+epoch_s: 4.0
+overlap: 0.5
+tasks: [AD_vs_CN, FTD_vs_CN, AD_vs_FTD, 3class]
+models: [logreg, lgbm]
+n_repeats: 5
+n_boot: 1000
+seed: 0
