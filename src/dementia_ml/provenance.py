@@ -15,7 +15,16 @@ def git_commit() -> str:
             ["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, capture_output=True, text=True, check=True
         )
         dirty = subprocess.run(
-            ["git", "status", "--porcelain", "--untracked-files=no"],
+            [
+                "git",
+                "status",
+                "--porcelain",
+                "--untracked-files=no",
+                "--",
+                "src",
+                "pipelines",
+                "configs",
+            ],
             cwd=REPO_ROOT,
             capture_output=True,
             text=True,
