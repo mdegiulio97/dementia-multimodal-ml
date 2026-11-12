@@ -31,7 +31,7 @@ ADNIMERGE_COLUMNS: dict[str, str] = {
     "PTAU": "object",
 }
 
-DX_BL_MCI = {"EMCI", "LMCI"}
+DX_BL_MCI = {"EMCI", "LMCI", "MCI"}  # ADNI3 codes baseline MCI as plain "MCI"
 DX_DEMENTIA = "Dementia"
 BASELINE_VISCODE = "bl"
 

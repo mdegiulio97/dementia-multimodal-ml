@@ -106,3 +106,9 @@ def test_load_rejects_wrong_schema(tmp_path):
     pd.DataFrame({"RID": [1]}).to_csv(path, index=False)
     with pytest.raises(schema.SchemaError):
         adnimerge.load(path)
+
+
+def test_adni3_plain_mci_baseline_included():
+    df = _subject(7, "MCI", [0, 6], ["MCI", "Dementia"])
+    data = conversion.build(df, features=conversion.BASELINE_FEATURES)
+    assert list(data.X.index) == [7] and data.event.tolist() == [True]
