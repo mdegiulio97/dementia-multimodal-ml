@@ -1,0 +1,38 @@
+# Questions with the tool that must answer them. Used by tests (scripted backend)
+# and by the live Ollama evaluation (tool-selection rate).
+- question: What data does this project use and how many participants with MCI are in the conversion cohort?
+  tool: describe_data
+- question: How well does the full Cox model discriminate who converts from MCI to dementia?
+  tool: get_result
+  args: {name: conversion_metrics}
+- question: Which conversion model has the best C-index, and is it calibrated at 36 months?
+  tool: get_result
+  args: {name: conversion_metrics}
+- question: How much faster does MMSE decline in converters than in stable MCI?
+  tool: get_result
+  args: {name: trajectories}
+- question: Which circulating proteins have Mendelian randomisation evidence of an effect on Alzheimer's disease?
+  tool: get_result
+  args: {name: mr_candidates}
+- question: Can resting-state EEG separate Alzheimer's disease from healthy controls, and with what AUC?
+  tool: get_result
+  args: {name: eeg_metrics}
+- question: What is the 3-year risk of dementia for a 74-year-old with MCI, MMSE 27 and one APOE4 allele?
+  tool: predict_conversion_risk
+  args: {age: 74, mmse: 27, apoe4: 1, horizon_months: 36}
+- question: For a 70-year-old with MMSE 25, two APOE4 alleles and ADAS13 of 22, what is the risk of converting within 2 years?
+  tool: predict_conversion_risk
+  args: {age: 70, mmse: 25, apoe4: 2, adas13: 22, horizon_months: 24}
+- question: Why is the predicted risk high for a 78-year-old with MMSE 24, two APOE4 alleles and ADAS13 of 25?
+  tool: explain_prediction
+  args: {age: 78, mmse: 24, apoe4: 2, adas13: 25}
+- question: What is the average baseline MMSE of APOE4 non-carriers with MCI?
+  tool: cohort_summary
+  args: {filters: {APOE4: 0}, variable: MMSE}
+- question: What is the mean ADAS13 at baseline among participants who later converted?
+  tool: cohort_summary
+  args: {filters: {converted: 1}, variable: ADAS13}
+- question: What was the MMSE of participant RID 10001?
+  tool: cohort_summary
+  args: {filters: {RID: 10001}, variable: MMSE}
+  expect_refusal: true
