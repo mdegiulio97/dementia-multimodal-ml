@@ -1,8 +1,8 @@
 # private / local only
-results/adni/
-figures/adni/
-models/adni/
-data/
+/results/adni/
+/figures/adni/
+/models/adni/
+/data/
 .env
 docs/superpowers/
 .superpowers/
