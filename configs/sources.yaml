@@ -1,0 +1,173 @@
+# Data sources verified in Phase 0 (2026-11-12). Details and evidence: docs/DATA_SOURCES.md
+# status: verified | partial | unverified ; access: open | registration | dua
+# size_bytes / sha256: null when not published or not yet computed (fill in on first download).
+
+publish_adni_aggregates: null  # the owner decides after reading docs/DATA_SOURCES.md section 5
+
+eeg_ds004504:
+  url: https://openneuro.org/datasets/ds004504
+  download:
+    s3: s3://openneuro.org/ds004504            # aws s3 sync --no-sign-request
+    https: https://s3.amazonaws.com/openneuro.org/ds004504
+    datalad: https://github.com/OpenNeuroDatasets/ds004504.git  # not executed in Phase 0
+  doi: 10.18112/openneuro.ds004504.v1.0.9
+  paper_doi: 10.3390/data8060095
+  also_cite:
+    - 10.1109/ACCESS.2023.3294618
+    - 10.1007/s11571-026-10464-w
+  version: 1.0.9
+  license: CC0
+  size_bytes: 2829897704            # snapshot 1.0.9 per OpenNeuro API (raw data, 269 files)
+  size_bytes_s3_with_derivatives: 5780997840
+  size_bytes_derivatives: 2951099688
+  sha256: null                      # not published by OpenNeuro
+  access: open
+  status: verified
+  bids_version: v1.2.1
+  task: eyesclosed
+  sampling_rate_hz: 500
+  n_channels: 19
+  channels: [Fp1, Fp2, F3, F4, C3, C4, P3, P4, O1, O2, F7, F8, T3, T4, T5, T6, Fz, Cz, Pz]
+  power_line_hz: 50
+  file_format: eeglab_set
+  raw_pattern: sub-{sub}/eeg/sub-{sub}_task-eyesclosed_eeg.set
+  derivatives_pattern: derivatives/sub-{sub}/eeg/sub-{sub}_task-eyesclosed_eeg.set
+  derivatives_preprocessing: "band-pass 0.5-45 Hz, re-reference A1-A2, ASR (SD 17), ICA + ICLabel (eye, jaw removed)"
+  participants_columns: [participant_id, Gender, Age, Group, MMSE]
+  group_column: Group
+  group_codes:
+    A: AD
+    F: FTD
+    C: CN
+  group_counts: {AD: 36, FTD: 23, CN: 29}
+
+gwas_ad:
+  url: https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST90027001-GCST90028000/GCST90027158/harmonised/35379992-GCST90027158-MONDO_0004975.h.tsv.gz
+  doi: null                         # GWAS Catalog accession instead of a dataset DOI
+  accession: GCST90027158
+  paper_doi: 10.1038/s41588-022-01024-z
+  pmid: 35379992
+  version: "harmonised file 2022-07-11; metadata last modified 2025-01-14"
+  license: CC0-1.0
+  size_bytes: 1140755970
+  md5: e2c8be73b5aa7698c5e8878ae607fe85
+  sha256: null                      # only md5 is published
+  access: open
+  status: verified
+  genome_build: GRCh38
+  separator: "\t"
+  line_endings: crlf                # strip trailing \r from the last field
+  columns:
+    snp: hm_rsid
+    effect_allele: hm_effect_allele
+    other_allele: hm_other_allele
+    eaf: hm_effect_allele_frequency
+    beta: hm_beta
+    se: standard_error
+    pval: p_value
+  includes_uk_biobank: true         # sample overlap with UKB-based exposures
+  sensitivity_outcome:
+    accession: GCST007511
+    paper_doi: 10.1038/s41588-019-0358-2
+    pmid: 30820047
+    url: https://ftp.ebi.ac.uk/pub/databases/gwas/summary_statistics/GCST007001-GCST008000/GCST007511/Kunkle_etal_Stage1_results.txt
+    license: "EMBL-EBI terms of use"
+    size_bytes: 569380789
+    sha256: null
+    separator: " "
+    genome_build: null              # not stated in the folder; GRCh37 suspected, unconfirmed
+    columns:
+      snp: MarkerName
+      effect_allele: Effect_allele
+      other_allele: Non_Effect_allele
+      eaf: null                     # not in the file: drop palindromic SNPs
+      beta: Beta
+      se: SE
+      pval: Pvalue
+    status: partial
+
+pqtl:
+  url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-023-06592-6/MediaObjects/41586_2023_6592_MOESM3_ESM.xlsx
+  doi: null                         # supplementary file of the paper
+  paper_doi: 10.1038/s41586-023-06592-6
+  pmid: 37794186
+  version: "Supplementary Information 3 (published 2023)"
+  license: CC-BY-4.0
+  size_bytes: 34411394
+  sha256: null                      # compute on first download
+  access: open
+  status: verified                  # row count only from the sheet range
+  sheet: ST9
+  header_row: 5                     # 1-based Excel row
+  genome_build: GRCh37              # in Variant ID; GRCh38 position in 'GENPOS (hg38)'
+  variant_id_column: "Variant ID (CHROM:GENPOS (hg37):A0:A1:imp:v1)"
+  columns:
+    trait: Assay Target
+    snp: rsID
+    effect_allele: "A1 from Variant ID (4th ':' field)"
+    other_allele: "A0 from Variant ID (3rd ':' field)"
+    eaf: A1FREQ (discovery)
+    beta: BETA (discovery, wrt. A1)
+    se: SE (discovery)
+    pval: log10(p) (discovery)      # holds -log10(p): pval = 10 ** -x
+    cis: cis/trans                  # value "cis"
+  pval_is_neg_log10: true
+  alternate:
+    paper_doi: 10.1038/s41588-020-0682-6
+    pmid: 32895551
+    url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41588-020-0682-6/MediaObjects/41588_2020_682_MOESM3_ESM.xlsx
+    license: "Nature terms of use (not CC)"
+    size_bytes: 2990385
+    sha256: 0812c04ca38150e67d6eae1bde3863331ffd61fc0f7634e1120780edd8328a14
+    sheet: TableS1.Instruments
+    header_row: 3
+    genome_build: GRCh37
+    columns:
+      trait: Exposure
+      snp: SNP
+      effect_allele: Effect_allele
+      other_allele: Other_allele
+      eaf: Effect_allele_freq
+      beta: Beta
+      se: SE
+      pval: P_value
+      cis: Cis/Trans
+    status: verified
+
+mqtl:
+  url: https://static-content.springer.com/esm/art%3A10.1038%2Fs41586-024-07148-y/MediaObjects/41586_2024_7148_MOESM6_ESM.xlsx
+  doi: null                         # supplementary file of the paper
+  paper_doi: 10.1038/s41586-024-07148-y
+  pmid: 38448586
+  version: "Supplementary Tables (published 2024)"
+  license: CC-BY-4.0
+  size_bytes: 24669233
+  sha256: null                      # compute on first download
+  access: open
+  status: verified                  # row count only from the sheet range
+  platform: NMR (Nightingale)
+  sheet: TableS5_all_lead_SNP_assoc
+  header_row: 2
+  trait_dictionary_sheet: TableS2_NMR_traits
+  genome_build: GRCh37
+  columns:
+    trait: Metabolite
+    snp: Rsid
+    effect_allele: Allele1          # lower case in the file
+    other_allele: Allele2
+    eaf: Freq1
+    beta: Effect
+    se: StdErr
+    pval: P-value
+  full_sumstats_gwas_catalog: "GCST90301941-GCST90302173"  # from the paper, not queried
+
+adni:
+  url: https://adni.loni.usc.edu
+  doi: null
+  paper_doi: null
+  version: null                     # record the download date of each table
+  license: "ADNI Data Use Agreement"
+  size_bytes: null
+  sha256: null
+  access: dua
+  status: partial

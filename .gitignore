@@ -1,7 +1,6 @@
 # private / local only
 /results/adni/
 /figures/adni/
-/models/adni/
 /data/
 .env
 docs/superpowers/
@@ -14,3 +13,5 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 site/
+/models/
+*_predictions.parquet

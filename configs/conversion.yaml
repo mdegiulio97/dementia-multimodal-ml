@@ -1,0 +1,13 @@
+# MCI-to-dementia conversion analysis
+n_subjects: 1500        # synthetic cohort size (ignored for ADNI)
+seed: 0
+n_splits: 5
+n_boot: 1000
+horizons: [24, 36, 48]  # months; horizons beyond follow-up are skipped and reported
+calibration_horizon: 36
+uno_tau: 36
+adnimerge_file: adni/ADNIMERGE.csv   # relative to DEMENTIA_ML_DATA
+models:
+  cox_full: {alpha: 1.0}
+  rsf: {n_estimators: 500, min_samples_leaf: 10}
+  gbsa: {n_estimators: 300, learning_rate: 0.05}

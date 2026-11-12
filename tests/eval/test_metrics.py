@@ -50,3 +50,24 @@ def test_classification_metrics():
     y = np.array([0, 0, 1, 1])
     assert metrics.auc(y, np.array([0.1, 0.2, 0.8, 0.9])) == 1.0
     assert metrics.balanced_accuracy(y, np.array([0, 1, 1, 1])) == 0.75
+
+
+def test_uno_c_handles_events_at_last_follow_up():
+    rng = np.random.default_rng(1)
+    time = rng.choice([6.0, 12, 24, 36, 48], 300)
+    event = rng.random(300) < 0.4
+    time[-20:], event[-20:] = 48.0, True  # events at the administrative end
+    time[-60:-20], event[-60:-20] = 48.0, False
+    risk = rng.normal(size=300)
+    value = metrics.uno_c(time, event, time, event, risk, tau=36)
+    assert 0.3 < value < 0.7
+
+
+def test_td_auc_with_events_at_administrative_end():
+    from dementia_ml.data import conversion, synthetic
+
+    d = conversion.build(synthetic.make_cohort(500, 0), conversion.FULL_FEATURES)
+    assert d.event[d.time == d.time.max()].any()
+    risk = -d.X["MMSE"].fillna(28).to_numpy()
+    auc = metrics.td_auc(d.time, d.event, d.time, d.event, risk, times=[24.0, 36.0])
+    assert np.isfinite(auc).all()

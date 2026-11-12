@@ -49,7 +49,7 @@ def test_gitignore_covers_private_paths():
     for entry in [
         "results/adni/",
         "figures/adni/",
-        "models/adni/",
+        "/models/",
         "data/",
         "docs/superpowers/",
         ".env",

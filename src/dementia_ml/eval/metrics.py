@@ -16,6 +16,16 @@ from sksurv.nonparametric import kaplan_meier_estimator
 from sksurv.util import Surv
 
 
+def _truncate(time, event, tau: float) -> tuple[np.ndarray, np.ndarray]:
+    """Administrative censoring at ``tau``: IPCW weights are only needed up to ``tau``.
+
+    Without it, events at the last follow-up visit get a zero censoring
+    probability and the IPCW estimators fail.
+    """
+    time, event = np.asarray(time, float), np.asarray(event, bool)
+    return np.minimum(time, tau), event & (time <= tau)
+
+
 def c_index(time, event, risk) -> float:
     """Harrell's C (higher risk should mean earlier event)."""
     return float(
@@ -26,15 +36,19 @@ def c_index(time, event, risk) -> float:
 def uno_c(train_time, train_event, time, event, risk, tau: float) -> float:
     """Uno's IPCW concordance truncated at ``tau``."""
     train = Surv.from_arrays(np.asarray(train_event, bool), np.asarray(train_time, float))
-    test = Surv.from_arrays(np.asarray(event, bool), np.asarray(time, float))
+    t, e = _truncate(time, event, tau)
+    test = Surv.from_arrays(e, t)
     return float(concordance_index_ipcw(train, test, np.asarray(risk), tau=tau)[0])
 
 
 def td_auc(train_time, train_event, time, event, risk, times: Sequence[float]) -> np.ndarray:
     """Cumulative/dynamic AUC at each time in ``times``."""
     train = Surv.from_arrays(np.asarray(train_event, bool), np.asarray(train_time, float))
-    test = Surv.from_arrays(np.asarray(event, bool), np.asarray(time, float))
-    auc, _ = cumulative_dynamic_auc(train, test, np.asarray(risk), np.asarray(times, float))
+    times = np.asarray(times, float)
+    tau = float(times.max()) + 1e-6  # controls beyond the last horizon stay controls
+    t, e = _truncate(time, event, tau)
+    test = Surv.from_arrays(e, t)
+    auc, _ = cumulative_dynamic_auc(train, test, np.asarray(risk), times)
     return np.asarray(auc, float)
 
 
