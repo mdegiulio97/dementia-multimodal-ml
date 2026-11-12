@@ -11,3 +11,4 @@ models:
   cox_full: {alpha: 1.0}
   rsf: {n_estimators: 500, min_samples_leaf: 10}
   gbsa: {n_estimators: 300, learning_rate: 0.05}
+n_boot_models: 50   # bootstrap refits of cox_full, used for the agent prediction intervals

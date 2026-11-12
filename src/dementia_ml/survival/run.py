@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 
 import joblib
+import numpy as np
 import pandas as pd
 from sksurv.util import Surv
 
@@ -94,6 +95,22 @@ def run(kind: str, config: dict, out_root: Path | None = None) -> dict:
             },
             mod_dir / f"conversion_{name}.joblib",
         )
+
+    # Bootstrap refits of the interpretable model: prediction intervals for the agent.
+    rng = np.random.default_rng(seed)
+    feats = models.features_of("cox_full")
+    params = config.get("models", {}).get("cox_full", {})
+    boot = []
+    for _ in range(int(config.get("n_boot_models", 50))):
+        idx = rng.integers(0, len(data.X), len(data.X))
+        boot.append(
+            models.make_pipeline("cox_full", seed=seed, **params).fit(
+                data.X[feats].iloc[idx], y[idx]
+            )
+        )
+    joblib.dump(
+        {"pipelines": boot, "features": feats}, mod_dir / "conversion_cox_full_bootstrap.joblib"
+    )
 
     best = max(results, key=lambda m: results[m]["c_index"]["estimate"])
     cal_h = float(config["calibration_horizon"])

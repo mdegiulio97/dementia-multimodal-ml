@@ -14,6 +14,7 @@ SMALL = {
     "calibration_horizon": 36,
     "uno_tau": 36,
     "models": {"rsf": {"n_estimators": 50}, "gbsa": {"n_estimators": 50}},
+    "n_boot_models": 5,
 }
 
 
@@ -33,6 +34,10 @@ def test_pipeline_synthetic_end_to_end(tmp_path):
     ]:
         assert (tmp_path / "figures/synthetic" / fig).stat().st_size > 1000
     assert (tmp_path / "models/synthetic/conversion_cox_full.joblib").exists()
+    import joblib
+
+    boot = joblib.load(tmp_path / "models/synthetic/conversion_cox_full_bootstrap.joblib")
+    assert len(boot["pipelines"]) == 5
     assert summary["best_model"] in res["models"]
 
 
