@@ -7,7 +7,7 @@ page, API response or file named next to it during that session. Status marks:
 - ⚠ partially verified: something is missing or was inferred indirectly; the note says what
 - ✗ not verifiable from public sources
 
-Machine-readable summary: [`configs/sources.yaml`](../configs/sources.yaml). Pipelines read only
+Machine-readable summary: [`configs/sources.yaml`](https://github.com/mdegiulio97/dementia-multimodal-ml/blob/main/configs/sources.yaml). Pipelines read only
 from that file.
 
 | Key | Source | Access | Status |
