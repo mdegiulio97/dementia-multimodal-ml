@@ -1,2 +1,16 @@
+# private / local only
+results/adni/
+figures/adni/
+models/adni/
+data/
+.env
 docs/superpowers/
 .superpowers/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+site/

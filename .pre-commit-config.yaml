@@ -1,0 +1,14 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.17.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: no-adni-data
+        name: refuse individual-level ADNI data
+        entry: python scripts/check_no_adni.py
+        language: system
+        pass_filenames: true

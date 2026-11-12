@@ -1,0 +1,60 @@
+[project]
+name = "dementia-ml"
+version = "0.1.0"
+description = "Multimodal biostatistics and machine learning for MCI-to-Alzheimer conversion, open-data Mendelian randomisation and EEG, with a local tool-using agent"
+readme = "README.md"
+authors = [
+    { name = "mdegiulio97", email = "mdegiulio97@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "joblib>=1.6.0",
+    "lifelines>=0.30.3",
+    "lightgbm>=4.7.0",
+    "matplotlib>=3.11.2",
+    "mne>=1.13.2",
+    "mne-bids>=0.20.0",
+    "numpy>=2.5.4",
+    "pandas>=2.3.3",
+    "pyarrow>=26.0.1",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.9.1",
+    "scikit-survival>=0.28.0",
+    "scipy>=1.18.1",
+    "shap>=0.54.1",
+    "statsmodels>=0.15.0",
+]
+
+license = "MIT"
+
+[project.scripts]
+
+[build-system]
+requires = ["uv_build>=0.9.13,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mkdocs-material>=9.8.1",
+    "pre-commit>=4.7.0",
+    "pytest>=9.2.0",
+    "ruff>=0.17.4",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "NPY", "SIM"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "network: needs internet access (skipped in CI)",
+    "ollama: needs a running local Ollama server (skipped in CI)",
+    "slow: long-running",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
