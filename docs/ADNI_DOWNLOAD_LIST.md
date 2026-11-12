@@ -1,7 +1,7 @@
 # ADNI download list
 
 Tables the owner downloads by hand from LONI IDA (https://ida.loni.usc.edu) into
-`DEMENTIA_ML_DATA/adni/` (default `C:\Users\Michele De Giulio\data\dementia-ml\adni\`), never
+`DEMENTIA_ML_DATA/adni/` (default `~/data/dementia-ml/adni/`), never
 inside the repository. Prepared on 2026-11-12 from public ADNI pages; IDA itself was not opened.
 Rules that apply to these files are in [`DATA_SOURCES.md`](DATA_SOURCES.md), section 5.
 

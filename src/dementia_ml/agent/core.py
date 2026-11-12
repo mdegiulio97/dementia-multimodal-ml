@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import json
+import math
+import re
 from dataclasses import asdict, dataclass, field
 
 from dementia_ml.agent.backends import LLMBackend
@@ -20,6 +22,42 @@ ABSTAIN_TEXT = (
     "prediction, or report stored results (conversion models, trajectories, Mendelian "
     "randomisation, EEG)."
 )
+
+
+UNVERIFIED_TEXT = (
+    "The model's answer contained numbers that no tool returned, so it was withheld. Tool results: "
+)
+NUMBER = re.compile(r"\d+(?:\.\d+)?")
+ALWAYS_ALLOWED = {95.0}  # "95% CI"
+
+
+def _numbers(obj) -> list[float]:
+    if isinstance(obj, bool):
+        return []
+    if isinstance(obj, int | float):
+        return [float(obj)] if math.isfinite(obj) else []
+    if isinstance(obj, dict):
+        return [x for v in obj.values() for x in _numbers(v)]
+    if isinstance(obj, list | tuple):
+        return [x for v in obj for x in _numbers(v)]
+    return []
+
+
+def unverified_numbers(text: str, payloads: list, question: str) -> list[str]:
+    """Numbers in ``text`` that match no tool value (as is or as a percentage, at the
+    precision written) and do not come from the question."""
+    allowed = ALWAYS_ALLOWED | {float(n) for n in NUMBER.findall(question)}
+    values = [abs(v) for v in _numbers(payloads)]
+    bad = []
+    for token in NUMBER.findall(text):
+        n = float(token)
+        if n in allowed:
+            continue
+        decimals = len(token.split(".")[1]) if "." in token else 0
+        tol = 0.5 * 10**-decimals + 1e-9
+        if not any(abs(v - n) <= tol or abs(100 * v - n) <= tol for v in values):
+            bad.append(token)
+    return bad
 
 
 @dataclass
@@ -109,4 +147,9 @@ class Agent:
             text = f"Request refused: {refusals[0]}." if refusals else ABSTAIN_TEXT
             return Answer(text=text, tool_calls=calls, abstained=True)
         citations = [{"tool": c["name"], "provenance": c["result"]["provenance"]} for c in ok]
+        payloads = [{"value": c["result"]["value"], "u": c["result"]["uncertainty"]} for c in ok]
+        if not final.strip() or unverified_numbers(final, payloads, question):
+            # Every number must come from a tool: otherwise show the tool results instead.
+            text = UNVERIFIED_TEXT + json.dumps(payloads, default=str)[:4000]
+            return Answer(text=text, tool_calls=calls, citations=citations, abstained=True)
         return Answer(text=final, tool_calls=calls, citations=citations)

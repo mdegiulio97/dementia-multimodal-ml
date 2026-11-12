@@ -23,6 +23,14 @@ from dementia_ml import paths
 from dementia_ml.data import adnimerge, conversion, synthetic
 
 MIN_CELL = 10
+QUARTILE_MIN_CELL = 20
+AGE_BANDS = [-np.inf, 65, 75, 85, np.inf]
+AGE_LABELS = ["<65", "65-74", "75-84", "85+"]
+CATEGORICAL_FILTERS: dict[str, list] = {
+    "APOE4": [0, 1, 2],
+    "converted": [0, 1],
+    "age_band": AGE_LABELS,
+}
 ID_COLUMNS = {"RID", "PTID", "subject", "subject_id"}
 PROFILE_COLUMNS = {
     "age": "AGE",
@@ -120,10 +128,42 @@ class _Context:
             else:
                 df = adnimerge.load(paths.data_root() / "adni" / "ADNIMERGE.csv")
             data = conversion.build(df, features=conversion.FULL_FEATURES)
-            self._cohort = data.X.assign(
+            cohort = data.X.assign(
                 converted=data.event.astype(float), follow_up_months=data.time
             ).reset_index(drop=True)
+            cohort["age_band"] = pd.cut(
+                cohort["AGE"], AGE_BANDS, labels=AGE_LABELS, right=False
+            ).astype(str)
+            self._cohort = cohort
         return self._cohort
+
+
+def disclosure_problem(df: pd.DataFrame, filters: dict, min_cell: int = MIN_CELL) -> str | None:
+    """Reason to withhold an aggregate, or None.
+
+    Besides the cell itself, every sibling cell obtained by dropping one filter must be
+    empty or hold at least ``min_cell`` people; otherwise subtracting two allowed answers
+    would describe fewer than ``min_cell`` people.
+    """
+
+    def mask(conds: dict) -> pd.Series:
+        m = pd.Series(True, index=df.index)
+        for col, value in conds.items():
+            m &= df[col] == value
+        return m
+
+    n = int(mask(filters).sum())
+    if n < min_cell:
+        return f"fewer than {min_cell} participants match; aggregate withheld"
+    for col in filters:
+        parent = {k: v for k, v in filters.items() if k != col}
+        complement = int(mask(parent).sum()) - n
+        if 0 < complement < min_cell:
+            return (
+                f"withheld: combined with a broader query it would describe fewer than "
+                f"{min_cell} participants"
+            )
+    return None
 
 
 def build_registry(kind: str = "synthetic", root: Path | None = None) -> dict[str, Tool]:
@@ -157,30 +197,37 @@ def build_registry(kind: str = "synthetic", root: Path | None = None) -> dict[st
             return ToolResult(
                 refused=f"unknown variables: {sorted(unknown)}; available: {list(df.columns)}"
             )
-        mask = pd.Series(True, index=df.index)
-        for col, cond in filters.items():
-            if isinstance(cond, list | tuple) and len(cond) == 2:
-                mask &= df[col].between(cond[0], cond[1])
-            else:
-                mask &= df[col] == cond
-        values = df.loc[mask, variable].dropna()
-        if len(values) < MIN_CELL:
+        not_categorical = set(filters) - set(CATEGORICAL_FILTERS)
+        bad_values = {
+            c: v
+            for c, v in filters.items()
+            if c in CATEGORICAL_FILTERS and v not in CATEGORICAL_FILTERS[c]
+        }
+        if not_categorical or bad_values:
             return ToolResult(
-                refused=f"fewer than {MIN_CELL} participants match; aggregate withheld"
+                refused="filters must be categorical: "
+                + ", ".join(f"{c} in {v}" for c, v in CATEGORICAL_FILTERS.items())
             )
-        q1, med, q3 = np.percentile(values, [25, 50, 75])
+        sub = df[df[variable].notna()]
+        problem = disclosure_problem(sub, filters)
+        if problem:
+            return ToolResult(refused=problem)
+        values = sub.loc[(sub[list(filters)] == pd.Series(filters)).all(axis=1), variable]
+        value = {
+            "variable": variable,
+            "filters": filters,
+            "n": int(len(values)),
+            "mean": round(float(values.mean()), 1),
+            "sd": round(float(values.std()), 1),
+        }
+        if len(values) >= QUARTILE_MIN_CELL:
+            q1, med, q3 = np.percentile(values, [25, 50, 75])
+            value.update(
+                median=round(float(med), 1), q1=round(float(q1), 1), q3=round(float(q3), 1)
+            )
         return ToolResult(
-            value={
-                "variable": variable,
-                "filters": filters,
-                "n": int(len(values)),
-                "mean": float(values.mean()),
-                "sd": float(values.std()),
-                "median": float(med),
-                "q1": float(q1),
-                "q3": float(q3),
-            },
-            uncertainty={"se_mean": float(values.std() / np.sqrt(len(values)))},
+            value=value,
+            uncertainty={"se_mean": round(float(values.std() / np.sqrt(len(values))), 2)},
             provenance={"dataset": kind, "table": "MCI baseline cohort", "min_cell": MIN_CELL},
         )
 
@@ -188,22 +235,28 @@ def build_registry(kind: str = "synthetic", root: Path | None = None) -> dict[st
         bundle = ctx.model()
         x = profile_frame(profile, bundle["features"])
         fn = bundle["pipeline"].predict_survival_function(x)[0]
-        h = float(horizon_months)
-        prob = float(1 - fn(min(max(h, fn.domain[0]), fn.domain[1])))
-        boot = ctx.model("_bootstrap")["pipelines"]
-        draws = [1 - float(p.predict_survival_function(x)[0](h)) for p in boot]
+        boot_fns = [p.predict_survival_function(x)[0] for p in ctx.model("_bootstrap")["pipelines"]]
+        # One horizon for the estimate and every bootstrap draw: the requested one,
+        # capped at the end of follow-up of the point model and of all refits.
+        h_used = min([float(horizon_months), fn.domain[1], *(f.domain[1] for f in boot_fns)])
+        prob = float(1 - fn(h_used))
+        draws = [1 - float(f(h_used)) for f in boot_fns]
         warnings = []
+        if h_used < horizon_months:
+            warnings.append(f"horizon capped at {h_used:g} months (end of follow-up)")
         for col, rng in bundle["train_ranges"].items():
             v = x[col].iloc[0]
-            if not np.isnan(v) and not rng["min"] <= v <= rng["max"]:
+            if not np.isnan(v) and not rng["p01"] <= v <= rng["p99"]:
                 warnings.append(
-                    f"{col}={v:g} outside training range [{rng['min']:g}, {rng['max']:g}]"
+                    f"{col}={v:g} outside the central 98% of training values "
+                    f"[{rng['p01']:g}, {rng['p99']:g}]"
                 )
         missing = [c for c in bundle["features"] if np.isnan(x[c].iloc[0])]
         return ToolResult(
             value={
                 "probability": prob,
                 "horizon_months": horizon_months,
+                "horizon_used_months": h_used,
                 "model": "cox_full",
                 "imputed_features": missing,
                 "warnings": warnings,
@@ -211,7 +264,7 @@ def build_registry(kind: str = "synthetic", root: Path | None = None) -> dict[st
             uncertainty={
                 "ci_low": float(np.percentile(draws, 2.5)),
                 "ci_high": float(np.percentile(draws, 97.5)),
-                "method": f"{len(boot)} bootstrap refits",
+                "method": f"{len(draws)} bootstrap refits",
             },
             provenance=ctx.read_json("conversion_metrics")["provenance"],
         )
@@ -258,8 +311,9 @@ def build_registry(kind: str = "synthetic", root: Path | None = None) -> dict[st
         "cohort_summary": Tool(
             "cohort_summary",
             "Aggregate statistics (n, mean, sd, quartiles) of one baseline variable in the MCI "
-            "cohort, optionally filtered. Filters: {column: value} or {column: [low, high]}. "
-            "Columns include AGE, MMSE, APOE4, ADAS13, CDRSB, FAQ, converted, follow_up_months.",
+            "cohort, optionally filtered by categories: APOE4 (0, 1, 2), converted (0, 1), "
+            "age_band ('<65', '65-74', '75-84', '85+'). Variables include AGE, MMSE, APOE4, "
+            "ADAS13, CDRSB, FAQ, converted, follow_up_months.",
             {
                 "type": "object",
                 "properties": {

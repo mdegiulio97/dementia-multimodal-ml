@@ -10,7 +10,9 @@ Marks: ✓ consistent with the reference; ⚠ consistent with caveats; ✗ incon
 ## Resting-state EEG: AD, FTD and controls (OpenNeuro ds004504)
 
 88 participants, 34,788 four-second epochs. All metrics are per participant and come from
-5 × 5-fold CV split by participant, with 95% bootstrap intervals.
+5 × 5-fold CV split by participant, with 95% bootstrap intervals. The intervals resample
+participants over pooled out-of-fold predictions, so they do not include the variance from
+refitting the models.
 
 | Task | n | Model | AUC | Balanced accuracy |
 |---|---|---|---|---|
@@ -19,7 +21,7 @@ Marks: ✓ consistent with the reference; ⚠ consistent with caveats; ✗ incon
 | FTD vs CN | 52 | logistic | 0.74 (0.59-0.87) | 0.65 (0.53-0.76) |
 | FTD vs CN | 52 | LightGBM | 0.83 (0.70-0.94) | 0.73 (0.61-0.84) |
 | AD vs FTD | 59 | logistic | 0.61 (0.44-0.76) | 0.57 (0.48-0.66) |
-| AD vs FTD | 59 | LightGBM | 0.53 (0.36-0.69) | 0.60 (0.51-0.69) |
+| AD vs FTD | 59 | LightGBM | 0.53 (0.36-0.69) | 0.59 (0.51-0.69) |
 | 3-class | 88 | LightGBM | 0.74 (0.66-0.82) (one-vs-rest) | 0.63 (0.54-0.71) |
 
 **Comparison with the literature.** The AHEPA benchmark (Miltiadous et al. 2026,

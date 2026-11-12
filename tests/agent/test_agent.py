@@ -81,3 +81,27 @@ def test_ollama_live(reg):
         used = [c["name"] for c in ans.tool_calls]
         hits += item["tool"] in used
     assert hits / len(golden) >= 0.8, f"{hits}/{len(golden)}"
+
+
+def test_agent_rejects_numbers_not_in_tool_output(reg):
+    backend = ScriptedBackend(
+        [_call("describe_data"), _final("The C-index of the full model is 0.93.")]
+    )
+    ans = Agent(backend, reg).ask("How good is the model?")
+    assert ans.abstained
+    assert "0.93" not in ans.text
+
+
+def test_agent_accepts_rounded_percentages_and_question_numbers(reg):
+    profile = {"age": 74, "mmse": 27, "apoe4": 1, "horizon_months": 36}
+    tool = reg["predict_conversion_risk"].fn(**profile)
+    p = tool.value["probability"] * 100
+    lo, hi = tool.uncertainty["ci_low"] * 100, tool.uncertainty["ci_high"] * 100
+    text = (
+        f"For a 74-year-old with MMSE 27 the 3-year risk is {p:.1f}% (95% CI {lo:.1f}%-{hi:.1f}%)."
+    )
+    backend = ScriptedBackend([_call("predict_conversion_risk", **profile), _final(text)])
+    ans = Agent(backend, reg).ask(
+        "3-year risk for a 74-year-old with MMSE 27 and one APOE4 allele?"
+    )
+    assert not ans.abstained and ans.text == text

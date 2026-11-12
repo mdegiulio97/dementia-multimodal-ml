@@ -88,10 +88,14 @@ def run(kind: str, config: dict, out_root: Path | None = None) -> dict:
                 "pipeline": final,
                 "features": models.features_of(name),
                 "horizons": horizons,
-                "train_ranges": data.X[models.features_of(name)]
-                .describe()
-                .loc[["min", "max"]]
-                .to_dict(),
+                # Rounded 1st/99th percentiles, never min/max: an extreme is one person's value.
+                "train_ranges": {
+                    col: {
+                        "p01": round(float(data.X[col].quantile(0.01)), 1),
+                        "p99": round(float(data.X[col].quantile(0.99)), 1),
+                    }
+                    for col in models.features_of(name)
+                },
             },
             mod_dir / f"conversion_{name}.joblib",
         )

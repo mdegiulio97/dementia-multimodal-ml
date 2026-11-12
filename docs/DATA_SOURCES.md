@@ -374,7 +374,8 @@ Consortium (National Institute on Aging R01AG046171, RF1AG051550 and 3U01AG02490
 
 - ADNI rows are never read by any cloud model, including the coding assistant used to build this
   repo; only the local agent (Ollama) touches ADNI tables, which is the "internally contained"
-  case of Appendix A.
+  case of Appendix A. The MCP server refuses ADNI mode unless explicitly allowed for a local
+  client.
 - `models/adni/` and per-subject predictions stay in gitignored folders even if aggregates are
   published.
 - Provenance blocks record the download date of each ADNI table.

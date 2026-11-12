@@ -17,8 +17,8 @@ data reaches it through the tool results.
 | Tool | Returns | Guards |
 |---|---|---|
 | `describe_data` | sources, cohort sizes, variables, available results | none needed |
-| `cohort_summary(filters, variable)` | n, mean, SD, quartiles of a baseline variable in the MCI cohort | refuses N < 10 and any filter on participant IDs |
-| `predict_conversion_risk(age, mmse, apoe4, ..., horizon_months)` | conversion probability from the full Cox model, with a 95% interval from 50 bootstrap refits | warns when inputs fall outside the training range and lists imputed features |
+| `cohort_summary(filters, variable)` | n, mean and SD (one decimal) of a baseline variable in the MCI cohort; quartiles only from n ≥ 20 | categorical filters only (APOE4, converted, age band); refuses N < 10; refuses a cell whose sibling (one filter dropped) holds 1-9 people, so two answers cannot be subtracted down to a small group; refuses participant IDs |
+| `predict_conversion_risk(age, mmse, apoe4, ..., horizon_months)` | conversion probability from the full Cox model, with a 95% interval from 50 bootstrap refits | warns when inputs fall outside the training 1st-99th percentiles (never min/max, which are individual values), caps the horizon at the end of follow-up, lists imputed features |
 | `explain_prediction(...)` | per-feature contributions to the log hazard (exact linear SHAP) | none needed |
 | `get_result(name)` | stored results: `conversion_metrics`, `trajectories`, `mr_candidates`, `eeg_metrics` | unknown names refused |
 
@@ -26,7 +26,10 @@ data reaches it through the tool results.
 
 If no tool returned a value, because nothing was called, the request was refused or the tool
 was unknown, the agent abstains and replaces whatever the model wrote with a fixed message.
-This guarantees that numbers never come from the model alone.
+If the answer contains a number that matches no tool value, it is withheld too, and the raw
+tool results are shown instead. A number counts as matched when it equals a tool value (or
+that value as a percentage) at the precision written, or when it appears in the question.
+The check works on numbers, so a wrong claim written in words would not be caught.
 
 ## Evaluation
 
@@ -40,4 +43,6 @@ including a request for a single participant that must be refused.
 ## MCP
 
 `uv run --extra mcp dementia-mcp` serves the same tools over stdio, so any Model Context
-Protocol client gets the same refusals and provenance.
+Protocol client gets the same refusals and provenance. MCP clients are often driven by cloud
+models, so ADNI mode is refused unless started with `--kind adni --allow-adni-to-client`,
+which is meant only for a client backed by a local model.

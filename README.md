@@ -10,8 +10,8 @@ This repository answers that question with survival models and mixed-effects mod
 then asks which circulating molecules might be causally involved, using Mendelian randomisation
 on open genetic summary statistics. Separately, it tests whether resting-state EEG separates
 Alzheimer's disease, frontotemporal dementia and healthy ageing. A local LLM agent sits on top:
-it answers questions by calling the trained models and stored results, and it never makes up a
-number.
+it answers questions by calling the trained models and stored results, and it withholds any
+answer containing a number that no tool returned.
 
 Everything runs on a laptop CPU. Tests and CI run on a synthetic cohort with ADNI's structure,
 so no access-controlled data is needed to try the code.
@@ -64,7 +64,7 @@ uv run python pipelines/mr_candidates.py                   # downloads ~1.2 GB o
 aws s3 sync --no-sign-request s3://openneuro.org/ds004504 "$DEMENTIA_ML_DATA/eeg/ds004504"
 uv run python pipelines/eeg.py
 uv run python pipelines/conversion.py --data adni          # needs ADNIMERGE.csv from LONI
-uv run --extra mcp dementia-mcp                            # same tools over the Model Context Protocol
+uv run --extra mcp dementia-mcp                            # same tools over MCP (synthetic/open)
 ```
 
 Data live outside the repository in `$DEMENTIA_ML_DATA` (default `~/data/dementia-ml`). Sources,
@@ -99,23 +99,27 @@ Details, comparisons with published results and limitations are in
   seed.
 - **Private data stay private.** A pre-commit hook and a CI step refuse any table with ADNI
   identifiers. Trained ADNI models and per-participant predictions are never committed. ADNI rows
-  are only ever read by the local agent, never by a cloud model.
+  are only ever read by the local agent, never by a cloud model; the MCP server refuses ADNI
+  mode unless explicitly allowed for a local client.
 
 ## The agent
 
 `dementia-agent` sends a question to a local model, which picks one of five tools:
 
 - `describe_data`
-- `cohort_summary`, which gives aggregates only and refuses groups under 10 people or any
-  participant identifier
+- `cohort_summary`, which gives rounded aggregates only. It accepts only categorical filters
+  (APOE4, converted, age band) and refuses a group under 10 people, a group that another query
+  could subtract down to fewer than 10, and any participant identifier
 - `predict_conversion_risk`, which returns an interval from 50 bootstrap refits and flags values
-  outside the training range
+  outside the central 98% of the training data
 - `explain_prediction`, which gives exact linear SHAP contributions
 - `get_result`
 
 The agent then answers from the tool output. If no tool returned a value, it abstains, whatever
-the model wrote. The same tools are available to any MCP client through `dementia-mcp`. See
-[docs/agent.md](docs/agent.md).
+the model wrote. If the answer contains a number that no tool returned, the agent withholds the
+answer and shows the tool results instead. The same tools are available to any MCP client
+through `dementia-mcp`, on synthetic and open results only, unless ADNI mode is explicitly
+allowed for a local client. See [docs/agent.md](docs/agent.md).
 
 ## Repository layout
 

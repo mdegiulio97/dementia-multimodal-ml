@@ -49,3 +49,8 @@ def test_mcp_call_returns_value_with_provenance(workspace):
     payload = json.loads(_run(go()).content[0].text)
     assert payload["value"]["models"]["cox_full"]["c_index"]["estimate"] > 0.5
     assert payload["provenance"]["git_commit"]
+
+
+def test_mcp_refuses_adni_without_explicit_opt_in(workspace):
+    with pytest.raises(ValueError, match="allow"):
+        mcp_server.build_server(kind="adni", root=workspace)

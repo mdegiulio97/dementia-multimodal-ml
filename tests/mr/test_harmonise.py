@@ -46,3 +46,24 @@ def test_harmonise_reports_missing_in_outcome():
     out = _df([["rs8", "A", "G", 0.2, 0.04, 0.01]])
     h = harmonise(exp, out)
     assert h.iloc[0]["dropped_reason"] == "missing_in_outcome"
+
+
+def test_palindrome_swapped_letters_same_strand():
+    exp = _df([["rs9", "A", "T", 0.2, 0.2, 0.01]])
+    out = _df([["rs9", "T", "A", 0.8, -0.04, 0.01]])  # same strand, alleles listed the other way
+    row = harmonise(exp, out).iloc[0]
+    assert pd.isna(row["dropped_reason"])
+    assert row["beta_out"] == 0.04 and np.isclose(row["eaf_out"], 0.2)
+
+
+def test_palindrome_swapped_letters_strand_flip():
+    exp = _df([["rs10", "A", "T", 0.2, 0.2, 0.01]])
+    out = _df([["rs10", "T", "A", 0.2, 0.04, 0.01]])  # reverse strand: outcome T is exposure A
+    row = harmonise(exp, out).iloc[0]
+    assert pd.isna(row["dropped_reason"]) and row["beta_out"] == 0.04
+
+
+def test_palindrome_ambiguous_outcome_eaf_dropped():
+    exp = _df([["rs11", "A", "T", 0.30, 0.2, 0.01]])
+    out = _df([["rs11", "A", "T", 0.49, 0.04, 0.01]])
+    assert harmonise(exp, out).iloc[0]["dropped_reason"] == "ambiguous_palindrome"

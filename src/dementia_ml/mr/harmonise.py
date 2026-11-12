@@ -23,15 +23,16 @@ def _align(ea_x, oa_x, eaf_x, ea_y, oa_y, eaf_y) -> tuple[int, str | None]:
     if frozenset((ea_x, oa_x)) in PALINDROMES:
         if pd.isna(eaf_x) or pd.isna(eaf_y):
             return 0, "palindrome_no_eaf"
-        if AMBIGUOUS_EAF[0] < eaf_x < AMBIGUOUS_EAF[1]:
+        lo, hi = AMBIGUOUS_EAF
+        if lo < eaf_x < hi or lo < eaf_y < hi:
             return 0, "ambiguous_palindrome"
         if {ea_y, oa_y} != {ea_x, oa_x}:
             return 0, "allele_mismatch"
-        # Same-side frequencies mean the same allele is the minor one in both studies.
+        # For A/T and C/G the letters cannot tell the strand apart, so only the
+        # frequencies decide: the outcome effect allele is the exposure effect allele
+        # exactly when both effect-allele frequencies sit on the same side of 0.5.
         same_side = (eaf_x < 0.5) == (eaf_y < 0.5)
-        if ea_y == ea_x:
-            return (1 if same_side else -1), None
-        return (-1 if same_side else 1), None
+        return (1 if same_side else -1), None
     if (ea_y, oa_y) == (ea_x, oa_x):
         return 1, None
     if (ea_y, oa_y) == (oa_x, ea_x):
