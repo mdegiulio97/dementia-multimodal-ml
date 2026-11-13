@@ -57,3 +57,34 @@ def coloc_abf(
     out["n_snps"] = len(df)
     out["top_shared_snp_index"] = int(np.argmax(l1 + l2))
     return out
+
+
+def merge_region(pqtl: pd.DataFrame, gwas: pd.DataFrame) -> pd.DataFrame:
+    """Join a UKB-PPP REGENIE region (CHROM, GENPOS, ALLELE0, ALLELE1, BETA, SE) with the
+    harmonised AD GWAS (hm_chrom, hm_pos, hm_other_allele, hm_effect_allele, hm_beta,
+    standard_error) on position and allele pair, both in GRCh38.
+
+    Allele orientation does not matter for ABF colocalisation (it uses z squared), so only the
+    unordered allele pair has to match.
+    """
+    p = pqtl.assign(
+        chrom=pqtl["CHROM"].astype(str),
+        pos=pqtl["GENPOS"].astype(int),
+        pair=[frozenset((a, b)) for a, b in zip(pqtl["ALLELE0"], pqtl["ALLELE1"], strict=True)],
+        beta1=pqtl["BETA"].astype(float),
+        se1=pqtl["SE"].astype(float),
+    )[["chrom", "pos", "pair", "beta1", "se1"]]
+    g = gwas.assign(
+        chrom=gwas["hm_chrom"].astype(str),
+        pos=pd.to_numeric(gwas["hm_pos"], errors="coerce"),
+        pair=[
+            frozenset((a, b))
+            for a, b in zip(gwas["hm_other_allele"], gwas["hm_effect_allele"], strict=True)
+        ],
+        beta2=pd.to_numeric(gwas["hm_beta"], errors="coerce"),
+        se2=pd.to_numeric(gwas["standard_error"], errors="coerce"),
+    ).dropna(subset=["pos", "beta2", "se2"])[["chrom", "pos", "pair", "beta2", "se2"]]
+    g["pos"] = g["pos"].astype(int)
+    m = p.merge(g, on=["chrom", "pos"])
+    m = m[m["pair_x"] == m["pair_y"]].drop(columns=["pair_x", "pair_y"])
+    return m.drop_duplicates(["chrom", "pos"]).sort_values("pos").reset_index(drop=True)

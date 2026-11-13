@@ -43,3 +43,29 @@ def test_log_abf_is_wakefield():
     r = w / (w + v)
     z = 0.1 / 0.02
     assert labf[0] == pytest.approx(0.5 * (np.log(1 - r) + r * z**2))
+
+
+def test_merge_region_matches_position_and_allele_set():
+    pq = pd.DataFrame(
+        {
+            "CHROM": [17, 17, 17],
+            "GENPOS": [100, 200, 300],
+            "ALLELE0": ["A", "C", "G"],
+            "ALLELE1": ["G", "T", "A"],
+            "BETA": [0.1, 0.2, 0.3],
+            "SE": [0.01, 0.02, 0.03],
+        }
+    )
+    gw = pd.DataFrame(
+        {
+            "hm_chrom": ["17", "17", "17"],
+            "hm_pos": [100, 200, 300],
+            "hm_other_allele": ["G", "C", "T"],
+            "hm_effect_allele": ["A", "T", "C"],
+            "hm_beta": [0.05, 0.06, 0.07],
+            "standard_error": [0.01, 0.01, 0.01],
+        }
+    )
+    m = coloc.merge_region(pq, gw)
+    assert m["pos"].tolist() == [100, 200]  # 300: allele set G/A vs T/C does not match
+    assert {"beta1", "se1", "beta2", "se2"} <= set(m.columns)
