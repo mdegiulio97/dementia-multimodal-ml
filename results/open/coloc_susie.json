@@ -61,7 +61,25 @@
         "PP.H2": 0.0,
         "PP.H3": 0.9987504000056064,
         "PP.H4": 0.0012495997991982372
-      }
+      },
+      "mr_strongest_pqtl": {
+        "instrument_pos37": 61573761,
+        "beta_log_odds_per_sd": -0.11915679829699498,
+        "se": 0.018297485880811964,
+        "p": 7.406042679501829e-11
+      },
+      "mr_colocalising_instrument": [
+        {
+          "instrument_pos37": 61548948,
+          "instrument_id": "17:61548948:C:A:imp:v1",
+          "beta_log_odds_per_sd": -0.18919941618465866,
+          "se": 0.0238988736233253,
+          "ci_low": -0.2360403477574505,
+          "ci_high": -0.14235848461186681,
+          "p": 2.4396264376803573e-15,
+          "PP.H4": 0.9822075632737656
+        }
+      ]
     },
     "EPHA1": {
       "variants": 2417,
@@ -168,7 +186,14 @@
         "PP.H2": 4.562639841660821e-165,
         "PP.H3": 0.9836310456423852,
         "PP.H4": 0.01636895361026373
-      }
+      },
+      "mr_strongest_pqtl": {
+        "instrument_pos37": 143109208,
+        "beta_log_odds_per_sd": -0.285434580045528,
+        "se": 0.04285450306468671,
+        "p": 2.7280388477531758e-11
+      },
+      "mr_colocalising_instrument": []
     }
   },
   "provenance": {
@@ -179,8 +204,8 @@
       "window": 500000
     },
     "seed": 0,
-    "git_commit": "ba4befdf9406884f5359063600b93ee012bf4fb7",
+    "git_commit": "7d9b7f43dbb34c9b8d9a731bbb5b7da9e5831a0b",
     "package_version": "0.1.0.dev0",
-    "created_utc": "2026-11-13T14:05:35+00:00"
+    "created_utc": "2026-11-13T14:40:02+00:00"
   }
 }

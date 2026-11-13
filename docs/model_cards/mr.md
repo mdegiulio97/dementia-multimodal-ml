@@ -35,7 +35,10 @@ the direction predicted by MR. See RESULTS.md.
 
 **Colocalisation.** coloc ABF on the nine strongest candidates. Seven share the causal variant
 with AD (PP.H4 > 0.93): CR1, PILRA, PILRB, IL34, C1S, C1R, CD33. ACE and EPHA1 do not under
-the single-variant assumption.
+the single-variant assumption. With SuSiE (multiple signals allowed, UK Biobank LD) ACE
+colocalises through one of five signals (PP.H4 0.98). The MR estimate at that instrument is
+−0.19 (−0.24 to −0.14). EPHA1 still does not colocalise and is dropped from the credible
+candidates.
 
 **Limitations.** Nearly all proteins have a single cis instrument, so Egger and weighted median
 cannot be estimated and pleiotropy cannot be tested. Colocalisation covers only nine candidates

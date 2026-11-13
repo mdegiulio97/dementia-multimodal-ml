@@ -66,6 +66,7 @@ uv run python pipelines/eeg.py
 uv run python pipelines/mr_candidates.py --outcome kunkle  # sensitivity outcome (no UK Biobank)
 uv run --extra dl python pipelines/eeg_eegnet.py          # EEGNet on CPU (about 1 hour)
 uv run python pipelines/coloc_candidates.py               # needs a Synapse token with UKB-PPP access
+uv run python pipelines/coloc_susie.py                    # + UK Biobank LD matrices (public S3)
 uv run python pipelines/prepare_adni.py --raw <unpacked ADNIMERGE2 download>   # local ADNI table
 uv run python pipelines/conversion.py --data adni
 uv run python pipelines/omics_adni.py --raw <unpacked ADNI download>           # MR candidates in ADNI
@@ -98,7 +99,8 @@ licences and checksums are listed in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md
 | MR, proteins on AD | UKB-PPP + Bellenguez 2022 | 44 of 1,584 proteins at FDR < 0.05 (CR1, TREM2, CD2AP, GRN, EPHA1, ACE, CD33, ...) |
 | MR, metabolites on AD | Karjalainen 2024 + Bellenguez 2022 | 7 of 233 at FDR < 0.05, mostly LDL/VLDL lipid composition; 6 pass the pleiotropy check |
 | MR, independent outcome | Kunkle 2019 (no UK Biobank) | 42 of 45 testable candidates keep their sign |
-| Colocalisation (coloc ABF) | UKB-PPP regional + Bellenguez 2022 | 7 of 9 strongest candidates share the causal variant with AD (CR1, PILRA/B, IL34, C1S/C1R, CD33; PP.H4 > 0.93); ACE and EPHA1 do not under a single-variant model |
+| Colocalisation (coloc ABF) | UKB-PPP regional + Bellenguez 2022 | 7 of 9 strongest candidates share the causal variant with AD (CR1, PILRA/B, IL34, C1S/C1R, CD33; PP.H4 > 0.93) |
+| Colocalisation (SuSiE, multiple signals) | + UK Biobank LD | ACE colocalises (PP.H4 0.98) through one of its five signals, giving a corrected MR estimate of −0.19 (−0.24 to −0.14); EPHA1 does not (0.008) |
 | EEG, EEGNet vs spectral | ds004504 | EEGNet AUC 0.81 (AD vs CN), 0.64 (FTD vs CN): below spectral features with ~60 people |
 | Conversion, method check | synthetic, 787 MCI | full Cox C-index 0.72 (0.68-0.76) vs baseline 0.64 (0.60-0.68) |
 
@@ -150,7 +152,7 @@ pipelines/         one thin script per analysis (config in configs/)
 results/           open/ and synthetic/ result files (ADNI results stay local)
 figures/           PNG figures, indexed in docs/FIGURES.md
 docs/              data sources, results, model cards, agent
-tests/             140 tests; CI on Ubuntu and Windows
+tests/             145 tests; CI on Ubuntu and Windows
 ```
 
 ## Roadmap
@@ -160,7 +162,10 @@ tests/             140 tests; CI on Ubuntu and Windows
   - Done on ADNI: conversion models, trajectories, omics check of the MR candidates,
     regional FreeSurfer measures and multimodal fusion with missing modalities.
   - Done: colocalisation of the nine strongest candidates (UKB-PPP regional statistics).
-  - Next: SuSiE-based colocalisation with an LD reference for ACE and EPHA1.
+  - Done: SuSiE-based colocalisation for ACE and EPHA1, and the ACE estimate corrected with the
+    colocalising instrument.
+  - Next: check the colocalised pQTLs for epitope effects (protein-altering variants), and
+    replicate the ADNI proteomics findings in a second cohort.
 - **Phase 3.** A multimodal fusion model with missing modalities, compared with the best single
   modality and the baseline.
 

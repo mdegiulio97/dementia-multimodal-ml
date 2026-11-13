@@ -148,12 +148,44 @@ candidates that held up with Kunkle 2019.
 - **Seven proteins colocalise strongly** (PP.H4 > 0.93): CR1, PILRA/PILRB, IL34, C1S/C1R and
   CD33.
 - **CD33 matches the known answer ✓.** Zheng et al. 2020 also report CD33 as colocalised.
-- **ACE and EPHA1 do not colocalise under this method ⚠.** ABF assumes one causal variant per
-  trait in the region. A locus with several independent pQTLs can be called H3 for that reason
-  alone. Separating them needs SuSiE-based colocalisation with an LD reference panel, not done
-  here.
-- **So the one candidate confirmed in ADNI (ACE) is the one whose genetic link to AD is least
-  clear.** ACE stays a candidate, and the conditional analysis of its locus is the next step.
+- **ACE and EPHA1 do not colocalise under ABF**, which assumes one causal variant per trait.
+  The two loci were therefore re-analysed with SuSiE (below).
+
+**SuSiE-based colocalisation for ACE and EPHA1.**
+
+*Method.*
+- Fine-mapping with SuSiE-RSS (Zou et al. 2022, doi:10.1371/journal.pgen.1010299; L = 10) for
+  each trait.
+- The LD comes from UK Biobank (Alkes Price group, `s3://broad-alkesgroup-ukbb-ld`, GRCh37), the
+  same population as UKB-PPP.
+- Colocalisation is computed for every pair of credible sets (Wallace 2021,
+  doi:10.1371/journal.pgen.1009440).
+- Implemented in Python in `dementia_ml.mr.susie` and tested on simulated loci with a known
+  answer.
+
+| Protein | Variants | Credible sets (protein / AD) | Best PP.H4 | MR, strongest pQTL | MR, colocalising signal |
+|---|---|---|---|---|---|
+| ACE | 3,072 | 5 / 1 | **0.98** | −0.12 (SE 0.018) | **−0.19 (−0.24 to −0.14), p = 2×10⁻¹⁵** |
+| EPHA1 | 2,417 | 10 / 1 | 0.008 | −0.29 (SE 0.043) | none |
+
+- **ACE colocalises ✓.** The ACE locus carries five independent signals for plasma ACE. One of
+  them, not the strongest, is shared with AD (PP.H4 = 0.98). The ABF result was an artefact of
+  its single-variant assumption.
+- **Corrected ACE estimate.** The first MR estimate used the strongest pQTL, which is not the AD
+  signal. With the colocalising variant as instrument (17:61548948 C/A, GRCh37) the estimate is
+  −0.19 log-odds of AD per SD of plasma ACE, stronger than before and in the same direction.
+  It is also the same direction as in ADNI CSF, where higher ACE predicts lower conversion
+  (HR 0.76).
+- **EPHA1 does not colocalise ✗**, even with multiple signals allowed. Its MR signal most likely
+  reflects LD with a different causal variant, so EPHA1 is no longer counted among the credible
+  candidates.
+- **Caveat ⚠.** Ten credible sets for EPHA1 at n ≈ 34,000 point to sensitivity to small LD
+  differences. The reference is UK Biobank, as are the pQTLs, which limits this.
+
+**ACE is the only candidate supported by all three lines of evidence:**
+1. MR with a colocalising instrument;
+2. colocalisation of a shared variant;
+3. the same direction in CSF in an independent cohort (ADNI).
 
 **Correcting a harmonisation bug mattered.** An earlier version flipped the sign of
 palindromic instruments (A/T, C/G) whose alleles were listed in the opposite order. This
