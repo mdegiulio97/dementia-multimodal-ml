@@ -58,6 +58,10 @@ def _tables():
             "Left_Hippocampus_combat": [3000.0, 2900.0, 3500.0],
             "Right_Hippocampus_combat": [3100.0, 3000.0, 3600.0],
             "EstimatedTotalIntraCranialVol_combat": [1.4e6, 1.4e6, 1.6e6],
+            "Left_Amygdala_combat": [1500.0, 1400.0, 1700.0],
+            "Right_Amygdala_combat": [1600.0, 1500.0, 1800.0],
+            "lh_entorhinal_thickness_combat": [3.0, 2.9, 3.4],
+            "rh_entorhinal_thickness_combat": [3.2, 3.1, 3.6],
         }
     )
     elecsys = pd.DataFrame(
@@ -109,3 +113,12 @@ def test_output_feeds_the_conversion_dataset():
     data = conversion.build(df, features=conversion.FULL_FEATURES)
     assert list(data.X.index) == [101]
     assert data.time.tolist() == [24.0] and data.event.tolist() == [True]
+
+
+def test_regional_mri_on_baseline_row():
+    df = adnimerge2.build(_tables(), window_days=180)
+    bl = df.query("VISCODE == 'bl'").set_index("RID")
+    assert bl.loc[101, "Amygdala"] == 3100.0
+    assert bl.loc[101, "Entorhinal_thk"] == 3.1
+    assert np.isnan(bl.loc[101, "Precuneus_thk"])  # column absent in this fixture
+    assert df.query("VISCODE != 'bl'")["Amygdala"].isna().all()

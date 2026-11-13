@@ -27,6 +27,25 @@ DX_VISIT = {"CN": "CN", "MCI": "MCI", "DEM": "Dementia"}
 DX_BASELINE = {"CN": "CN", "MCI": "MCI", "DEM": "AD"}
 SCORES = {"MMSCORE": "MMSE", "ADASTT13": "ADAS13", "CDRSB": "CDRSB", "FAQTOTAL": "FAQ"}
 CSF = {"ABETA42": "ABETA", "TAU": "TAU", "PTAU": "PTAU"}
+# Regional FreeSurfer measures (ComBat): volumes summed over hemispheres, thickness averaged.
+REGION_VOLUMES = {
+    "Amygdala": ("Left_Amygdala_combat", "Right_Amygdala_combat"),
+    "InfLatVent": ("Left_Inf_Lat_Vent_combat", "Right_Inf_Lat_Vent_combat"),
+    "LatVent": ("Left_Lateral_Ventricle_combat", "Right_Lateral_Ventricle_combat"),
+}
+REGION_THICKNESS = {
+    f"{name}_thk": (f"lh_{region}_thickness_combat", f"rh_{region}_thickness_combat")
+    for name, region in [
+        ("Entorhinal", "entorhinal"),
+        ("Parahippocampal", "parahippocampal"),
+        ("Fusiform", "fusiform"),
+        ("InferiorTemporal", "inferiortemporal"),
+        ("MiddleTemporal", "middletemporal"),
+        ("Precuneus", "precuneus"),
+        ("PosteriorCingulate", "posteriorcingulate"),
+    ]
+}
+MRI_REGIONAL = list(REGION_VOLUMES) + list(REGION_THICKNESS)
 
 
 def load_tables(raw_dir: Path) -> dict[str, pd.DataFrame]:
@@ -125,5 +144,13 @@ def build(tables: dict[str, pd.DataFrame], window_days: int = 180) -> pd.DataFra
     for src, col in CSF.items():
         out[col] = pd.Series(np.where(bl_rows, out["RID"].map(csf[src]), None), dtype=object)
 
-    cols = list(schema.ADNIMERGE_COLUMNS) + ["ORIGPROT"]
+    for name, (left, right) in {**REGION_VOLUMES, **REGION_THICKNESS}.items():
+        if left in mri and right in mri:
+            pair = mri[[left, right]]
+            value = pair.sum(axis=1, min_count=2) if name in REGION_VOLUMES else pair.mean(axis=1)
+            out[name] = np.where(bl_rows, out["RID"].map(value), np.nan)
+        else:
+            out[name] = np.nan
+
+    cols = list(schema.ADNIMERGE_COLUMNS) + ["ORIGPROT"] + MRI_REGIONAL
     return out[cols].sort_values(["RID", "M"]).reset_index(drop=True)
