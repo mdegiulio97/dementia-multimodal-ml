@@ -47,3 +47,18 @@ def test_client_retries_after_timeout(tmp_path, monkeypatch):
     monkeypatch.setattr(client.http, "get", fake_get)
     monkeypatch.setattr(epitope.time, "sleep", lambda s: None)
     assert client._get("/x") == [{"ok": 1}] and calls["n"] == 2
+
+
+def test_client_retries_after_server_error(tmp_path, monkeypatch):
+    import httpx
+
+    client = epitope.EnsemblClient(tmp_path)
+    responses = iter([503, 200])
+
+    def fake_get(url):
+        code = next(responses)
+        return httpx.Response(code, json=[{"ok": code}], request=httpx.Request("GET", url))
+
+    monkeypatch.setattr(client.http, "get", fake_get)
+    monkeypatch.setattr(epitope.time, "sleep", lambda s: None)
+    assert client._get("/y") == [{"ok": 200}]

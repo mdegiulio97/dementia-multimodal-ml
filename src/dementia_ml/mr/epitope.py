@@ -69,6 +69,9 @@ class EnsemblClient:
             except httpx.TimeoutException:
                 time.sleep(5 * (attempt + 1))
                 continue
+            if r.status_code >= 500:  # transient server error
+                time.sleep(5 * (attempt + 1))
+                continue
             if r.status_code == 429:
                 time.sleep(float(r.headers.get("Retry-After", 2)))
                 continue
