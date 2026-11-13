@@ -7,6 +7,20 @@
     "excluded": {
       "not_mci_at_baseline": 682,
       "no_follow_up": 31
+    },
+    "observed_per_feature": {
+      "AGE": 787,
+      "MMSE": 787,
+      "APOE4": 787,
+      "PTEDUCAT": 787,
+      "ADAS13": 787,
+      "CDRSB": 787,
+      "FAQ": 787,
+      "Hippocampus": 787,
+      "ICV": 787,
+      "ABETA": 380,
+      "TAU": 380,
+      "PTAU": 380
     }
   },
   "best_model": "cox_full",
@@ -200,8 +214,8 @@
       "n_boot_models": 50
     },
     "seed": 0,
-    "git_commit": "2b7db8c183d75cafa710092559d629e341d8ebc2",
+    "git_commit": "ed70671503d20fa5874751fbbae74fc972939692",
     "package_version": "0.1.0.dev0",
-    "created_utc": "2026-11-12T16:15:08+00:00"
+    "created_utc": "2026-11-13T10:45:56+00:00"
   }
 }

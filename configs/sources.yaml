@@ -2,7 +2,7 @@
 # status: verified | partial | unverified ; access: open | registration | dua
 # size_bytes / sha256: null when not published or not yet computed (fill in on first download).
 
-publish_adni_aggregates: null  # the owner decides after reading docs/DATA_SOURCES.md section 5
+publish_adni_aggregates: true  # the owner decides after reading docs/DATA_SOURCES.md section 5
 
 eeg_ds004504:
   url: https://openneuro.org/datasets/ds004504

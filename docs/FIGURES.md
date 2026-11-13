@@ -120,3 +120,28 @@ spectral logistic model on the same folds.
 
 ### `figures/open/eeg_roc_FTD_vs_CN_eegnet.png`
 EEGNet for FTD vs controls: AUC 0.64 (0.48-0.78). With 52 participants the network overfits.
+
+## ADNI (aggregate results)
+
+### `figures/adni_public/conversion_km_by_risk_tertile.png`
+ADNI, 1,146 participants with MCI. Kaplan-Meier cumulative conversion by tertile of out-of-fold
+predicted risk (gradient-boosted survival). The high-risk third converts in most cases within
+five years, the low-risk third rarely. Curves stop where fewer than 10 people remain at risk.
+
+### `figures/adni_public/conversion_calibration_36m.png`
+Predicted vs observed conversion by 36 months, by fifth of predicted risk (about 230 people
+each). The points lie on the diagonal.
+
+### `figures/adni_public/conversion_cindex_forest.png`
+C-index of the four models on ADNI. The clinical baseline reaches 0.69; the three full models
+reach 0.83 and are indistinguishable from each other.
+
+### `figures/adni_public/trajectories_MMSE.png`
+Mixed-model mean MMSE trajectory for converters vs stable MCI on ADNI: 1.27 points/year faster
+decline in converters.
+
+### `figures/adni_public/trajectories_ADAS13.png`
+Same for ADAS13: 2.85 points/year faster worsening in converters.
+
+### `figures/adni_public/trajectories_CDRSB.png`
+Same for CDR-SB: 1.07 points/year faster worsening in converters.

@@ -1,0 +1,156 @@
+{
+  "question": "How much faster do converters decline than stable MCI participants?",
+  "model": "y ~ years * converter, random intercept and slope per participant (REML)",
+  "outcomes": {
+    "MMSE": {
+      "slope_difference": {
+        "estimate": -1.2692274579529772,
+        "ci_low": -1.3921272226879038,
+        "ci_high": -1.1463276932180506,
+        "units": "per year"
+      },
+      "fixed_effects": [
+        {
+          "term": "Intercept",
+          "coef": 27.982733031998734,
+          "se": 0.07136096659926913,
+          "ci_low": 27.8428681075622,
+          "ci_high": 28.122597956435268,
+          "p": 0.0
+        },
+        {
+          "term": "years",
+          "coef": -0.21894742755899343,
+          "se": 0.04029437234334502,
+          "ci_low": -0.2979229461315965,
+          "ci_high": -0.1399719089863904,
+          "p": 5.5198146533632354e-08
+        },
+        {
+          "term": "group",
+          "coef": -0.8757177899818755,
+          "se": 0.115936460211796,
+          "ci_low": -1.1029490764920566,
+          "ci_high": -0.6484865034716945,
+          "p": 4.239465293031782e-14
+        },
+        {
+          "term": "years:group",
+          "coef": -1.2692274579529772,
+          "se": 0.06270511382063355,
+          "ci_low": -1.3921272226879038,
+          "ci_high": -1.1463276932180506,
+          "p": 4.24604548935997e-91
+        }
+      ],
+      "n_subjects": 1146,
+      "n_obs": 6530
+    },
+    "ADAS13": {
+      "slope_difference": {
+        "estimate": 2.853944726355853,
+        "ci_low": 2.570948025871901,
+        "ci_high": 3.136941426839805,
+        "units": "per year"
+      },
+      "fixed_effects": [
+        {
+          "term": "Intercept",
+          "coef": 13.614644488380527,
+          "se": 0.23876428023177054,
+          "ci_low": 13.146675098331627,
+          "ci_high": 14.082613878429427,
+          "p": 0.0
+        },
+        {
+          "term": "years",
+          "coef": 0.6588272648301671,
+          "se": 0.09308586308693219,
+          "ci_low": 0.47638232570995354,
+          "ci_high": 0.8412722039503806,
+          "p": 1.4664097884768786e-12
+        },
+        {
+          "term": "group",
+          "coef": 5.819771919543774,
+          "se": 0.3911920143678227,
+          "ci_low": 5.053049660343166,
+          "ci_high": 6.586494178744382,
+          "p": 4.647345518793066e-50
+        },
+        {
+          "term": "years:group",
+          "coef": 2.853944726355853,
+          "se": 0.144388724852188,
+          "ci_low": 2.570948025871901,
+          "ci_high": 3.136941426839805,
+          "p": 5.877328253782209e-87
+        }
+      ],
+      "n_subjects": 1146,
+      "n_obs": 6455
+    },
+    "CDRSB": {
+      "slope_difference": {
+        "estimate": 1.0743584119045821,
+        "ci_low": 0.9969097904345009,
+        "ci_high": 1.1518070333746635,
+        "units": "per year"
+      },
+      "fixed_effects": [
+        {
+          "term": "Intercept",
+          "coef": 1.2059482596150508,
+          "se": 0.03783459557637034,
+          "ci_low": 1.1317938149157265,
+          "ci_high": 1.2801027043143751,
+          "p": 6.0795082138607866e-223
+        },
+        {
+          "term": "years",
+          "coef": 0.10878816532716731,
+          "se": 0.025224999269927325,
+          "ci_low": 0.0593480752480606,
+          "ci_high": 0.15822825540627403,
+          "p": 1.612638870162552e-05
+        },
+        {
+          "term": "group",
+          "coef": 0.4563988608333114,
+          "se": 0.06132685046448299,
+          "ci_low": 0.33620044263765125,
+          "ci_high": 0.5765972790289715,
+          "p": 9.911787551174573e-14
+        },
+        {
+          "term": "years:group",
+          "coef": 1.0743584119045821,
+          "se": 0.03951532889429914,
+          "ci_low": 0.9969097904345009,
+          "ci_high": 1.1518070333746635,
+          "p": 8.908451944837602e-163
+        }
+      ],
+      "n_subjects": 1146,
+      "n_obs": 6502
+    }
+  },
+  "provenance": {
+    "dataset": "ADNI ADNIMERGE",
+    "dataset_version": "sha256:eb72fd5ed6d14811",
+    "config": {
+      "seed": 0,
+      "outcomes": [
+        "MMSE",
+        "ADAS13",
+        "CDRSB"
+      ],
+      "adnimerge_file": "adni/ADNIMERGE.csv"
+    },
+    "seed": 0,
+    "git_commit": "ed70671503d20fa5874751fbbae74fc972939692",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-13T10:47:32+00:00"
+  },
+  "publication": "ADNI summary data (Data Use Agreement term 3); see README"
+}

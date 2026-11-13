@@ -1,0 +1,234 @@
+{
+  "question": "Which participants with MCI convert to dementia, and when?",
+  "cohort": {
+    "n_subjects": 2916,
+    "n_included": 1146,
+    "n_events": 420,
+    "excluded": {
+      "not_mci_at_baseline": 1645,
+      "no_follow_up": 125
+    },
+    "observed_per_feature": {
+      "AGE": 1146,
+      "MMSE": 1145,
+      "APOE4": 1135,
+      "PTEDUCAT": 1146,
+      "ADAS13": 1135,
+      "CDRSB": 1146,
+      "FAQ": 1135,
+      "Hippocampus": 1061,
+      "ICV": 1061,
+      "ABETA": 716,
+      "TAU": 716,
+      "PTAU": 715
+    }
+  },
+  "best_model": "gbsa",
+  "calibration": {
+    "model": "gbsa",
+    "horizon_months": 36.0,
+    "table": [
+      {
+        "bin": 0,
+        "predicted": 0.049731140332520775,
+        "observed_km": 0.0,
+        "n": 230
+      },
+      {
+        "bin": 1,
+        "predicted": 0.09893069215867242,
+        "observed_km": 0.07777585659689168,
+        "n": 229
+      },
+      {
+        "bin": 2,
+        "predicted": 0.2024899325054043,
+        "observed_km": 0.22046068867201418,
+        "n": 229
+      },
+      {
+        "bin": 3,
+        "predicted": 0.4412796362438497,
+        "observed_km": 0.4864242007829076,
+        "n": 229
+      },
+      {
+        "bin": 4,
+        "predicted": 0.7672926034516019,
+        "observed_km": 0.752720940610495,
+        "n": 229
+      }
+    ]
+  },
+  "models": {
+    "cox_baseline": {
+      "n": 1146,
+      "n_events": 420,
+      "c_index": {
+        "estimate": 0.6924381942147437,
+        "ci_low": 0.6660048979148744,
+        "ci_high": 0.7181692054404444
+      },
+      "uno_c": {
+        "tau_months": 36.0,
+        "estimate": 0.6894984823678478,
+        "ci_low": 0.6583160120178417,
+        "ci_high": 0.7181980320324164
+      },
+      "td_auc": {
+        "24": {
+          "estimate": 0.7212829912362054,
+          "ci_low": 0.6834789060224,
+          "ci_high": 0.7576094161165029
+        },
+        "36": {
+          "estimate": 0.7388998190780246,
+          "ci_low": 0.7023898586128887,
+          "ci_high": 0.771032856921047
+        },
+        "48": {
+          "estimate": 0.7646743871815814,
+          "ci_low": 0.7300544039055116,
+          "ci_high": 0.7977515355969875
+        }
+      },
+      "horizons_skipped": []
+    },
+    "cox_full": {
+      "n": 1146,
+      "n_events": 420,
+      "c_index": {
+        "estimate": 0.8296859828640326,
+        "ci_low": 0.8100500730246992,
+        "ci_high": 0.8479274990365733
+      },
+      "uno_c": {
+        "tau_months": 36.0,
+        "estimate": 0.8314512633248703,
+        "ci_low": 0.8098129359224288,
+        "ci_high": 0.8507855717245584
+      },
+      "td_auc": {
+        "24": {
+          "estimate": 0.8599302432280665,
+          "ci_low": 0.8330071101637242,
+          "ci_high": 0.8837654283362871
+        },
+        "36": {
+          "estimate": 0.8923072601211307,
+          "ci_low": 0.8678992475761492,
+          "ci_high": 0.9128785631525135
+        },
+        "48": {
+          "estimate": 0.899313495942801,
+          "ci_low": 0.8753431617216281,
+          "ci_high": 0.9225861677162136
+        }
+      },
+      "horizons_skipped": []
+    },
+    "rsf": {
+      "n": 1146,
+      "n_events": 420,
+      "c_index": {
+        "estimate": 0.8292734107972956,
+        "ci_low": 0.8114199080808548,
+        "ci_high": 0.8468642010899655
+      },
+      "uno_c": {
+        "tau_months": 36.0,
+        "estimate": 0.8327271743655159,
+        "ci_low": 0.8123181328839605,
+        "ci_high": 0.8522166043576321
+      },
+      "td_auc": {
+        "24": {
+          "estimate": 0.862850950143969,
+          "ci_low": 0.8375597073794263,
+          "ci_high": 0.8868527450202537
+        },
+        "36": {
+          "estimate": 0.8843840370532635,
+          "ci_low": 0.860492837754663,
+          "ci_high": 0.9056993009531075
+        },
+        "48": {
+          "estimate": 0.890148636345155,
+          "ci_low": 0.8657016539890584,
+          "ci_high": 0.9146116130266326
+        }
+      },
+      "horizons_skipped": []
+    },
+    "gbsa": {
+      "n": 1146,
+      "n_events": 420,
+      "c_index": {
+        "estimate": 0.8305555851943535,
+        "ci_low": 0.8127749585672673,
+        "ci_high": 0.8482131673062049
+      },
+      "uno_c": {
+        "tau_months": 36.0,
+        "estimate": 0.8346897536590228,
+        "ci_low": 0.8148154239726781,
+        "ci_high": 0.8540646049360401
+      },
+      "td_auc": {
+        "24": {
+          "estimate": 0.8654454144395796,
+          "ci_low": 0.8415165113450349,
+          "ci_high": 0.8880279259519769
+        },
+        "36": {
+          "estimate": 0.89083382468284,
+          "ci_low": 0.8689386955560842,
+          "ci_high": 0.9115909093680407
+        },
+        "48": {
+          "estimate": 0.8894842508391994,
+          "ci_low": 0.8635842500711782,
+          "ci_high": 0.913562299563506
+        }
+      },
+      "horizons_skipped": []
+    }
+  },
+  "provenance": {
+    "dataset": "ADNI ADNIMERGE",
+    "dataset_version": "sha256:eb72fd5ed6d14811",
+    "config": {
+      "n_subjects": 1500,
+      "seed": 0,
+      "n_splits": 5,
+      "n_boot": 1000,
+      "horizons": [
+        24,
+        36,
+        48
+      ],
+      "calibration_horizon": 36,
+      "uno_tau": 36,
+      "adnimerge_file": "adni/ADNIMERGE.csv",
+      "models": {
+        "cox_full": {
+          "alpha": 1.0
+        },
+        "rsf": {
+          "n_estimators": 500,
+          "min_samples_leaf": 10
+        },
+        "gbsa": {
+          "n_estimators": 300,
+          "learning_rate": 0.05
+        }
+      },
+      "n_boot_models": 50
+    },
+    "seed": 0,
+    "git_commit": "ed70671503d20fa5874751fbbae74fc972939692",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-13T10:47:22+00:00"
+  },
+  "publication": "ADNI summary data (Data Use Agreement term 3); see README"
+}

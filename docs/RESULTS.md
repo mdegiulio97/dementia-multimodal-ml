@@ -174,7 +174,59 @@ Mixed model with random intercept and slope:
 - MMSE declines 1.15 points/year faster in converters (95% CI 1.06-1.24).
 - ADAS13 worsens 1.77 points/year faster (1.62-1.92).
 
-### ADNI
+## ADNI results
+
+Aggregate results on ADNI (ADNI 1, GO, 2, 3 and 4), published as summary data under the ADNI Data
+Use Agreement. Models, per-participant predictions and the ADNI table stay local.
+
+**Data.**
+- The ADNIMERGE2 R package, downloaded from LONI IDA on 2026-11-13. ADNIMERGE2 replaces the
+  old single `ADNIMERGE.csv`; `pipelines/prepare_adni.py` rebuilds the table from its `ADSL`,
+  `ADRS` and `ADQS` tables.
+- Hippocampal and intracranial volumes from FreeSurfer, ComBat-harmonised across scanners
+  (`ADSP_PHC_T1_FS`).
+- CSF Aβ42, t-tau and p-tau181 from Roche Elecsys (UPENN).
+- Imaging and CSF are the record closest to enrolment, within 180 days.
+
+**Cohort.**
+- 1,271 participants had MCI at baseline. 125 had no follow-up diagnosis and were excluded,
+  which leaves **1,146 participants and 420 conversions to dementia**.
+- Observed at baseline: hippocampal volume for 1,061, CSF for 716, APOE for 1,135.
+
+| Model | Harrell's C | Uno's C (36 m) | td-AUC 24 m | td-AUC 36 m | td-AUC 48 m |
+|---|---|---|---|---|---|
+| Cox, age + MMSE + APOE4 | 0.69 (0.67-0.72) | 0.69 (0.66-0.72) | 0.72 | 0.74 | 0.77 |
+| Cox (ridge), all baseline | 0.83 (0.81-0.85) | 0.83 (0.81-0.85) | 0.86 | 0.89 | 0.90 |
+| Random survival forest | 0.83 (0.81-0.85) | 0.83 (0.81-0.85) | 0.86 | 0.88 | 0.89 |
+| Gradient-boosted survival | 0.83 (0.81-0.85) | 0.84 (0.82-0.85) | 0.87 | 0.89 | 0.89 |
+
+**Calibration.** Predicted conversion by 36 months follows the observed (Kaplan-Meier) one
+across fifths of risk: 0.05/0.00, 0.10/0.08, 0.20/0.22, 0.44/0.49, 0.77/0.75, with about 230
+participants per fifth.
+
+**Comparison ✓.** Wang et al. 2023 (doi:10.1016/j.jclinepi.2023.03.009) report a c-index of
+0.74 with clinical variables. Saeed et al. 2024 (doi:10.1371/journal.pone.0314725) report
+0.82-0.90 with multimodal random survival forests. Our clinical baseline (0.69) and full
+models (0.83) sit inside that range.
+
+The three flexible and linear models reach the same discrimination. A ridge Cox model on
+baseline values is as good as the forests here, so it stays the model behind the agent.
+
+**Caveat ⚠.** CDR-SB and FAQ measure daily function, and functional impairment is part of the
+clinical definition of dementia. Part of their predictive weight is therefore built into the
+outcome. The baseline model without them (0.69) is the honest lower bound.
+
+**Cognitive trajectories** (mixed model, 1,146 participants). Converters decline faster than
+stable MCI:
+- MMSE: 1.27 points/year faster (1.15-1.39);
+- ADAS13: 2.85 points/year faster (2.57-3.14);
+- CDR-SB: 1.07 points/year faster (1.00-1.15).
+
+Data used in the preparation of these results were obtained from the Alzheimer's Disease
+Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu); see the acknowledgement in the
+README.
+
+### ADNI (method notes)
 
 The same code runs locally on ADNIMERGE. ADNI results will be added here as aggregate tables
 and figures only, with no per-participant data, as the ADNI Data Use Agreement allows. Trained

@@ -27,6 +27,13 @@ Older ADNI news posts give the same path as "DOWNLOAD | Biospecimen | Biospecime
 
 ## Phase 1 (needed now)
 
+> **Update 2026-11-13.** IDA no longer offers `ADNIMERGE.csv`. Under Study Info there is only
+> the R package **ADNIMERGE2** (`ADNIMERGE2.tar.gz`, ADNI 1/GO/2/3/4), with CDISC-style tables
+> (`ADSL`, `ADRS`, `ADQS`, plus the source tables). `pipelines/prepare_adni.py` builds the
+> ADNIMERGE-shaped table from it in Python (pyreadr; R is not needed). Also downloaded:
+> `UPENNBIOMK_ROCHE_ELECSYS`, `BIOMARK`, the data dictionary `DATADIC`, the CruchagaLab
+> SomaScan 7k CSF matrix with its analyte file, and `ADNINIGHTINGALE2` with its dictionary.
+
 | # | File | Where in IDA | Use | Status |
 |---|---|---|---|---|
 | 1 | `ADNIMERGE.csv` ("ADNIMERGE – Key ADNI tables merged into one table [ADNI1,GO,2,3]") | Study Files → Study Info (Data & Database). If it is not there, look under Study Files → Archive | MCI-to-AD conversion (Task 3, 5), trajectories (Task 6) | ✓ name and existence (ADNI FAQ https://adni.loni.usc.edu/help-faqs/faq/; adni-data group post of 9 Dec 2024 "ADNIMERGE.csv is still available" under "Study Info"); ⚠ a post of 13 Jan 2026 may report a move to Archive, body not readable |

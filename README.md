@@ -16,11 +16,11 @@ answer containing a number that no tool returned.
 Everything runs on a laptop CPU. Tests and CI run on a synthetic cohort with ADNI's structure,
 so no access-controlled data is needed to try the code.
 
-![Conversion by risk tertile](figures/synthetic/conversion_km_by_risk_tertile.png)
+![Conversion by risk tertile](figures/adni_public/conversion_km_by_risk_tertile.png)
 
-*Main figure: cumulative conversion to dementia by tertile of out-of-fold predicted risk (full
-Cox model). Shown on the **synthetic** cohort until the ADNI run is added; ADNI results will appear
-as aggregates only.*
+*Main figure: ADNI, 1,146 participants with MCI. Cumulative conversion to dementia by tertile
+of out-of-fold predicted risk (gradient-boosted survival); curves stop where fewer than 10
+people remain at risk.*
 
 ## How the parts fit together
 
@@ -65,12 +65,21 @@ aws s3 sync --no-sign-request s3://openneuro.org/ds004504 "$DEMENTIA_ML_DATA/eeg
 uv run python pipelines/eeg.py
 uv run python pipelines/mr_candidates.py --outcome kunkle  # sensitivity outcome (no UK Biobank)
 uv run --extra dl python pipelines/eeg_eegnet.py          # EEGNet on CPU (about 1 hour)
-uv run python pipelines/conversion.py --data adni          # needs ADNIMERGE.csv from LONI
+uv run python pipelines/prepare_adni.py --raw <unpacked ADNIMERGE2 download>   # local ADNI table
+uv run python pipelines/conversion.py --data adni
 uv run --extra mcp dementia-mcp                            # same tools over MCP (synthetic/open)
 ```
 
 Data live outside the repository in `$DEMENTIA_ML_DATA` (default `~/data/dementia-ml`). Sources,
 licences and checksums are listed in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
+
+## ADNI results
+
+| Analysis | Data | Result (95% CI) |
+|---|---|---|
+| MCI-to-dementia conversion, full model | ADNI, 1,146 MCI, 420 conversions | C-index 0.83 (0.81-0.85); td-AUC at 36 months 0.89 |
+| Same, clinical baseline (age, MMSE, APOE4) | same | C-index 0.69 (0.67-0.72) |
+| Faster decline in converters | same | MMSE 1.27/yr, ADAS13 2.85/yr, CDR-SB 1.07/yr |
 
 ## Results so far
 
@@ -140,7 +149,8 @@ tests/             112 tests; CI on Ubuntu and Windows
 
 - **Phase 2.**
   - Done on open data: EEGNet, delta from 1 Hz, MR with an AD GWAS without UK Biobank.
-  - Next: ADNI conversion results; ADNI proteomics and metabolomics, testing the MR-selected
+  - Done on ADNI: conversion models and trajectories (aggregates above).
+  - Next: ADNI proteomics and metabolomics, testing the MR-selected
     molecules against all others with FDR; FreeSurfer volumes; colocalisation for the MR hits.
 - **Phase 3.** A multimodal fusion model with missing modalities, compared with the best single
   modality and the baseline.

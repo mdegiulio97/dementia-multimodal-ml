@@ -27,6 +27,11 @@ beyond the last follow-up are skipped and reported.
 **Synthetic check.** Full Cox C = 0.72 (0.68-0.76) vs baseline 0.64 (0.60-0.68); the Cox
 coefficients recover the simulated log hazard ratios within ±0.15 (`tests/data`).
 
+**ADNI.** 1,146 participants with MCI and 420 conversions. The full models reach C 0.83
+(0.81-0.85), the clinical baseline C 0.69 (0.67-0.72), with good calibration at 36 months.
+Data come from ADNIMERGE2 through `data/adnimerge2.py`. Imaging and CSF are taken within
+180 days of enrolment.
+
 **Intended use.** Research on prognostic modelling methods. Not a clinical tool.
 
 **Known limitations.** Interval censoring at visit times is treated as exact; competing risk of
