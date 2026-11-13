@@ -72,8 +72,24 @@ def test_published_adni_files_are_aggregates_only():
     figs = ROOT / "figures" / "adni_public"
     if not res.exists():
         return
-    assert {p.suffix for p in res.iterdir()} <= {".json"}
+    ids = {"rid", "ptid", "subjid", "subject", "subject_id"}
+    assert {p.suffix for p in res.iterdir()} <= {".json", ".csv"}
     assert {p.suffix for p in figs.iterdir()} <= {".png"}
     for p in res.glob("*.json"):
         keys = {str(k).lower() for k in _keys(json.loads(p.read_text()))}
-        assert not keys & {"rid", "ptid", "subjid", "subject", "subject_id"}, p.name
+        assert not keys & ids, p.name
+    for p in res.glob("*.csv"):
+        header = {c.strip().lower() for c in p.read_text().splitlines()[0].split(",")}
+        assert not header & ids, p.name
+        assert "feature" in header, p.name  # one row per molecule, never per participant
+
+
+def test_publish_script_includes_omics_aggregates():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "publish_adni", ROOT / "pipelines" / "publish_adni.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    assert {"omics_summary.json", "omics_proteins.csv", "omics_metabolites.csv"} <= set(mod.FILES)

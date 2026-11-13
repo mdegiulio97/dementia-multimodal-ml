@@ -1,0 +1,60 @@
+{
+  "selected_mr": 50,
+  "proteins": {
+    "participants": 389,
+    "conversions": 170,
+    "aptamers_tested": 7008,
+    "fdr_significant": 81,
+    "selected_genes_measured": 37,
+    "enrichment": {
+      "n_selected_tested": 48,
+      "n_other": 6960,
+      "selected_p05": 4,
+      "other_p05_fraction": 0.12112068965517242,
+      "mannwhitney_p": 0.49435972795813665,
+      "binomial_p05_p": 0.8487683475445039
+    },
+    "direction": {
+      "n": 48,
+      "same_sign": 19,
+      "binomial_p": 0.9442985544694906
+    }
+  },
+  "metabolites": {
+    "participants": 786,
+    "conversions": 342,
+    "tested": 250,
+    "fdr_significant": 0,
+    "selected_measured": 6,
+    "enrichment": {
+      "n_selected_tested": 6,
+      "n_other": 244,
+      "selected_p05": 0,
+      "other_p05_fraction": 0.14344262295081966,
+      "mannwhitney_p": 0.9777663663228077,
+      "binomial_p05_p": 1.0
+    },
+    "direction": {
+      "n": 6,
+      "same_sign": 4,
+      "binomial_p": 0.34375
+    }
+  },
+  "provenance": {
+    "dataset": "ADNI CSF SomaScan 7k (CruchagaLab) + ADMC Nightingale NMR",
+    "dataset_version": "raw_2026-11-13",
+    "config": {
+      "window_days": 180,
+      "covariates": [
+        "AGE",
+        "MALE",
+        "APOE4"
+      ]
+    },
+    "seed": 0,
+    "git_commit": "c415af93b5a3e6484926297a921436e9946d3be2",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-13T11:08:04+00:00"
+  },
+  "publication": "ADNI summary data (Data Use Agreement term 3); see README"
+}

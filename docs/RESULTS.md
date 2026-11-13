@@ -216,6 +216,40 @@ baseline values is as good as the forests here, so it stays the model behind the
 clinical definition of dementia. Part of their predictive weight is therefore built into the
 outcome. The baseline model without them (0.69) is the honest lower bound.
 
+**Do the MR candidates predict conversion in ADNI? Mostly no.** Each molecule measured at
+baseline (within 180 days of enrolment) was tested in its own Cox model of conversion. The
+molecule was inverse-normal transformed, so hazard ratios are per SD, and each model was
+adjusted for age, sex and APOE4. FDR was computed across all molecules of each platform.
+
+| Platform | MCI participants (conversions) | Molecules tested | FDR < 0.05 | MR candidates measured | Candidates at p < 0.05 | Enrichment vs other molecules | Same direction as MR |
+|---|---|---|---|---|---|---|---|
+| CSF proteins, SomaScan 7k (CruchagaLab) | 389 (170) | 7,008 aptamers | 81 (78 genes) | 37 genes, 48 aptamers | 4 / 48 (others: 12%) | Mann-Whitney p = 0.49 | 19 / 48 |
+| Serum NMR metabolites (ADMC Nightingale) | 786 (342) | 250 | 0 | 6 | 0 / 6 (others: 14%) | p = 0.98 | 4 / 6 |
+
+- **The screen does detect signal.** The CSF proteins most associated with conversion are
+  markers of neuronal and synaptic injury: the 14-3-3 family (YWHAG, YWHAZ, YWHAB, YWHAE) and
+  neurofilament heavy chain (NEFH), with HR 1.5-1.8 per SD. They act as a positive control for
+  the pipeline.
+- **The candidates do not stand out.** Taken together, the 48 aptamers of the MR candidates are
+  no more associated with conversion than the rest of the proteome. Their direction agrees with
+  MR in 19 of 48, which is chance level.
+- **ACE is the exception ✓.** Higher CSF ACE predicts lower conversion: HR 0.76 per SD,
+  p = 0.0006, which survives Bonferroni across the 48 candidate aptamers. MR points the same
+  way: genetically higher ACE means lower AD risk.
+- **Two discordant candidates.** CD2AP (HR 0.80) and ACHE (HR 1.28) are nominally associated
+  in the direction opposite to MR.
+
+**Why a negative result is plausible ⚠.** Several differences separate the two analyses:
+- **Tissue.** MR used plasma protein levels; ADNI measures CSF.
+- **Question.** MR asks about lifetime risk of AD; ADNI asks about progression from MCI over a
+  few years, a stage where markers of ongoing injury dominate.
+- **Instruments.** Most MR hits rest on a single cis variant at a known GWAS locus, without
+  colocalisation.
+- **Power.** 389 participants detect only fairly large effects.
+
+So the MR candidates are not validated as markers of progression; ACE is the one worth
+following up. Full tables: `results/adni_public/omics_proteins.csv` and `omics_metabolites.csv`.
+
 **Cognitive trajectories** (mixed model, 1,146 participants). Converters decline faster than
 stable MCI:
 - MMSE: 1.27 points/year faster (1.15-1.39);

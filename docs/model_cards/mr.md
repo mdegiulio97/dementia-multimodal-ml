@@ -28,6 +28,11 @@ colocalised estimate reported by Zheng et al. 2020 (doi:10.1038/s41588-020-0682-
 **Sensitivity outcome.** Kunkle et al. 2019 (no UK Biobank): 42 of the 45 testable selected
 molecules keep their sign, and 26 of them reach p < 0.05.
 
+**Check in ADNI.** As a group, the selected molecules do not predict MCI-to-dementia
+conversion better than other molecules: 48 CSF aptamers among 389 MCI participants, and 6
+serum NMR measures among 786. The exception is ACE, with CSF HR 0.76 per SD (p = 0.0006) in
+the direction predicted by MR. See RESULTS.md.
+
 **Limitations.** Nearly all proteins have a single cis instrument, so Egger and weighted median
 cannot be estimated and pleiotropy cannot be tested; no colocalisation, so a hit at a GWAS locus
 may reflect a nearby causal variant in LD; UK Biobank participants are in both the pQTL study

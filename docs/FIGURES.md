@@ -145,3 +145,19 @@ Same for ADAS13: 2.85 points/year faster worsening in converters.
 
 ### `figures/adni_public/trajectories_CDRSB.png`
 Same for CDR-SB: 1.07 points/year faster worsening in converters.
+
+### `figures/adni_public/omics_proteins_qq.png`
+QQ plot of p-values from Cox models of MCI-to-dementia conversion, one per CSF aptamer
+(SomaScan 7k; 389 participants, 170 conversions). The whole proteome departs from the diagonal
+because CSF proteins track ongoing neurodegeneration (top: 14-3-3 proteins, NEFH). The 48
+aptamers of the MR candidates (orange) follow the same curve as the rest: no enrichment.
+
+### `figures/adni_public/omics_proteins_selected_forest.png`
+Hazard ratio of conversion per SD for each aptamer of the MR-selected proteins, adjusted for
+age, sex and APOE4. ACE stands out (HR 0.76, p = 0.0006), in the direction predicted by MR. Most
+intervals include 1.
+
+### `figures/adni_public/omics_metabolites_qq.png`
+The same QQ plot for 250 serum NMR measures (786 participants, 342 conversions): mild departure
+from the diagonal, no measure at FDR < 0.05, and the 6 MR-selected metabolites near the
+diagonal.
