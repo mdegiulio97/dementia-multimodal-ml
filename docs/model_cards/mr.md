@@ -40,6 +40,10 @@ colocalises through one of five signals (PP.H4 0.98). The MR estimate at that in
 −0.19 (−0.24 to −0.14). EPHA1 still does not colocalise and is dropped from the credible
 candidates.
 
+**Epitope effects.** The instruments of PILRA, IL34, C1S and CD33 are missense, and CR1 has
+protein-altering proxies, so their pQTLs may partly reflect antibody binding rather than
+protein amount. ACE (colocalising signal) and C1R are clean.
+
 **Limitations.** Nearly all proteins have a single cis instrument, so Egger and weighted median
 cannot be estimated and pleiotropy cannot be tested. Colocalisation covers only nine candidates
 and assumes one causal variant per region. UK Biobank participants are in both the pQTL study

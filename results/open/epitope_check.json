@@ -1,0 +1,80 @@
+{
+  "method": "Ensembl VEP (GRCh38) on the instrument and its 1000G EUR proxies (r2 >= 0.8); protein-altering = missense, stop, start-lost, frameshift, in-frame indel, splice donor/acceptor in the target gene",
+  "results": [
+    {
+      "protein": "CR1",
+      "instrument": "rs679515",
+      "instrument_protein_altering": false,
+      "n_proxies_r2_08": 21,
+      "protein_altering_proxies": "rs2296160;rs4844600",
+      "verdict": "protein-altering proxy in LD"
+    },
+    {
+      "protein": "PILRA",
+      "instrument": "rs1859788",
+      "instrument_protein_altering": true,
+      "n_proxies_r2_08": 7,
+      "protein_altering_proxies": "",
+      "verdict": "instrument is protein-altering"
+    },
+    {
+      "protein": "PILRB",
+      "instrument": "rs1859788",
+      "instrument_protein_altering": false,
+      "n_proxies_r2_08": 7,
+      "protein_altering_proxies": "",
+      "verdict": "no protein-altering variant in LD"
+    },
+    {
+      "protein": "IL34",
+      "instrument": "rs4985556",
+      "instrument_protein_altering": true,
+      "n_proxies_r2_08": 1,
+      "protein_altering_proxies": "",
+      "verdict": "instrument is protein-altering"
+    },
+    {
+      "protein": "C1S",
+      "instrument": "rs12146727",
+      "instrument_protein_altering": true,
+      "n_proxies_r2_08": 16,
+      "protein_altering_proxies": "",
+      "verdict": "instrument is protein-altering"
+    },
+    {
+      "protein": "C1R",
+      "instrument": "rs10849546",
+      "instrument_protein_altering": false,
+      "n_proxies_r2_08": 16,
+      "protein_altering_proxies": "",
+      "verdict": "no protein-altering variant in LD"
+    },
+    {
+      "protein": "CD33",
+      "instrument": "rs2455069",
+      "instrument_protein_altering": true,
+      "n_proxies_r2_08": 13,
+      "protein_altering_proxies": "",
+      "verdict": "instrument is protein-altering"
+    },
+    {
+      "protein": "ACE",
+      "instrument": "rs4459609",
+      "instrument_protein_altering": false,
+      "n_proxies_r2_08": 9,
+      "protein_altering_proxies": "",
+      "verdict": "no protein-altering variant in LD"
+    }
+  ],
+  "provenance": {
+    "dataset": "Ensembl REST",
+    "dataset_version": "current release",
+    "config": {
+      "r2": 0.8
+    },
+    "seed": 0,
+    "git_commit": "0dcbdfe52b90a293e946bad62e4e977060e4c3a0",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-13T15:04:11+00:00"
+  }
+}

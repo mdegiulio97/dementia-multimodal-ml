@@ -182,10 +182,35 @@ candidates that held up with Kunkle 2019.
 - **Caveat ⚠.** Ten credible sets for EPHA1 at n ≈ 34,000 point to sensitivity to small LD
   differences. The reference is UK Biobank, as are the pQTLs, which limits this.
 
-**ACE is the only candidate supported by all three lines of evidence:**
+**Epitope-effect check ⚠.** A variant that changes the protein sequence can change how the
+Olink antibody binds the protein without changing its amount. In that case the cis-pQTL partly
+measures binding, not abundance.
+
+*Method.* For each colocalised protein, the instrument and its 1000 Genomes EUR proxies
+(r² ≥ 0.8) were annotated with Ensembl VEP. Protein-altering means missense, stop, start-lost,
+frameshift, in-frame indel or a splice donor/acceptor variant in the gene encoding the protein.
+
+| Protein | Instrument | Proxies (r² ≥ 0.8) | Result |
+|---|---|---|---|
+| ACE (colocalising signal) | rs4459609 | 9 | no protein-altering variant ✓ |
+| C1R | rs10849546 | 16 | no protein-altering variant ✓ |
+| PILRB | rs1859788 | 7 | none in PILRB ✓, but the same variant is missense in PILRA ⚠ |
+| PILRA | rs1859788 | 7 | instrument is missense ⚠ |
+| IL34 | rs4985556 | 1 | instrument is missense ⚠ |
+| C1S | rs12146727 | 16 | instrument is missense ⚠ |
+| CD33 | rs2455069 | 13 | instrument is missense ⚠ |
+| CR1 | rs679515 | 21 | two protein-altering proxies (rs2296160, rs4844600) ⚠ |
+
+For five of the eight proteins the pQTL may partly reflect antibody binding. The colocalisation
+still holds: the variant is shared with AD. What weakens is the step from "this variant" to
+"the amount of this protein". A protein-altering variant can also be truly functional, and
+this check cannot tell the two apart. ACE and C1R are clean.
+
+**ACE is the only candidate supported by four independent checks:**
 1. MR with a colocalising instrument;
 2. colocalisation of a shared variant;
-3. the same direction in CSF in an independent cohort (ADNI).
+3. no protein-altering variant in LD with the instrument;
+4. the same direction in CSF in an independent cohort (ADNI).
 
 **Correcting a harmonisation bug mattered.** An earlier version flipped the sign of
 palindromic instruments (A/T, C/G) whose alleles were listed in the opposite order. This

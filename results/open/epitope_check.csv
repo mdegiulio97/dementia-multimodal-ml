@@ -1,0 +1,9 @@
+protein,instrument,instrument_protein_altering,n_proxies_r2_08,protein_altering_proxies,verdict
+CR1,rs679515,False,21,rs2296160;rs4844600,protein-altering proxy in LD
+PILRA,rs1859788,True,7,,instrument is protein-altering
+PILRB,rs1859788,False,7,,no protein-altering variant in LD
+IL34,rs4985556,True,1,,instrument is protein-altering
+C1S,rs12146727,True,16,,instrument is protein-altering
+C1R,rs10849546,False,16,,no protein-altering variant in LD
+CD33,rs2455069,True,13,,instrument is protein-altering
+ACE,rs4459609,False,9,,no protein-altering variant in LD
