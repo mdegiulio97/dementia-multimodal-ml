@@ -122,3 +122,23 @@ def test_excluded_region_instruments_are_dropped():
     )
     assert "PROT_A" not in inst
     assert (log.loc[log["trait"] == "PROT_A", "dropped_reason"] == "excluded_region").all()
+
+
+def test_outcome_comparison_on_fixtures(tmp_path):
+    primary = pd.DataFrame(
+        {"trait": ["A", "B", "C", "D"], "beta": [0.3, -0.2, 0.1, 0.0], "p": [1e-8, 1e-6, 0.01, 0.9]}
+    )
+    sens = pd.DataFrame(
+        {
+            "trait": ["A", "B", "C", "E"],
+            "beta": [0.25, 0.05, 0.12, 0.3],
+            "p": [1e-4, 0.5, 0.04, 0.1],
+        }
+    )
+    cmp = run.compare_outcomes(primary, sens, selected=["A", "B"], fig_path=tmp_path / "cmp.png")
+    assert cmp["n_traits_both"] == 3
+    assert cmp["selected_tested"] == 2
+    assert cmp["selected_same_sign"] == 1
+    assert cmp["selected_p05_same_sign"] == 1
+    assert -1 <= cmp["beta_correlation"] <= 1
+    assert (tmp_path / "cmp.png").stat().st_size > 1000

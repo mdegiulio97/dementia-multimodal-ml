@@ -119,32 +119,50 @@ OUTCOME_COLUMNS = {
 }
 
 
-def load_outcome(path: Path, snps: set[str], chunksize: int = 2_000_000) -> pd.DataFrame:
-    """Bellenguez et al. 2022 harmonised GWAS (GCST90027158), filtered to ``snps``."""
+BELLENGUEZ_COLUMNS = {ours: theirs for theirs, ours in OUTCOME_COLUMNS.items()}
+NUMERIC = ("eaf", "beta", "se", "pval")
+TAB, CR, LF = chr(9), chr(13), chr(10)
+
+
+def load_outcome(
+    path: Path,
+    snps: set[str],
+    columns: dict[str, str | None] | None = None,
+    sep: str = TAB,
+    chunksize: int = 2_000_000,
+) -> pd.DataFrame:
+    """Outcome GWAS rows for ``snps``.
+
+    ``columns`` maps our names (snp, effect_allele, other_allele, eaf, beta, se, pval) to the
+    file's column names; a value of None means the file lacks it (e.g. no EAF in Kunkle 2019).
+    Defaults to the Bellenguez et al. 2022 harmonised file (GCST90027158).
+    """
+    columns = columns or BELLENGUEZ_COLUMNS
+    wanted = {theirs: ours for ours, theirs in columns.items() if theirs}
     parts = []
     reader = pd.read_csv(
         path,
-        sep="\t",
-        usecols=lambda c: c.rstrip("\r") in OUTCOME_COLUMNS,  # CRLF file: last header ends in \r
+        sep=sep,
+        usecols=lambda c: c.rstrip(CR) in wanted,  # CRLF files: last header ends in CR
         chunksize=chunksize,
         dtype=str,
-        lineterminator="\n",
+        lineterminator=LF,
     )
+    snp_col = columns["snp"]
     for chunk in reader:
-        chunk.columns = [c.rstrip("\r") for c in chunk.columns]
-        chunk = chunk.apply(lambda s: s.str.rstrip("\r"))
-        hit = chunk[chunk["hm_rsid"].isin(snps)]
+        chunk.columns = [c.rstrip(CR) for c in chunk.columns]
+        chunk = chunk.apply(lambda s: s.str.rstrip(CR))
+        hit = chunk[chunk[snp_col].isin(snps)]
         if len(hit):
             parts.append(hit)
-    out = (
-        pd.concat(parts, ignore_index=True)
-        if parts
-        else pd.DataFrame(columns=list(OUTCOME_COLUMNS))
-    )
-    out = out.rename(columns=OUTCOME_COLUMNS)
-    for c in ("eaf", "beta", "se", "pval"):
+    out = pd.concat(parts, ignore_index=True) if parts else pd.DataFrame(columns=list(wanted))
+    out = out.rename(columns=wanted)
+    for ours in columns:
+        if ours not in out.columns:
+            out[ours] = np.nan
+    for c in NUMERIC:
         out[c] = pd.to_numeric(out[c], errors="coerce")
-    return out.drop_duplicates("snp").reset_index(drop=True)
+    return out[list(columns)].drop_duplicates("snp").reset_index(drop=True)
 
 
 def cached_outcome(cache: Path, snps: set[str], loader) -> pd.DataFrame:

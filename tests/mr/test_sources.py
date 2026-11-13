@@ -87,3 +87,49 @@ def test_cached_outcome_reuses_cache_for_searched_snps(tmp_path):
     assert len(calls) == 1 and first.equals(again)
     sources.cached_outcome(cache, {"rs1", "rs2"}, loader)
     assert len(calls) == 2 and calls[-1] == {"rs1", "rs2", "rs_absent"}
+
+
+KUNKLE_COLUMNS = {
+    "snp": "MarkerName",
+    "effect_allele": "Effect_allele",
+    "other_allele": "Non_Effect_allele",
+    "eaf": None,
+    "beta": "Beta",
+    "se": "SE",
+    "pval": "Pvalue",
+}
+
+
+def _kunkle_file(tmp_path):
+    path = tmp_path / "Kunkle_etal_Stage1_results.txt"
+    path.write_text(
+        "Chromosome Position MarkerName Effect_allele Non_Effect_allele Beta SE Pvalue\n"
+        "1 100 rs1 a g 0.1 0.02 1e-5\n"
+        "1 200 rs5 a t 0.2 0.03 1e-3\n"
+        "2 300 rs9 c t -0.05 0.01 0.4\n"
+    )
+    return path
+
+
+def test_load_outcome_kunkle_columns(tmp_path):
+    out = sources.load_outcome(
+        _kunkle_file(tmp_path), {"rs1", "rs5"}, columns=KUNKLE_COLUMNS, sep=" "
+    )
+    assert out["snp"].tolist() == ["rs1", "rs5"]
+    assert out["eaf"].isna().all()
+    assert out.loc[0, "effect_allele"] in {"a", "A"} and out.loc[0, "beta"] == 0.1
+
+
+def test_kunkle_palindromes_dropped_without_eaf(tmp_path):
+    from dementia_ml.mr.harmonise import harmonise
+
+    out = sources.load_outcome(
+        _kunkle_file(tmp_path), {"rs1", "rs5"}, columns=KUNKLE_COLUMNS, sep=" "
+    )
+    exp = pd.DataFrame(
+        [["rs1", "A", "G", 0.2, 0.3, 0.01], ["rs5", "A", "T", 0.2, 0.3, 0.01]],
+        columns=["snp", "effect_allele", "other_allele", "eaf", "beta", "se"],
+    )
+    h = harmonise(exp, out).set_index("snp")
+    assert pd.isna(h.loc["rs1", "dropped_reason"])
+    assert h.loc["rs5", "dropped_reason"] == "palindrome_no_eaf"

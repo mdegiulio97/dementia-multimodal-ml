@@ -78,6 +78,7 @@ def run(
     out_root: Path | None = None,
     dataset_names: dict | None = None,
     dataset_versions: dict | None = None,
+    suffix: str = "",
 ) -> dict:
     out_root = out_root or paths.REPO_ROOT
     res_dir, fig_dir = paths.results_dir("open", out_root), paths.figures_dir("open", out_root)
@@ -99,10 +100,10 @@ def run(
         logs.append(log)
     res = pd.concat(tables, ignore_index=True).sort_values("p")
     selected = select(res, config["fdr"])
-    res.to_csv(res_dir / "mr_candidates.csv", index=False)
-    (res_dir / "mr_candidates_selected.txt").write_text("\n".join(selected) + "\n")
+    res.to_csv(res_dir / f"mr_candidates{suffix}.csv", index=False)
+    (res_dir / f"mr_candidates{suffix}_selected.txt").write_text("\n".join(selected) + "\n")
     log = pd.concat(logs, ignore_index=True)
-    log.to_csv(res_dir / "mr_harmonisation_log.csv", index=False)
+    log.to_csv(res_dir / f"mr_harmonisation_log{suffix}.csv", index=False)
     summary = {
         "question": "Which circulating proteins and metabolites have genetic evidence of a causal effect on Alzheimer's disease?",
         "n_traits_tested": {k: int((res["kind"] == k).sum()) for k in exposures},
@@ -117,7 +118,50 @@ def run(
             dataset_names or {}, json.dumps(dataset_versions or {}), config, config["seed"]
         ),
     }
-    (res_dir / "mr_candidates.json").write_text(json.dumps(summary, indent=2))
-    _volcano(res, config["fdr"], fig_dir / "mr_volcano.png")
-    _forest(res, fig_dir / "mr_top_forest.png")
+    (res_dir / f"mr_candidates{suffix}.json").write_text(json.dumps(summary, indent=2))
+    _volcano(res, config["fdr"], fig_dir / f"mr_volcano{suffix}.png")
+    _forest(res, fig_dir / f"mr_top_forest{suffix}.png")
     return {"table": res, "instruments": instruments, "selected": selected}
+
+
+def compare_outcomes(
+    primary: pd.DataFrame, sensitivity: pd.DataFrame, selected: list[str], fig_path: Path
+) -> dict:
+    """How the primary MR estimates hold up with a second outcome GWAS."""
+    m = primary[["trait", "beta", "p"]].merge(
+        sensitivity[["trait", "beta", "p"]], on="trait", suffixes=("_primary", "_sens")
+    )
+    sel = m[m["trait"].isin(selected)]
+    same = np.sign(sel["beta_primary"]) == np.sign(sel["beta_sens"])
+    out = {
+        "n_traits_both": len(m),
+        "beta_correlation": float(np.corrcoef(m["beta_primary"], m["beta_sens"])[0, 1])
+        if len(m) > 2
+        else None,
+        "selected_tested": len(sel),
+        "selected_same_sign": int(same.sum()),
+        "selected_p05_same_sign": int((same & (sel["p_sens"] < 0.05)).sum()),
+        "selected_not_tested": sorted(set(selected) - set(sel["trait"])),
+    }
+    fig, ax = plt.subplots(figsize=(5, 5))
+    ax.scatter(
+        m["beta_primary"], m["beta_sens"], s=8, color="#264653", alpha=0.3, label="all traits"
+    )
+    ax.scatter(
+        sel["beta_primary"],
+        sel["beta_sens"],
+        s=22,
+        color="#e76f51",
+        label=f"selected for ADNI ({out['selected_same_sign']}/{len(sel)} same sign)",
+    )
+    lim = float(np.nanmax(np.abs(m[["beta_primary", "beta_sens"]].to_numpy()))) * 1.05
+    ax.plot([-lim, lim], [-lim, lim], color="grey", lw=1, ls="--")
+    ax.axhline(0, color="grey", lw=0.5)
+    ax.axvline(0, color="grey", lw=0.5)
+    ax.set_xlabel("MR estimate, Bellenguez 2022 (includes UK Biobank)")
+    ax.set_ylabel("MR estimate, Kunkle 2019 (no UK Biobank)")
+    ax.legend(frameon=False, fontsize=8)
+    fig.tight_layout()
+    fig.savefig(fig_path, dpi=150)
+    plt.close(fig)
+    return out
