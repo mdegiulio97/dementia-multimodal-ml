@@ -95,3 +95,11 @@ def merge_region(pqtl: pd.DataFrame, gwas: pd.DataFrame) -> pd.DataFrame:
     m = p.merge(g, on=["chrom", "pos"])
     m = m[m["pair_x"] == m["pair_y"]].drop(columns=["pair_x", "pair_y"])
     return m.drop_duplicates(["chrom", "pos"]).sort_values("pos").reset_index(drop=True)
+
+
+def wald_for_variant(row: pd.Series):
+    """Wald ratio at one variant: UKB-PPP effect (per ALLELE1) and AD effect aligned to ALLELE1."""
+    from dementia_ml.mr.estimators import wald_ratio
+
+    sign = 1.0 if row["hm_effect_allele"] == row["ALLELE1"] else -1.0
+    return wald_ratio(row["BETA"], row["SE"], sign * row["hm_beta"], row["standard_error"])

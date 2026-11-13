@@ -69,3 +69,21 @@ def test_merge_region_matches_position_and_allele_set():
     m = coloc.merge_region(pq, gw)
     assert m["pos"].tolist() == [100, 200]  # 300: allele set G/A vs T/C does not match
     assert {"beta1", "se1", "beta2", "se2"} <= set(m.columns)
+
+
+def test_wald_for_variant_aligns_outcome_to_exposure_allele():
+    row = pd.Series(
+        {
+            "ALLELE0": "C",
+            "ALLELE1": "T",
+            "BETA": 0.5,
+            "SE": 0.02,
+            "hm_effect_allele": "C",
+            "hm_other_allele": "T",
+            "hm_beta": 0.1,
+            "standard_error": 0.01,
+        }
+    )
+    r = coloc.wald_for_variant(row)
+    assert r.beta == pytest.approx(-0.2)  # outcome flipped to the T allele: -0.1 / 0.5
+    assert r.se == pytest.approx(0.01 / 0.5)

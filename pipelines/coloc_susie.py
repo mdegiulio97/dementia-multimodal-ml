@@ -90,33 +90,41 @@ def main() -> None:
     for protein, (chrom, stem) in TARGETS.items():
         row = st9[st9["Assay Target"] == protein].sort_values("log10(p) (discovery)").iloc[-1]
         lead37 = int(str(row["Variant ID (CHROM:GENPOS (hg37):A0:A1:imp:v1)"]).split(":")[1])
-        pq = pqtl_region(syn, children, protein, chrom, lead37, paths.data_root() / "mr" / "ukbppp")
-        g = gwas_region(chrom, pq["GENPOS"].min(), pq["GENPOS"].max())
-        m = pq.merge(g, left_on="GENPOS", right_on="hm_pos")
-        m = m[
-            [
-                {a, b} == {c, d}
-                for a, b, c, d in zip(
-                    m["ALLELE0"],
-                    m["ALLELE1"],
-                    m["hm_other_allele"],
-                    m["hm_effect_allele"],
-                    strict=True,
-                )
-            ]
-        ]
         variants, M = ld_matrix(stem)
         variants = variants.reset_index().rename(columns={"index": "ld_index"})
-        m = m.merge(variants, left_on="pos37", right_on="position")
-        m = m[
-            [
-                {a, b} == {c, d}
-                for a, b, c, d in zip(
-                    m["ALLELE0"], m["ALLELE1"], m["allele1"], m["allele2"], strict=True
-                )
+        cache = paths.data_root() / "mr" / "coloc_regions" / f"{protein}.parquet"
+        cache.parent.mkdir(parents=True, exist_ok=True)
+        if cache.exists():
+            m = pd.read_parquet(cache)
+        else:
+            pq = pqtl_region(
+                syn, children, protein, chrom, lead37, paths.data_root() / "mr" / "ukbppp"
+            )
+            g = gwas_region(chrom, pq["GENPOS"].min(), pq["GENPOS"].max())
+            m = pq.merge(g, left_on="GENPOS", right_on="hm_pos")
+            m = m[
+                [
+                    {a, b} == {c, d}
+                    for a, b, c, d in zip(
+                        m["ALLELE0"],
+                        m["ALLELE1"],
+                        m["hm_other_allele"],
+                        m["hm_effect_allele"],
+                        strict=True,
+                    )
+                ]
             ]
-        ]
-        m = m.drop_duplicates("pos37").sort_values("pos37").reset_index(drop=True)
+            m = m.merge(variants, left_on="pos37", right_on="position")
+            m = m[
+                [
+                    {a, b} == {c, d}
+                    for a, b, c, d in zip(
+                        m["ALLELE0"], m["ALLELE1"], m["allele1"], m["allele2"], strict=True
+                    )
+                ]
+            ]
+            m = m.drop_duplicates("pos37").sort_values("pos37").reset_index(drop=True)
+            m.to_parquet(cache)
         sign_p = np.where(m["ALLELE1"] == m["allele2"], 1.0, -1.0)
         sign_g = np.where(m["hm_effect_allele"] == m["allele2"], 1.0, -1.0)
         z1 = sign_p * m["BETA"] / m["SE"]
@@ -136,6 +144,25 @@ def main() -> None:
             m.assign(beta1=m["BETA"], se1=m["SE"], beta2=m["hm_beta"], se2=m["standard_error"])
         )
         best = max(pairs, key=lambda r: r["PP.H4"]) if pairs else None
+        mr_coloc = []
+        for p in pairs:
+            if p["PP.H4"] < 0.8:
+                continue
+            w = coloc.wald_for_variant(m.loc[p["lead1"]])
+            mr_coloc.append(
+                {
+                    "instrument_pos37": int(m.loc[p["lead1"], "pos37"]),
+                    "instrument_id": str(m.loc[p["lead1"], "ID"]),
+                    "beta_log_odds_per_sd": w.beta,
+                    "se": w.se,
+                    "ci_low": w.ci_low,
+                    "ci_high": w.ci_high,
+                    "p": w.p,
+                    "PP.H4": p["PP.H4"],
+                }
+            )
+        strongest = m.loc[(m["BETA"] / m["SE"]).abs().idxmax()]
+        w0 = coloc.wald_for_variant(strongest)
         results[protein] = {
             "variants": len(m),
             "n_pqtl": n1,
@@ -152,6 +179,13 @@ def main() -> None:
             ],
             "max_PP.H4": best["PP.H4"] if best else None,
             "abf_on_same_variants": {k: v for k, v in abf.items() if k.startswith("PP")},
+            "mr_strongest_pqtl": {
+                "instrument_pos37": int(strongest["pos37"]),
+                "beta_log_odds_per_sd": w0.beta,
+                "se": w0.se,
+                "p": w0.p,
+            },
+            "mr_colocalising_instrument": mr_coloc,
         }
         print(
             protein,
