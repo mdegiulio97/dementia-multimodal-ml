@@ -250,6 +250,46 @@ adjusted for age, sex and APOE4. FDR was computed across all molecules of each p
 So the MR candidates are not validated as markers of progression; ACE is the one worth
 following up. Full tables: `results/adni_public/omics_proteins.csv` and `omics_metabolites.csv`.
 
+**Multimodal fusion: what do biomarkers add to the clinical prediction?**
+
+**Blocks.**
+- Clinical: age, education, APOE4, MMSE, ADAS13, CDR-SB, FAQ.
+- MRI: hippocampus and ICV, plus regional FreeSurfer volumes (amygdala, ventricles) and the
+  thickness of seven AD-signature regions.
+- CSF: Aβ42, t-tau, p-tau.
+- CSF proteomics: SomaScan 7k, reduced to 20 principal components.
+- Serum metabolomics: NMR, reduced to 10 components.
+
+**Method.**
+- Imputation, scaling and PCA are fitted inside each training fold.
+- Participants without a block get zeros for it, plus an indicator. This way all 1,146
+  participants are kept, although only 389 have proteomics and 785 have metabolomics.
+- Differences against the clinical model come from a paired bootstrap on the same
+  participants.
+
+| Blocks | C-index, ridge Cox | C-index, boosted | Difference vs clinical (Cox; boosted) |
+|---|---|---|---|
+| Baseline (age, MMSE, APOE4) | 0.69 (0.67-0.72) | 0.70 (0.67-0.72) | −0.12; −0.13 |
+| **Clinical** | 0.82 (0.80-0.83) | 0.82 (0.81-0.84) | — |
+| + hippocampus | 0.82 | 0.83 | +0.005 (−0.003, +0.013); +0.004 |
+| + regional MRI | 0.83 | 0.83 | +0.010 (−0.001, +0.019); +0.011 (+0.001, +0.019) |
+| + CSF | 0.82 | 0.83 | +0.006; +0.006 (both CIs include 0) |
+| + proteomics | 0.82 | 0.83 | 0.000; +0.003 (both include 0) |
+| + metabolomics | 0.82 | 0.82 | +0.004; +0.001 (both include 0) |
+| **All blocks** | 0.83 (0.82-0.85) | 0.84 (0.82-0.86) | **+0.018 (+0.006, +0.030); +0.016 (+0.005, +0.025)** |
+| Baseline + biomarkers (no CDR-SB, FAQ) | 0.79 (0.76-0.81) | 0.78 (0.75-0.80) | −0.028; −0.046 |
+
+- **Clinical scales carry most of the information.** All biomarkers together add about 0.02 in
+  C-index, which is real but small. Regional MRI is the single block that comes closest to
+  adding something on its own.
+- **The biology is there, but it overlaps with the clinical scales.** Without CDR-SB and FAQ,
+  biomarkers raise the baseline from 0.69 to 0.79. This answers the circularity caveat above:
+  the biomarkers predict conversion independently of the functional scales, but they add little
+  once those scales are known.
+- **Complete-case check ⚠.** Among the 358 participants with every block, all data together
+  reach 0.81 (0.77-0.84), the same as the clinical model (0.81). The small gain of the full
+  cohort does not show up in this subset.
+
 **Cognitive trajectories** (mixed model, 1,146 participants). Converters decline faster than
 stable MCI:
 - MMSE: 1.27 points/year faster (1.15-1.39);

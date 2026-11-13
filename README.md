@@ -68,6 +68,7 @@ uv run --extra dl python pipelines/eeg_eegnet.py          # EEGNet on CPU (about
 uv run python pipelines/prepare_adni.py --raw <unpacked ADNIMERGE2 download>   # local ADNI table
 uv run python pipelines/conversion.py --data adni
 uv run python pipelines/omics_adni.py --raw <unpacked ADNI download>           # MR candidates in ADNI
+uv run python pipelines/fusion_adni.py --raw <unpacked ADNI download>          # multimodal fusion
 uv run --extra mcp dementia-mcp                            # same tools over MCP (synthetic/open)
 ```
 
@@ -81,6 +82,8 @@ licences and checksums are listed in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md
 | MCI-to-dementia conversion, full model | ADNI, 1,146 MCI, 420 conversions | C-index 0.83 (0.81-0.85); td-AUC at 36 months 0.89 |
 | Same, clinical baseline (age, MMSE, APOE4) | same | C-index 0.69 (0.67-0.72) |
 | Faster decline in converters | same | MMSE 1.27/yr, ADAS13 2.85/yr, CDR-SB 1.07/yr |
+| Multimodal fusion (clinical + regional MRI + CSF + proteomics + metabolomics) | same, missing modalities kept | C-index 0.83-0.84; +0.02 (CI excludes 0) over clinical scales alone |
+| Biomarkers without functional scales | same | C-index 0.79 vs 0.69 baseline |
 | MR candidates vs conversion, CSF proteomics | ADNI, 389 MCI (170 conversions), SomaScan 7k | not enriched (4/48 at p<0.05; same direction 19/48); ACE HR 0.76/SD, p=0.0006, same direction as MR |
 | MR candidates vs conversion, NMR metabolomics | ADNI, 786 MCI (342 conversions) | not enriched (0/6 at p<0.05); no metabolite at FDR<0.05 |
 
@@ -145,15 +148,17 @@ pipelines/         one thin script per analysis (config in configs/)
 results/           open/ and synthetic/ result files (ADNI results stay local)
 figures/           PNG figures, indexed in docs/FIGURES.md
 docs/              data sources, results, model cards, agent
-tests/             130 tests; CI on Ubuntu and Windows
+tests/             135 tests; CI on Ubuntu and Windows
 ```
 
 ## Roadmap
 
 - **Phase 2.**
   - Done on open data: EEGNet, delta from 1 Hz, MR with an AD GWAS without UK Biobank.
-  - Done on ADNI: conversion models, trajectories, and the omics check of the MR candidates.
-  - Next: colocalisation for the MR hits (ACE first); FreeSurfer regional volumes.
+  - Done on ADNI: conversion models, trajectories, omics check of the MR candidates,
+    regional FreeSurfer measures and multimodal fusion with missing modalities.
+  - Next: colocalisation for the MR hits, starting with ACE (needs the UKB-PPP regional
+    summary statistics from Synapse).
 - **Phase 3.** A multimodal fusion model with missing modalities, compared with the best single
   modality and the baseline.
 

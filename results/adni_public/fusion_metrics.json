@@ -1,0 +1,516 @@
+{
+  "question": "Which data add to the clinical prediction of MCI-to-dementia conversion?",
+  "coverage": {
+    "baseline": 1146,
+    "clinical": 1146,
+    "mri_hippocampus": 1061,
+    "mri_regional": 1061,
+    "csf": 716,
+    "proteomics": 389,
+    "metabolomics": 785
+  },
+  "n_complete_case": 358,
+  "pca_components": {
+    "proteomics": 20,
+    "metabolomics": 10
+  },
+  "results": {
+    "baseline": {
+      "cox": {
+        "blocks": [
+          "baseline"
+        ],
+        "c_index": {
+          "estimate": 0.6924417508704915,
+          "ci_low": 0.665971990808236,
+          "ci_high": 0.7181419685224288
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.7389393804874151,
+        "delta_vs_reference": {
+          "estimate": -0.12296781582213867,
+          "ci_low": -0.14597722867028678,
+          "ci_high": -0.10149353030422036
+        }
+      },
+      "gbsa": {
+        "blocks": [
+          "baseline"
+        ],
+        "c_index": {
+          "estimate": 0.696386082094728,
+          "ci_low": 0.6672041259736042,
+          "ci_high": 0.7225960039818837
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.7386614338274127,
+        "delta_vs_reference": {
+          "estimate": -0.12666673779978166,
+          "ci_low": -0.15400657304897222,
+          "ci_high": -0.10165870829578363
+        }
+      }
+    },
+    "clinical": {
+      "cox": {
+        "blocks": [
+          "clinical"
+        ],
+        "c_index": {
+          "estimate": 0.8154095666926302,
+          "ci_low": 0.7958420753470193,
+          "ci_high": 0.8343877846160868
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8779551224605587
+      },
+      "gbsa": {
+        "blocks": [
+          "clinical"
+        ],
+        "c_index": {
+          "estimate": 0.8230528198945096,
+          "ci_low": 0.8049700904706483,
+          "ci_high": 0.841116489543623
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8843033508204443
+      }
+    },
+    "clinical+mri_hippocampus": {
+      "cox": {
+        "blocks": [
+          "clinical",
+          "mri_hippocampus"
+        ],
+        "c_index": {
+          "estimate": 0.8206236240188076,
+          "ci_low": 0.8012530865061214,
+          "ci_high": 0.8389905379799709
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8830153232483656,
+        "delta_vs_reference": {
+          "estimate": 0.005214057326177413,
+          "ci_low": -0.0029059652552377467,
+          "ci_high": 0.013146055086632151
+        }
+      },
+      "gbsa": {
+        "blocks": [
+          "clinical",
+          "mri_hippocampus"
+        ],
+        "c_index": {
+          "estimate": 0.8269402446267823,
+          "ci_low": 0.8090188922074287,
+          "ci_high": 0.8446304233571607
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8874412244697636,
+        "delta_vs_reference": {
+          "estimate": 0.0038874247322726596,
+          "ci_low": -0.0027498652161017764,
+          "ci_high": 0.009751798107052564
+        }
+      }
+    },
+    "clinical+mri_regional": {
+      "cox": {
+        "blocks": [
+          "clinical",
+          "mri_regional"
+        ],
+        "c_index": {
+          "estimate": 0.8251405768184291,
+          "ci_low": 0.8066806104961333,
+          "ci_high": 0.8434224410145701
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8888418621075627,
+        "delta_vs_reference": {
+          "estimate": 0.009731010125798911,
+          "ci_low": -0.0005636150945115893,
+          "ci_high": 0.019484304500090033
+        }
+      },
+      "gbsa": {
+        "blocks": [
+          "clinical",
+          "mri_regional"
+        ],
+        "c_index": {
+          "estimate": 0.8338401567773853,
+          "ci_low": 0.8172322202701078,
+          "ci_high": 0.8511370355503189
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8963284540020011,
+        "delta_vs_reference": {
+          "estimate": 0.010787336882875698,
+          "ci_low": 0.0011858672200130245,
+          "ci_high": 0.019150054377401058
+        }
+      }
+    },
+    "clinical+csf": {
+      "cox": {
+        "blocks": [
+          "clinical",
+          "csf"
+        ],
+        "c_index": {
+          "estimate": 0.8216123743166776,
+          "ci_low": 0.8024081778422044,
+          "ci_high": 0.8398955072999825
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8832222096971452,
+        "delta_vs_reference": {
+          "estimate": 0.006202807624047346,
+          "ci_low": -0.0027086774552403216,
+          "ci_high": 0.014346071220894107
+        }
+      },
+      "gbsa": {
+        "blocks": [
+          "clinical",
+          "csf"
+        ],
+        "c_index": {
+          "estimate": 0.8289533117799995,
+          "ci_low": 0.8108869638683942,
+          "ci_high": 0.8471610486511123
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.887918058508383,
+        "delta_vs_reference": {
+          "estimate": 0.005900491885489911,
+          "ci_low": -0.001399852909523964,
+          "ci_high": 0.012904502969123939
+        }
+      }
+    },
+    "clinical+proteomics": {
+      "cox": {
+        "blocks": [
+          "clinical",
+          "proteomics"
+        ],
+        "c_index": {
+          "estimate": 0.8153277636104324,
+          "ci_low": 0.7963383319867364,
+          "ci_high": 0.8352827786886594
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.873644291054453,
+        "delta_vs_reference": {
+          "estimate": -8.180308219785104e-05,
+          "ci_low": -0.006808633650086257,
+          "ci_high": 0.006238530723223956
+        }
+      },
+      "gbsa": {
+        "blocks": [
+          "clinical",
+          "proteomics"
+        ],
+        "c_index": {
+          "estimate": 0.8258536862958498,
+          "ci_low": 0.8079311427796998,
+          "ci_high": 0.8440081431603288
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8853215769253128,
+        "delta_vs_reference": {
+          "estimate": 0.0028008664013401408,
+          "ci_low": -0.0014609218923547496,
+          "ci_high": 0.007316062699234623
+        }
+      }
+    },
+    "clinical+metabolomics": {
+      "cox": {
+        "blocks": [
+          "clinical",
+          "metabolomics"
+        ],
+        "c_index": {
+          "estimate": 0.819403691097335,
+          "ci_low": 0.8004308804161393,
+          "ci_high": 0.8377093305732934
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8717872268036321,
+        "delta_vs_reference": {
+          "estimate": 0.003994124404704813,
+          "ci_low": -0.0027826963168237255,
+          "ci_high": 0.011098414588724775
+        }
+      },
+      "gbsa": {
+        "blocks": [
+          "clinical",
+          "metabolomics"
+        ],
+        "c_index": {
+          "estimate": 0.8240309002251363,
+          "ci_low": 0.8062036164393402,
+          "ci_high": 0.8414925056393006
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8798549526389774,
+        "delta_vs_reference": {
+          "estimate": 0.0009780803306266295,
+          "ci_low": -0.004685950713932171,
+          "ci_high": 0.00658862798151035
+        }
+      }
+    },
+    "baseline+biomarkers": {
+      "cox": {
+        "blocks": [
+          "baseline",
+          "mri_regional",
+          "csf",
+          "proteomics",
+          "metabolomics"
+        ],
+        "c_index": {
+          "estimate": 0.7875787354666155,
+          "ci_low": 0.7634722081531514,
+          "ci_high": 0.808387781373665
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8439546168215704,
+        "delta_vs_reference": {
+          "estimate": -0.027830831226014707,
+          "ci_low": -0.05109270212670648,
+          "ci_high": -0.006696349023629583
+        }
+      },
+      "gbsa": {
+        "blocks": [
+          "baseline",
+          "mri_regional",
+          "csf",
+          "proteomics",
+          "metabolomics"
+        ],
+        "c_index": {
+          "estimate": 0.7767273787802805,
+          "ci_low": 0.7529267907189069,
+          "ci_high": 0.7984578584556417
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8289135939190757,
+        "delta_vs_reference": {
+          "estimate": -0.04632544111422909,
+          "ci_low": -0.06970301801503642,
+          "ci_high": -0.02258677919535673
+        }
+      }
+    },
+    "all": {
+      "cox": {
+        "blocks": [
+          "clinical",
+          "mri_regional",
+          "csf",
+          "proteomics",
+          "metabolomics"
+        ],
+        "c_index": {
+          "estimate": 0.8336872205802328,
+          "ci_low": 0.8149595962861228,
+          "ci_high": 0.850482416222685
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8890316755665228,
+        "delta_vs_reference": {
+          "estimate": 0.018277653887602607,
+          "ci_low": 0.005785954663169256,
+          "ci_high": 0.03003038496700393
+        }
+      },
+      "gbsa": {
+        "blocks": [
+          "clinical",
+          "mri_regional",
+          "csf",
+          "proteomics",
+          "metabolomics"
+        ],
+        "c_index": {
+          "estimate": 0.8385740655776187,
+          "ci_low": 0.8202834493756955,
+          "ci_high": 0.8564832268711664
+        },
+        "n": 1146,
+        "n_events": 420,
+        "td_auc_36": 0.8964167513904427,
+        "delta_vs_reference": {
+          "estimate": 0.015521245683109086,
+          "ci_low": 0.005464927525246048,
+          "ci_high": 0.02545591124514781
+        }
+      }
+    }
+  },
+  "complete_case": {
+    "baseline": {
+      "cox": {
+        "blocks": [
+          "baseline"
+        ],
+        "c_index": {
+          "estimate": 0.6846769157572333,
+          "ci_low": 0.6426000875034025,
+          "ci_high": 0.7308166986020891
+        },
+        "n": 358,
+        "n_events": 159,
+        "td_auc_36": 0.7279842699146537,
+        "delta_vs_reference": {
+          "estimate": -0.12313776799785903,
+          "ci_low": -0.15992818935597397,
+          "ci_high": -0.08652219550395998
+        }
+      }
+    },
+    "clinical": {
+      "cox": {
+        "blocks": [
+          "clinical"
+        ],
+        "c_index": {
+          "estimate": 0.8078146837550924,
+          "ci_low": 0.7777117566093453,
+          "ci_high": 0.8397657600834381
+        },
+        "n": 358,
+        "n_events": 159,
+        "td_auc_36": 0.8834312143227849
+      }
+    },
+    "baseline+biomarkers": {
+      "cox": {
+        "blocks": [
+          "baseline",
+          "mri_regional",
+          "csf",
+          "proteomics",
+          "metabolomics"
+        ],
+        "c_index": {
+          "estimate": 0.7535460465669511,
+          "ci_low": 0.7147985111398376,
+          "ci_high": 0.7917551141034125
+        },
+        "n": 358,
+        "n_events": 159,
+        "td_auc_36": 0.8111708329451837,
+        "delta_vs_reference": {
+          "estimate": -0.05426863718814123,
+          "ci_low": -0.09111107552443126,
+          "ci_high": -0.021545240554242003
+        }
+      }
+    },
+    "all": {
+      "cox": {
+        "blocks": [
+          "clinical",
+          "mri_regional",
+          "csf",
+          "proteomics",
+          "metabolomics"
+        ],
+        "c_index": {
+          "estimate": 0.805703410746677,
+          "ci_low": 0.7722358727769034,
+          "ci_high": 0.8381105287535622
+        },
+        "n": 358,
+        "n_events": 159,
+        "td_auc_36": 0.8700323565687162,
+        "delta_vs_reference": {
+          "estimate": -0.002111273008415404,
+          "ci_low": -0.023804963246099403,
+          "ci_high": 0.016471834248880265
+        }
+      }
+    }
+  },
+  "provenance": {
+    "dataset": "ADNI (ADNIMERGE2, SomaScan 7k CSF, Nightingale NMR)",
+    "dataset_version": "raw_2026-11-13",
+    "config": {
+      "combos": {
+        "baseline": [
+          "baseline"
+        ],
+        "clinical": [
+          "clinical"
+        ],
+        "clinical+mri_hippocampus": [
+          "clinical",
+          "mri_hippocampus"
+        ],
+        "clinical+mri_regional": [
+          "clinical",
+          "mri_regional"
+        ],
+        "clinical+csf": [
+          "clinical",
+          "csf"
+        ],
+        "clinical+proteomics": [
+          "clinical",
+          "proteomics"
+        ],
+        "clinical+metabolomics": [
+          "clinical",
+          "metabolomics"
+        ],
+        "baseline+biomarkers": [
+          "baseline",
+          "mri_regional",
+          "csf",
+          "proteomics",
+          "metabolomics"
+        ],
+        "all": [
+          "clinical",
+          "mri_regional",
+          "csf",
+          "proteomics",
+          "metabolomics"
+        ]
+      },
+      "n_boot": 1000
+    },
+    "seed": 0,
+    "git_commit": "11e539dbc0bc37edcc0f6af4be0dd6b582dda125",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-13T11:42:14+00:00"
+  },
+  "publication": "ADNI summary data (Data Use Agreement term 3); see README"
+}

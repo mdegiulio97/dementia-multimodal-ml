@@ -92,4 +92,9 @@ def test_publish_script_includes_omics_aggregates():
     )
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    assert {"omics_summary.json", "omics_proteins.csv", "omics_metabolites.csv"} <= set(mod.FILES)
+    assert {
+        "omics_summary.json",
+        "omics_proteins.csv",
+        "omics_metabolites.csv",
+        "fusion_metrics.json",
+    } <= set(mod.FILES)

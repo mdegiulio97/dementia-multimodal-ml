@@ -161,3 +161,9 @@ intervals include 1.
 The same QQ plot for 250 serum NMR measures (786 participants, 342 conversions): mild departure
 from the diagonal, no measure at FDR < 0.05, and the 6 MR-selected metabolites near the
 diagonal.
+
+### `figures/adni_public/fusion_cindex.png`
+C-index (out-of-fold, 95% bootstrap CI) for each combination of data blocks, with ridge Cox and
+gradient-boosted survival, on all 1,146 ADNI participants with MCI. Adding the clinical scales
+lifts the baseline from 0.69 to 0.82. Each biomarker block adds at most about 0.01, and all
+blocks together about 0.02. Biomarkers without CDR-SB and FAQ reach 0.78-0.79.

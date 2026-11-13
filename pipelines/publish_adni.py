@@ -17,6 +17,7 @@ FILES = [
     "omics_summary.json",
     "omics_proteins.csv",
     "omics_metabolites.csv",
+    "fusion_metrics.json",
 ]
 
 
