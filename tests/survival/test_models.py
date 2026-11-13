@@ -55,3 +55,42 @@ def test_cross_validate_returns_survival_at_horizons():
     assert res["risk"].shape == (len(data.X),)
     assert res["surv"].shape == (len(data.X), 2)
     assert ((res["surv"] >= 0) & (res["surv"] <= 1)).all()
+
+
+def test_rare_missingness_gets_no_indicator():
+    rng = np.random.default_rng(0)
+    x = pd.DataFrame(
+        {
+            "AGE": rng.normal(73, 7, 200),
+            "MMSE": rng.normal(27, 2, 200),
+            "APOE4": rng.integers(0, 3, 200).astype(float),
+        }
+    )
+    x.loc[0, "MMSE"] = np.nan  # 0.5% missing: no indicator
+    x.loc[:39, "APOE4"] = np.nan  # 20% missing: indicator kept
+    out = preprocess.make_preprocessor(list(x.columns)).fit(x).transform(x)
+    assert "missingindicator_MMSE" not in out.columns
+    assert "missingindicator_APOE4" in out.columns
+    assert not out.isna().any().any()
+
+
+def test_cox_baseline_survives_a_single_missing_value():
+    df = synthetic.make_cohort(n_subjects=600, seed=4)
+    data = conversion.build(df, features=conversion.FULL_FEATURES)
+    first_event = int(np.argmin(np.where(data.event, data.time, np.inf)))
+    data.X.iloc[first_event, data.X.columns.get_loc("MMSE")] = np.nan
+    res = models.cross_validate("cox_baseline", data, n_splits=5, seed=0)
+    assert np.isfinite(res["risk"]).all()
+
+
+def test_km_curve_stops_before_fewer_than_10_at_risk():
+    from dementia_ml.survival import figures
+
+    rng = np.random.default_rng(0)
+    time = np.r_[rng.uniform(1, 60, 95), [150.0, 160, 170, 200, 220]]
+    event = np.ones(100, dtype=bool)
+    t, s = figures.km_curve(time, event, min_at_risk=10)
+    assert t[0] == 0.0 and s[0] == 1.0
+    at_risk_last = (time >= t[-1]).sum()
+    assert at_risk_last >= 10
+    assert t.max() < 150

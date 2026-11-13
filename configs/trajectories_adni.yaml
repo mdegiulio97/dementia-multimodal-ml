@@ -1,0 +1,3 @@
+seed: 0
+outcomes: [MMSE, ADAS13, CDRSB]
+adnimerge_file: adni/ADNIMERGE.csv

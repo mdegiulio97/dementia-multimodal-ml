@@ -20,6 +20,22 @@ LABELS = {
 }
 
 
+MIN_AT_RISK = 10
+
+
+def km_curve(time, event, min_at_risk: int = MIN_AT_RISK) -> tuple[np.ndarray, np.ndarray]:
+    """Kaplan-Meier survival from time 0, cut where fewer than ``min_at_risk`` remain at risk.
+
+    The tail beyond that point is unstable and, with one or two people left, close to
+    describing individuals, so it is not drawn.
+    """
+    time, event = np.asarray(time, float), np.asarray(event, bool)
+    t, s = kaplan_meier_estimator(event, time)
+    at_risk = np.array([(time >= ti).sum() for ti in t])
+    keep = at_risk >= min_at_risk
+    return np.r_[0.0, t[keep]], np.r_[1.0, s[keep]]
+
+
 def km_by_risk_tertile(time, event, risk, model: str, path: Path) -> None:
     tert = pd.qcut(risk, 3, labels=["low", "middle", "high"])
     fig, ax = plt.subplots(figsize=(5.5, 4))
@@ -27,10 +43,9 @@ def km_by_risk_tertile(time, event, risk, model: str, path: Path) -> None:
         ["low", "middle", "high"], ["#2a9d8f", "#e9c46a", "#e76f51"], strict=True
     ):
         m = np.asarray(tert == label)
-        t, s = kaplan_meier_estimator(event[m], time[m])
-        t, s = np.r_[0.0, t], np.r_[1.0, s]
+        t, s = km_curve(time[m], event[m])
         ax.step(t, 1 - s, where="post", color=color, label=f"{label} risk (n={m.sum()})")
-    ax.set_xlabel("Months from baseline")
+    ax.set_xlabel(f"Months from baseline (curves stop below {MIN_AT_RISK} at risk)")
     ax.set_ylabel("Cumulative conversion to dementia")
     ax.set_title(f"Out-of-fold risk tertiles: {LABELS.get(model, model)}", fontsize=10)
     ax.legend(frameon=False)

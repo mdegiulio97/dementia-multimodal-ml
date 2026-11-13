@@ -5,7 +5,6 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 
@@ -37,11 +36,41 @@ class HippocampusResidualizer(BaseEstimator, TransformerMixin):
         return np.asarray(names + (["Hippocampus_z"] if self.active_ else []))
 
 
+class ImputeWithIndicators(BaseEstimator, TransformerMixin):
+    """Median imputation; a missingness indicator only for features missing in at least
+    ``min_missing_frac`` of the training rows.
+
+    A near-constant indicator (a handful of missing values) carries no usable information and
+    makes an unpenalised Cox model diverge, so it is not created.
+    """
+
+    def __init__(self, min_missing_frac: float = 0.05):
+        self.min_missing_frac = min_missing_frac
+
+    def fit(self, X: pd.DataFrame, y=None):
+        self.medians_ = X.median()
+        frac = X.isna().mean()
+        self.indicators_ = [c for c in X.columns if frac[c] >= self.min_missing_frac]
+        self.feature_names_in_ = np.asarray(X.columns)
+        return self
+
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
+        out = X.fillna(self.medians_).astype(float)
+        for c in self.indicators_:
+            out[f"missingindicator_{c}"] = X[c].isna().astype(float)
+        return out
+
+    def get_feature_names_out(self, input_features=None):
+        return np.asarray(
+            list(self.feature_names_in_) + [f"missingindicator_{c}" for c in self.indicators_]
+        )
+
+
 def make_preprocessor(features: list[str]) -> Pipeline:
     pipe = Pipeline(
         [
             ("hippocampus", HippocampusResidualizer()),
-            ("impute", SimpleImputer(strategy="median", add_indicator=True)),
+            ("impute", ImputeWithIndicators(min_missing_frac=0.05)),
             ("scale", StandardScaler()),
         ]
     )
