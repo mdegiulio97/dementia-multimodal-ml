@@ -1,0 +1,59 @@
+"""Approximate Bayes factor colocalisation (Giambartolomei et al. 2014, PLoS Genet,
+doi:10.1371/journal.pgen.1004383), as in the R package ``coloc`` (``coloc.abf``).
+
+Assumes at most one causal variant per trait in the region. Hypotheses:
+H0 no association; H1 trait 1 only; H2 trait 2 only; H3 both, different variants;
+H4 both, one shared variant.
+"""
+
+from __future__ import annotations
+
+import numpy as np
+import pandas as pd
+from scipy.special import logsumexp
+
+
+def log_abf(beta: np.ndarray, se: np.ndarray, prior_sd: float) -> np.ndarray:
+    """Wakefield (2009) log approximate Bayes factor per SNP."""
+    v = np.asarray(se, float) ** 2
+    w = prior_sd**2
+    r = w / (w + v)
+    z = np.asarray(beta, float) / np.asarray(se, float)
+    return 0.5 * (np.log(1 - r) + r * z**2)
+
+
+def _logdiff(a: float, b: float) -> float:
+    """log(exp(a) - exp(b)) for a > b."""
+    return a + np.log1p(-np.exp(b - a))
+
+
+def coloc_abf(
+    df: pd.DataFrame,
+    p1: float = 1e-4,
+    p2: float = 1e-4,
+    p12: float = 1e-5,
+    sd1: float = 0.15,
+    sd2: float = 0.2,
+) -> dict:
+    """``df`` has beta1, se1 (trait 1, e.g. a protein) and beta2, se2 (trait 2, e.g. AD log-odds).
+
+    ``sd1`` = 0.15 is coloc's default for a quantitative trait, ``sd2`` = 0.2 for a case-control
+    log-odds ratio.
+    """
+    l1 = log_abf(df["beta1"], df["se1"], sd1)
+    l2 = log_abf(df["beta2"], df["se2"], sd2)
+    s1, s2, s12 = logsumexp(l1), logsumexp(l2), logsumexp(l1 + l2)
+    lh = np.array(
+        [
+            0.0,
+            np.log(p1) + s1,
+            np.log(p2) + s2,
+            np.log(p1) + np.log(p2) + _logdiff(s1 + s2, s12),
+            np.log(p12) + s12,
+        ]
+    )
+    pp = np.exp(lh - logsumexp(lh))
+    out = {f"PP.H{i}": float(p) for i, p in enumerate(pp)}
+    out["n_snps"] = len(df)
+    out["top_shared_snp_index"] = int(np.argmax(l1 + l2))
+    return out
