@@ -27,6 +27,23 @@ def _logdiff(a: float, b: float) -> float:
     return a + np.log1p(-np.exp(b - a))
 
 
+def posterior_from_lbf(
+    l1: np.ndarray, l2: np.ndarray, p1: float = 1e-4, p2: float = 1e-4, p12: float = 1e-5
+) -> np.ndarray:
+    """PP.H0..H4 from per-SNP log Bayes factors of two traits (coloc.bf_bf)."""
+    s1, s2, s12 = logsumexp(l1), logsumexp(l2), logsumexp(l1 + l2)
+    lh = np.array(
+        [
+            0.0,
+            np.log(p1) + s1,
+            np.log(p2) + s2,
+            np.log(p1) + np.log(p2) + _logdiff(s1 + s2, s12),
+            np.log(p12) + s12,
+        ]
+    )
+    return np.exp(lh - logsumexp(lh))
+
+
 def coloc_abf(
     df: pd.DataFrame,
     p1: float = 1e-4,
@@ -40,19 +57,9 @@ def coloc_abf(
     ``sd1`` = 0.15 is coloc's default for a quantitative trait, ``sd2`` = 0.2 for a case-control
     log-odds ratio.
     """
-    l1 = log_abf(df["beta1"], df["se1"], sd1)
-    l2 = log_abf(df["beta2"], df["se2"], sd2)
-    s1, s2, s12 = logsumexp(l1), logsumexp(l2), logsumexp(l1 + l2)
-    lh = np.array(
-        [
-            0.0,
-            np.log(p1) + s1,
-            np.log(p2) + s2,
-            np.log(p1) + np.log(p2) + _logdiff(s1 + s2, s12),
-            np.log(p12) + s12,
-        ]
-    )
-    pp = np.exp(lh - logsumexp(lh))
+    l1 = np.asarray(log_abf(df["beta1"], df["se1"], sd1))
+    l2 = np.asarray(log_abf(df["beta2"], df["se2"], sd2))
+    pp = posterior_from_lbf(l1, l2, p1, p2, p12)
     out = {f"PP.H{i}": float(p) for i, p in enumerate(pp)}
     out["n_snps"] = len(df)
     out["top_shared_snp_index"] = int(np.argmax(l1 + l2))
