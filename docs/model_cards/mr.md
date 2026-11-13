@@ -33,7 +33,11 @@ conversion better than other molecules: 48 CSF aptamers among 389 MCI participan
 serum NMR measures among 786. The exception is ACE, with CSF HR 0.76 per SD (p = 0.0006) in
 the direction predicted by MR. See RESULTS.md.
 
+**Colocalisation.** coloc ABF on the nine strongest candidates. Seven share the causal variant
+with AD (PP.H4 > 0.93): CR1, PILRA, PILRB, IL34, C1S, C1R, CD33. ACE and EPHA1 do not under
+the single-variant assumption.
+
 **Limitations.** Nearly all proteins have a single cis instrument, so Egger and weighted median
-cannot be estimated and pleiotropy cannot be tested; no colocalisation, so a hit at a GWAS locus
-may reflect a nearby causal variant in LD; UK Biobank participants are in both the pQTL study
+cannot be estimated and pleiotropy cannot be tested. Colocalisation covers only nine candidates
+and assumes one causal variant per region. UK Biobank participants are in both the pQTL study
 and the AD GWAS (sample overlap), which biases estimates towards the observational association.

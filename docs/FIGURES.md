@@ -167,3 +167,9 @@ C-index (out-of-fold, 95% bootstrap CI) for each combination of data blocks, wit
 gradient-boosted survival, on all 1,146 ADNI participants with MCI. Adding the clinical scales
 lifts the baseline from 0.69 to 0.82. Each biomarker block adds at most about 0.01, and all
 blocks together about 0.02. Biomarkers without CDR-SB and FAQ reach 0.78-0.79.
+
+### `figures/open/mr_coloc_candidates.png`
+Posterior probabilities from coloc ABF for the nine strongest MR candidates against AD, using
+UKB-PPP regional statistics (±500 kb) and Bellenguez 2022. Green: shared causal variant (H4).
+Red: distinct variants in the same region (H3). Seven proteins colocalise; ACE and EPHA1 do not
+under the single-variant model.

@@ -124,6 +124,37 @@ Bellenguez 2022, so the screen was repeated with Kunkle et al. 2019
 The sample overlap therefore does not create the signal: the selected molecules keep their
 direction in an independent GWAS.
 
+**Colocalisation of the strongest candidates ✓/⚠.** The question is whether the protein and
+AD share the same causal variant. If they do not, the MR signal could come from linkage
+disequilibrium with a different variant.
+
+**Method.** coloc ABF (Giambartolomei et al. 2014, doi:10.1371/journal.pgen.1004383): priors
+p1 = p2 = 1e-4 and p12 = 1e-5, a ±500 kb window around the cis lead variant, UKB-PPP European
+discovery regional summary statistics against Bellenguez 2022 (GRCh38). It was run on the nine
+candidates that held up with Kunkle 2019.
+
+| Protein | Variants | PP.H4 (shared) | PP.H3 (distinct) |
+|---|---|---|---|
+| CR1 | 4,261 | 0.996 | 0.004 |
+| PILRA | 3,253 | 0.995 | 0.005 |
+| PILRB | 3,251 | 0.995 | 0.005 |
+| IL34 | 2,629 | 0.970 | 0.025 |
+| C1S | 3,958 | 0.961 | 0.033 |
+| CD33 | 5,555 | 0.953 | 0.024 |
+| C1R | 3,978 | 0.939 | 0.051 |
+| EPHA1 | 2,549 | 0.016 | 0.984 |
+| ACE | 3,227 | 0.001 | 0.999 |
+
+- **Seven proteins colocalise strongly** (PP.H4 > 0.93): CR1, PILRA/PILRB, IL34, C1S/C1R and
+  CD33.
+- **CD33 matches the known answer ✓.** Zheng et al. 2020 also report CD33 as colocalised.
+- **ACE and EPHA1 do not colocalise under this method ⚠.** ABF assumes one causal variant per
+  trait in the region. A locus with several independent pQTLs can be called H3 for that reason
+  alone. Separating them needs SuSiE-based colocalisation with an LD reference panel, not done
+  here.
+- **So the one candidate confirmed in ADNI (ACE) is the one whose genetic link to AD is least
+  clear.** ACE stays a candidate, and the conditional analysis of its locus is the next step.
+
 **Correcting a harmonisation bug mattered.** An earlier version flipped the sign of
 palindromic instruments (A/T, C/G) whose alleles were listed in the opposite order. This
 corrupted the multi-instrument metabolite estimates (0 significant before the fix, 7 after),

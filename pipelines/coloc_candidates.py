@@ -48,10 +48,46 @@ def fetch_region(syn, folder_children, protein, chrom, lo, hi, dest: Path) -> pd
     return df[(df["GENPOS"] >= lo) & (df["GENPOS"] <= hi)]
 
 
+def plot(results: dict, path: Path) -> None:
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    names = sorted(results, key=lambda k: results[k]["PP.H4"])
+    fig, ax = plt.subplots(figsize=(5.5, 0.4 * len(names) + 1.2))
+    left = [0.0] * len(names)
+    for h, color, label in [
+        ("PP.H4", "#2a9d8f", "H4: shared causal variant"),
+        ("PP.H3", "#e76f51", "H3: distinct variants"),
+        ("PP.H1", "#e9c46a", "H1/H2/H0: one trait or none"),
+    ]:
+        vals = [
+            results[n][h]
+            if h != "PP.H1"
+            else results[n]["PP.H0"] + results[n]["PP.H1"] + results[n]["PP.H2"]
+            for n in names
+        ]
+        ax.barh(names, vals, left=left, color=color, label=label)
+        left = [a + b for a, b in zip(left, vals, strict=True)]
+    ax.set_xlim(0, 1)
+    ax.set_xlabel("Posterior probability (coloc ABF), protein vs Alzheimer's disease")
+    ax.legend(frameon=False, fontsize=7, loc="lower right")
+    fig.tight_layout()
+    fig.savefig(path, dpi=150)
+    plt.close(fig)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--proteins", nargs="*", default=PROTEINS)
+    ap.add_argument("--plot-only", action="store_true", help="redraw the figure from the JSON")
     args = ap.parse_args()
+    out_json = paths.results_dir("open") / "coloc_candidates.json"
+    fig_path = paths.figures_dir("open") / "mr_coloc_candidates.png"
+    if args.plot_only:
+        plot(json.loads(out_json.read_text())["results"], fig_path)
+        return
     import synapseclient
 
     syn = synapseclient.Synapse(silent=True)
@@ -119,7 +155,8 @@ def main() -> None:
             "UKB-PPP syn51364943 + GCST90027158", "regional", {"window": WINDOW}, 0
         ),
     }
-    (paths.results_dir("open") / "coloc_candidates.json").write_text(json.dumps(out, indent=2))
+    out_json.write_text(json.dumps(out, indent=2))
+    plot(results, fig_path)
 
 
 if __name__ == "__main__":
