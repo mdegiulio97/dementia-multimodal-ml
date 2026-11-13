@@ -1,0 +1,11 @@
+# EEGNet on raw windows (CPU). Same participant-level outer folds as the spectral models.
+bids_dir: eeg/ds004504
+sfreq: 125          # Hz after resampling
+window_s: 4.0       # non-overlapping windows
+tasks: [AD_vs_CN, FTD_vs_CN]
+n_splits: 5
+max_epochs: 15
+patience: 4         # early stopping on an inner validation split by participant
+n_boot: 1000
+seed: 0
+threads: 8
