@@ -72,3 +72,18 @@ def test_load_outcome_filters_snps_and_strips_cr(tmp_path):
     out = sources.load_outcome(path, snps={"rs2"}, chunksize=1)
     assert out["snp"].tolist() == ["rs2"]
     assert out["pval"].iloc[0] == 0.5 and np.isclose(out["beta"].iloc[0], -0.2)
+
+
+def test_cached_outcome_reuses_cache_for_searched_snps(tmp_path):
+    calls = []
+
+    def loader(snps):
+        calls.append(set(snps))
+        return pd.DataFrame({"snp": sorted(s for s in snps if s != "rs_absent"), "beta": 0.1})
+
+    cache = tmp_path / "outcome.parquet"
+    first = sources.cached_outcome(cache, {"rs1", "rs_absent"}, loader)
+    again = sources.cached_outcome(cache, {"rs1", "rs_absent"}, loader)
+    assert len(calls) == 1 and first.equals(again)
+    sources.cached_outcome(cache, {"rs1", "rs2"}, loader)
+    assert len(calls) == 2 and calls[-1] == {"rs1", "rs2", "rs_absent"}

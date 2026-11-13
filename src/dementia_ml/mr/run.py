@@ -102,6 +102,7 @@ def run(
     res.to_csv(res_dir / "mr_candidates.csv", index=False)
     (res_dir / "mr_candidates_selected.txt").write_text("\n".join(selected) + "\n")
     log = pd.concat(logs, ignore_index=True)
+    log.to_csv(res_dir / "mr_harmonisation_log.csv", index=False)
     summary = {
         "question": "Which circulating proteins and metabolites have genetic evidence of a causal effect on Alzheimer's disease?",
         "n_traits_tested": {k: int((res["kind"] == k).sum()) for k in exposures},

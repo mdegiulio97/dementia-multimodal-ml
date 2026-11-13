@@ -131,9 +131,13 @@ def run(kind: str, config: dict, out_root: Path | None = None) -> dict:
     figures.calibration(cal, cal_h, best, fig_dir / f"conversion_calibration_{cal_h:.0f}m.png")
     figures.cindex_forest(results, fig_dir / "conversion_cindex_forest.png")
 
+    cohort = {
+        **data.meta,
+        "observed_per_feature": {c: int(data.X[c].notna().sum()) for c in data.X.columns},
+    }
     payload = {
         "question": "Which participants with MCI convert to dementia, and when?",
-        "cohort": data.meta,
+        "cohort": cohort,
         "best_model": best,
         "calibration": {"model": best, "horizon_months": cal_h, "table": cal.to_dict("records")},
         "models": results,

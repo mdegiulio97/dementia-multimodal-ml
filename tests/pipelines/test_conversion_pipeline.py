@@ -39,6 +39,8 @@ def test_pipeline_synthetic_end_to_end(tmp_path):
     boot = joblib.load(tmp_path / "models/synthetic/conversion_cox_full_bootstrap.joblib")
     assert len(boot["pipelines"]) == 5
     assert summary["best_model"] in res["models"]
+    observed = res["cohort"]["observed_per_feature"]
+    assert observed["ABETA"] < observed["AGE"] == res["cohort"]["n_included"]
 
 
 def test_pipeline_adni_writes_only_to_private_dirs(tmp_path, monkeypatch):

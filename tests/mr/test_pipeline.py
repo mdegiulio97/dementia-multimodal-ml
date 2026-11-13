@@ -103,6 +103,12 @@ def test_pipeline_on_fixtures(tmp_path):
     assert set(CAUSAL) <= set(selected)
     assert (tmp_path / "figures/open/mr_volcano.png").exists()
     assert (tmp_path / "figures/open/mr_top_forest.png").exists()
+    log = pd.read_csv(tmp_path / "results/open/mr_harmonisation_log.csv")
+    assert {"trait", "snp", "dropped_reason"} <= set(log.columns)
+    assert len(log) == int(
+        (exp["pval"] < 5e-8).sum()
+    )  # every candidate instrument is accounted for
+    assert (log.loc[log["snp"] == "rs_near", "dropped_reason"] == "pruned_window").all()
 
 
 def test_excluded_region_instruments_are_dropped():

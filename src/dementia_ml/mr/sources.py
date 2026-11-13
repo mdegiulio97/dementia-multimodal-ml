@@ -52,7 +52,7 @@ def download(key: str, dest: Path) -> Path:
     path = dest / cfg["url"].rsplit("/", 1)[-1].replace("%", "_")
     if not path.exists():
         req = urllib.request.Request(cfg["url"], headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req) as r, path.open("wb") as fh:  # noqa: S310
+        with urllib.request.urlopen(req, timeout=60) as r, path.open("wb") as fh:  # noqa: S310
             while chunk := r.read(1 << 20):
                 fh.write(chunk)
     if cfg.get("size_bytes") and path.stat().st_size != cfg["size_bytes"]:
@@ -145,3 +145,21 @@ def load_outcome(path: Path, snps: set[str], chunksize: int = 2_000_000) -> pd.D
     for c in ("eaf", "beta", "se", "pval"):
         out[c] = pd.to_numeric(out[c], errors="coerce")
     return out.drop_duplicates("snp").reset_index(drop=True)
+
+
+def cached_outcome(cache: Path, snps: set[str], loader) -> pd.DataFrame:
+    """Outcome rows for ``snps``, reading the big GWAS file only when needed.
+
+    The cache remembers which SNPs were searched (``<cache>.searched.txt``), so SNPs
+    absent from the GWAS do not force a new read on every run.
+    """
+    searched_file = cache.with_suffix(".searched.txt")
+    if cache.exists() and searched_file.exists():
+        searched = set(searched_file.read_text().split())
+        if snps <= searched:
+            return pd.read_parquet(cache)
+        snps = snps | searched
+    out = loader(snps)
+    out.to_parquet(cache)
+    searched_file.write_text("\n".join(sorted(snps)))
+    return out

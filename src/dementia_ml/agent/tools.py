@@ -189,9 +189,13 @@ def build_registry(kind: str = "synthetic", root: Path | None = None) -> dict[st
 
     def cohort_summary(filters: dict | None = None, variable: str = "MMSE") -> ToolResult:
         filters = filters or {}
-        if ID_COLUMNS & (set(filters) | {variable}):
+        ids = {c.lower() for c in ID_COLUMNS}
+        if ids & {str(k).lower() for k in (*filters, variable)}:
             return ToolResult(refused="individual-level queries are not allowed")
         df = ctx.cohort()
+        canonical = {c.lower(): c for c in (*df.columns, *CATEGORICAL_FILTERS)}
+        variable = canonical.get(str(variable).lower(), variable)
+        filters = {canonical.get(str(k).lower(), k): v for k, v in filters.items()}
         unknown = (set(filters) | {variable}) - set(df.columns)
         if unknown:
             return ToolResult(

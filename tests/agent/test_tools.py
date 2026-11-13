@@ -118,3 +118,14 @@ def test_predict_risk_at_end_of_follow_up(reg):
         or r.value["warnings"]
     )
     assert r.value["horizon_used_months"] <= 48
+
+
+def test_cohort_summary_accepts_lowercase(reg):
+    upper = reg["cohort_summary"].fn(filters={"APOE4": 0}, variable="MMSE")
+    lower = reg["cohort_summary"].fn(filters={"apoe4": 0}, variable="mmse")
+    assert lower.refused is None and lower.value["mean"] == upper.value["mean"]
+
+
+def test_cohort_summary_refuses_lowercase_ids(reg):
+    r = reg["cohort_summary"].fn(filters={"rid": 10001}, variable="mmse")
+    assert r.refused and "individual" in r.refused

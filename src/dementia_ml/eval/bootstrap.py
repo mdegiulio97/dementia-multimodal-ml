@@ -28,6 +28,8 @@ def ci(
             continue
         if np.isfinite(value):
             stats.append(value)
+    if not stats:
+        raise ValueError(f"no valid bootstrap resample out of {n_boot}; the statistic is undefined")
     alpha = (1 - level) / 2
     low, high = np.quantile(stats, [alpha, 1 - alpha])
     return estimate, float(low), float(high)

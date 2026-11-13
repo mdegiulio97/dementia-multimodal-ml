@@ -71,3 +71,16 @@ def test_td_auc_with_events_at_administrative_end():
     risk = -d.X["MMSE"].fillna(28).to_numpy()
     auc = metrics.td_auc(d.time, d.event, d.time, d.event, risk, times=[24.0, 36.0])
     assert np.isfinite(auc).all()
+
+
+def test_bootstrap_ci_all_invalid_raises_clear_error():
+    calls = {"n": 0}
+
+    def estimate_then_fail(idx):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return 1.0  # the point estimate on the full sample works
+        raise ValueError("single class in resample")
+
+    with pytest.raises(ValueError, match="no valid bootstrap resample"):
+        bootstrap.ci(estimate_then_fail, n=10, n_boot=20)

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 
@@ -20,6 +21,16 @@ from dementia_ml.mr.sources import config as source_config  # noqa: E402
 
 COLORS = {"CN": "#2a9d8f", "AD": "#e76f51", "FTD": "#264653"}
 GROUPS = ("CN", "AD", "FTD")
+
+
+CACHE_KEYS = ("epoch_s", "overlap", "use_derivatives", "fmin")
+
+
+def cache_path(root: Path, cfg: dict) -> Path:
+    """Feature cache named after every parameter that changes the features."""
+    key = {k: cfg.get(k, features.FMIN if k == "fmin" else None) for k in CACHE_KEYS}
+    digest = hashlib.sha256(json.dumps(key, sort_keys=True).encode()).hexdigest()[:10]
+    return Path(root) / f"features_ds004504_{digest}.parquet"
 
 
 def extract(bids_root: Path, cfg: dict, cache: Path) -> pd.DataFrame:
@@ -106,7 +117,7 @@ def _topomap_figure(feats: pd.DataFrame, path: Path) -> None:
 def run(cfg: dict, out_root: Path | None = None) -> dict:
     out_root = out_root or paths.REPO_ROOT
     bids_root = paths.data_root() / cfg["bids_dir"]
-    feats = extract(bids_root, cfg, paths.data_root() / "eeg" / "features_ds004504.parquet")
+    feats = extract(bids_root, cfg, cache_path(paths.data_root() / "eeg", cfg))
     X = feats.drop(columns=["subject", "group"])
     res_dir, fig_dir = paths.results_dir("open", out_root), paths.figures_dir("open", out_root)
     results, preds = {}, []

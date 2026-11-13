@@ -81,7 +81,11 @@ def run_screen(
         )
     sel = sel[~in_region]
     for trait, exp in sel.groupby("trait", sort=True):
-        exp = prune_by_distance(exp, window_kb)
+        kept = prune_by_distance(exp, window_kb)
+        pruned = exp.drop(index=kept.index)
+        if len(pruned):
+            logs.append(pruned[["snp", "trait"]].assign(kind=kind, dropped_reason="pruned_window"))
+        exp = kept
         h = harmonise(exp, outcome)
         logs.append(h.assign(trait=trait, kind=kind))
         usable = h[h["dropped_reason"].isna()]

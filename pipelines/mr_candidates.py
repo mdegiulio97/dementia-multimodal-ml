@@ -29,16 +29,11 @@ def main() -> None:
     }
     snps = set(pd.concat(exposures.values())["snp"])
     gwas_path = sources.download("gwas_ad", dest)
-    cache = dest / "outcome_at_instruments.parquet"
-    if cache.exists():
-        outcome = pd.read_parquet(cache)
-        missing = snps - set(outcome["snp"])
-        if missing:
-            outcome = sources.load_outcome(gwas_path, snps)
-            outcome.to_parquet(cache)
-    else:
-        outcome = sources.load_outcome(gwas_path, snps)
-        outcome.to_parquet(cache)
+    outcome = sources.cached_outcome(
+        dest / "outcome_at_instruments.parquet",
+        snps,
+        lambda s: sources.load_outcome(gwas_path, s),
+    )
 
     names = {k: sources.config(k)["paper_doi"] for k in ("pqtl", "mqtl")}
     names["outcome"] = sources.config("gwas_ad")["accession"]
