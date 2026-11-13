@@ -74,3 +74,49 @@ The 20 most significant MR estimates with 95% confidence intervals (log-odds of 
 the exposure). Most top hits sit in known AD GWAS loci (CR1, TREM2, CD2AP, EPHA1, ACE, GRN,
 CD33); with a single cis instrument and no colocalisation, a hit means "the protein is a
 candidate", not "the protein is causal".
+
+## Sensitivity analyses (phase 2)
+
+### `figures/open/eeg_band_power_by_group_delta1.png`
+Same as the band-power figure, with the delta band and the total power computed from 1 Hz
+instead of 0.5 Hz. Delta still holds about 80% of the power in every group, so the dominance of
+slow activity in these recordings does not depend on where the band starts.
+
+### `figures/open/eeg_topomap_theta_alpha_delta1.png`
+Theta/alpha scalp maps with the 1-Hz lower edge. Identical pattern: posterior alpha in controls,
+diffuse slowing in AD.
+
+### `figures/open/eeg_roc_AD_vs_CN_delta1.png`
+AD vs controls with the 1-Hz lower edge: AUC 0.90 (logistic and LightGBM), as in the primary
+analysis.
+
+### `figures/open/eeg_roc_FTD_vs_CN_delta1.png`
+FTD vs controls with the 1-Hz lower edge: AUC 0.76 (logistic) and 0.83 (LightGBM), as in the
+primary analysis.
+
+### `figures/open/eeg_roc_AD_vs_FTD_delta1.png`
+AD vs FTD with the 1-Hz lower edge: still near chance.
+
+### `figures/open/mr_bellenguez_vs_kunkle.png`
+MR estimate of every protein and metabolite with the primary AD GWAS (Bellenguez 2022, which
+includes UK Biobank, x axis) against an AD GWAS without UK Biobank (Kunkle 2019, y axis). Orange
+points are the 50 molecules selected for ADNI: 42 of the 45 testable ones keep their sign. The
+estimates for all traits correlate at r = 0.42, since many of them are pure noise; the selected
+ones sit along the diagonal.
+
+### `figures/open/mr_volcano_kunkle.png`
+Volcano plot of the screen with Kunkle 2019 as outcome. Fewer traits pass FDR (9 proteins)
+because the GWAS is smaller, and because without allele frequencies every palindromic
+instrument has to be dropped.
+
+### `figures/open/mr_top_forest_kunkle.png`
+The 20 strongest estimates with Kunkle 2019 as outcome. The nine at FDR < 0.05 are CR1, EPHA1,
+CELA2A, PILRA, PILRB, C1S, C1R, CD33 and IL34. All but CELA2A are among the molecules selected
+in the primary analysis.
+
+### `figures/open/eeg_roc_AD_vs_CN_eegnet.png`
+Participant-level ROC of EEGNet for AD vs controls: AUC 0.81 (0.69-0.90), below the 0.91 of the
+spectral logistic model on the same folds.
+
+### `figures/open/eeg_roc_FTD_vs_CN_eegnet.png`
+EEGNet for FTD vs controls: AUC 0.64 (0.48-0.78). With 52 participants the network overfits.

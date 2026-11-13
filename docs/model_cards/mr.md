@@ -25,6 +25,9 @@ p ≥ 0.05 when estimable): 44 proteins and 6 metabolites (Gln, L-VLDL-TG%, M-LD
 **Known-answer check.** CD33: +0.032 log-odds per SD (0.017-0.047), same direction as the
 colocalised estimate reported by Zheng et al. 2020 (doi:10.1038/s41588-020-0682-6).
 
+**Sensitivity outcome.** Kunkle et al. 2019 (no UK Biobank): 42 of the 45 testable selected
+molecules keep their sign, and 26 of them reach p < 0.05.
+
 **Limitations.** Nearly all proteins have a single cis instrument, so Egger and weighted median
 cannot be estimated and pleiotropy cannot be tested; no colocalisation, so a hit at a GWAS locus
 may reflect a nearby causal variant in LD; UK Biobank participants are in both the pQTL study

@@ -1,0 +1,73 @@
+{
+  "question": "Does a convolutional network on raw EEG windows beat spectral features?",
+  "dataset": "OpenNeuro ds004504",
+  "results": {
+    "AD_vs_CN": {
+      "task": "AD_vs_CN",
+      "model": "eegnet",
+      "classes": [
+        "CN",
+        "AD"
+      ],
+      "n_subjects": 65,
+      "n_windows": 13282,
+      "auc": {
+        "estimate": 0.8084291187739464,
+        "ci_low": 0.691109251023862,
+        "ci_high": 0.9032567049808429
+      },
+      "balanced_accuracy": {
+        "estimate": 0.6340996168582376,
+        "ci_low": 0.5303331260577467,
+        "ci_high": 0.734250402068774
+      },
+      "train_loss_first": 0.6274711305046515,
+      "train_loss_last": 0.1712706269523189
+    },
+    "FTD_vs_CN": {
+      "task": "FTD_vs_CN",
+      "model": "eegnet",
+      "classes": [
+        "CN",
+        "FTD"
+      ],
+      "n_subjects": 52,
+      "n_windows": 10152,
+      "auc": {
+        "estimate": 0.6416791604197901,
+        "ci_low": 0.4826836581709146,
+        "ci_high": 0.7834485407066051
+      },
+      "balanced_accuracy": {
+        "estimate": 0.5569715142428786,
+        "ci_low": 0.4572713643178411,
+        "ci_high": 0.6597291666666667
+      },
+      "train_loss_first": 0.6102545875713077,
+      "train_loss_last": 0.1798332424029593
+    }
+  },
+  "provenance": {
+    "dataset": "OpenNeuro ds004504",
+    "dataset_version": "10.18112/openneuro.ds004504.v1.0.9",
+    "config": {
+      "bids_dir": "eeg/ds004504",
+      "sfreq": 125,
+      "window_s": 4.0,
+      "tasks": [
+        "AD_vs_CN",
+        "FTD_vs_CN"
+      ],
+      "n_splits": 5,
+      "max_epochs": 15,
+      "patience": 4,
+      "n_boot": 1000,
+      "seed": 0,
+      "threads": 8
+    },
+    "seed": 0,
+    "git_commit": "94b107771c768b6b8168bd781df76dd74052b159",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-13T09:41:26+00:00"
+  }
+}

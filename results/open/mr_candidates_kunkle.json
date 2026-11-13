@@ -1,0 +1,54 @@
+{
+  "question": "Which circulating proteins and metabolites have genetic evidence of a causal effect on Alzheimer's disease?",
+  "n_traits_tested": {
+    "pqtl": 1297,
+    "mqtl": 233
+  },
+  "n_fdr_significant": {
+    "pqtl": 9,
+    "mqtl": 0
+  },
+  "selected_for_adni": [
+    "C1R",
+    "C1S",
+    "CD33",
+    "CELA2A",
+    "CR1",
+    "EPHA1",
+    "IL34",
+    "PILRA",
+    "PILRB"
+  ],
+  "instruments_dropped": {
+    "palindrome_no_eaf": 1100,
+    "missing_in_outcome": 717,
+    "excluded_region": 222
+  },
+  "provenance": {
+    "dataset": {
+      "pqtl": "10.1038/s41586-023-06592-6",
+      "mqtl": "10.1038/s41586-024-07148-y",
+      "outcome": "GCST007511"
+    },
+    "dataset_version": "{\"pqtl\": \"Supplementary Information 3 (published 2023)\", \"mqtl\": \"Supplementary Tables (published 2024)\", \"outcome\": \"size 569380789\"}",
+    "config": {
+      "p_threshold": 5e-08,
+      "window_kb": 500,
+      "fdr": 0.05,
+      "n_boot": 1000,
+      "seed": 0,
+      "exclude_regions": [
+        {
+          "chrom": 19,
+          "start": 44400000,
+          "end": 46500000,
+          "name": "APOE"
+        }
+      ]
+    },
+    "seed": 0,
+    "git_commit": "94b107771c768b6b8168bd781df76dd74052b159",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-13T09:34:34+00:00"
+  }
+}

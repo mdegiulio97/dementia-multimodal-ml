@@ -45,6 +45,36 @@ this leakage as the reason; our splits exclude it by construction and a test che
   group. The spectrum of two controls was checked and the dominance is a property of the data,
   not a computation error. Phase 2 adds a sensitivity analysis with delta at 1-4 Hz.
 
+### Sensitivity analyses and deep learning (phase 2)
+
+**Delta from 1 Hz instead of 0.5 Hz.** The results do not change.
+
+| Task | Model | AUC, 0.5-45 Hz | AUC, 1-45 Hz |
+|---|---|---|---|
+| AD vs CN | logistic | 0.91 | 0.90 (0.81-0.97) |
+| AD vs CN | LightGBM | 0.90 | 0.90 (0.80-0.97) |
+| FTD vs CN | logistic | 0.74 | 0.76 (0.60-0.88) |
+| FTD vs CN | LightGBM | 0.83 | 0.83 (0.70-0.94) |
+
+Even from 1 Hz, delta keeps about 80% of the relative power in every group (medians 0.80-0.82).
+The slow-activity dominance is a property of these recordings, not of the band edge.
+
+**EEGNet on raw 4-s windows** (125 Hz, z-scored per channel). It uses the same outer folds by
+participant, early stopping on an inner split that is also by participant, and one prediction
+per participant.
+
+| Task | n | EEGNet AUC | EEGNet balanced accuracy | Best spectral model AUC |
+|---|---|---|---|---|
+| AD vs CN | 65 (13,282 windows) | 0.81 (0.69-0.90) | 0.63 (0.53-0.73) | 0.91 |
+| FTD vs CN | 52 (10,152 windows) | 0.64 (0.48-0.78) | 0.56 (0.46-0.66) | 0.83 |
+
+**With 52-65 participants, the convolutional network does worse than spectral features.** Its
+training loss falls from 0.63 to 0.17, while performance on held-out participants stays below the
+spectral models. The network fits the participants it has seen. Thousands of windows do not make
+up for few people, because the windows of one person are not independent examples. This is the
+expected behaviour of deep learning on small clinical cohorts, and it is why the spectral models
+remain the primary EEG result.
+
 ## Mendelian randomisation: circulating proteins and metabolites on Alzheimer's disease
 
 **Inputs.**
@@ -77,6 +107,22 @@ are passed to ADNI. L-VLDL-C% is held back because its Egger intercept is border
 0.017-0.047). This is the same direction as the colocalised estimate in Zheng et al. 2020
 (doi:10.1038/s41588-020-0682-6, Table S7: +0.100). The magnitudes differ because the studies
 use different pQTL sources, outcome GWAS and scaling.
+
+**Sensitivity: an AD GWAS without UK Biobank ✓.** UK Biobank is in both the pQTL study and
+Bellenguez 2022, so the screen was repeated with Kunkle et al. 2019
+(doi:10.1038/s41588-019-0358-2, GCST007511, no UK Biobank).
+- Kunkle has no allele frequencies, so every palindromic instrument is dropped (1,100).
+- Of the 50 selected molecules, 45 could be tested:
+  - 42 keep the same sign, and 26 of them reach p < 0.05;
+  - FES, ARHGAP45 and LRP11 change sign, all with Kunkle p > 0.3;
+  - TREM2, CD2AP, F13B, FCRLB and SULT1A1 have no usable instrument.
+- Nine proteins pass FDR with Kunkle: CR1, EPHA1, CELA2A, PILRA, PILRB, C1S, C1R, CD33 and
+  IL34. All but CELA2A were already selected.
+- Across all 1,465 traits tested with both outcomes, the estimates correlate at r = 0.42, mostly
+  noise around zero; the selected molecules sit along the diagonal (`figures/open/mr_bellenguez_vs_kunkle.png`).
+
+The sample overlap therefore does not create the signal: the selected molecules keep their
+direction in an independent GWAS.
 
 **Correcting a harmonisation bug mattered.** An earlier version flipped the sign of
 palindromic instruments (A/T, C/G) whose alleles were listed in the opposite order. This

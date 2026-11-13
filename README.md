@@ -63,6 +63,8 @@ uv run python pipelines/trajectories.py --data synthetic   # or --data adni
 uv run python pipelines/mr_candidates.py                   # downloads ~1.2 GB of summary statistics
 aws s3 sync --no-sign-request s3://openneuro.org/ds004504 "$DEMENTIA_ML_DATA/eeg/ds004504"
 uv run python pipelines/eeg.py
+uv run python pipelines/mr_candidates.py --outcome kunkle  # sensitivity outcome (no UK Biobank)
+uv run --extra dl python pipelines/eeg_eegnet.py          # EEGNet on CPU (about 1 hour)
 uv run python pipelines/conversion.py --data adni          # needs ADNIMERGE.csv from LONI
 uv run --extra mcp dementia-mcp                            # same tools over MCP (synthetic/open)
 ```
@@ -79,6 +81,8 @@ licences and checksums are listed in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md
 | EEG, AD vs FTD | ds004504, 59 participants | near chance (AUC 0.53-0.61) |
 | MR, proteins on AD | UKB-PPP + Bellenguez 2022 | 44 of 1,584 proteins at FDR < 0.05 (CR1, TREM2, CD2AP, GRN, EPHA1, ACE, CD33, ...) |
 | MR, metabolites on AD | Karjalainen 2024 + Bellenguez 2022 | 7 of 233 at FDR < 0.05, mostly LDL/VLDL lipid composition; 6 pass the pleiotropy check |
+| MR, independent outcome | Kunkle 2019 (no UK Biobank) | 42 of 45 testable candidates keep their sign |
+| EEG, EEGNet vs spectral | ds004504 | EEGNet AUC 0.81 (AD vs CN), 0.64 (FTD vs CN): below spectral features with ~60 people |
 | Conversion, method check | synthetic, 787 MCI | full Cox C-index 0.72 (0.68-0.76) vs baseline 0.64 (0.60-0.68) |
 
 Details, comparisons with published results and limitations are in
@@ -129,15 +133,15 @@ pipelines/         one thin script per analysis (config in configs/)
 results/           open/ and synthetic/ result files (ADNI results stay local)
 figures/           PNG figures, indexed in docs/FIGURES.md
 docs/              data sources, results, model cards, agent
-tests/             101 tests; CI on Ubuntu and Windows
+tests/             112 tests; CI on Ubuntu and Windows
 ```
 
 ## Roadmap
 
-- **Phase 2.** ADNI proteomics and metabolomics, testing the MR-selected molecules against all
-  others with FDR; FreeSurfer volumes; EEGNet with the same subject-level folds; a sensitivity
-  analysis with delta at 1-4 Hz; colocalisation for the MR hits; MR repeated with an AD GWAS
-  without UK Biobank (Kunkle et al. 2019) to address sample overlap.
+- **Phase 2.**
+  - Done on open data: EEGNet, delta from 1 Hz, MR with an AD GWAS without UK Biobank.
+  - Next: ADNI conversion results; ADNI proteomics and metabolomics, testing the MR-selected
+    molecules against all others with FDR; FreeSurfer volumes; colocalisation for the MR hits.
 - **Phase 3.** A multimodal fusion model with missing modalities, compared with the best single
   modality and the baseline.
 

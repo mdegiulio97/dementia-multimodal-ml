@@ -1,0 +1,14 @@
+{
+  "n_traits_both": 1465,
+  "beta_correlation": 0.4227010802953415,
+  "selected_tested": 45,
+  "selected_same_sign": 42,
+  "selected_p05_same_sign": 26,
+  "selected_not_tested": [
+    "CD2AP",
+    "F13B",
+    "FCRLB",
+    "SULT1A1",
+    "TREM2"
+  ]
+}

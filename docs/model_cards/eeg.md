@@ -23,5 +23,9 @@ bootstrap intervals.
 (0.70-0.94) with LightGBM; AD vs FTD near chance. Comparable to the subject-level studies
 summarised by the AHEPA benchmark (doi:10.1007/s11571-026-10464-w).
 
+**Phase 2.** Delta from 1 Hz gives the same results. EEGNet on raw windows (same folds) reaches
+AUC 0.81 for AD vs CN and 0.64 for FTD vs CN, below the spectral models, because the network
+overfits with about 60 participants.
+
 **Limitations.** One small single-centre dataset; no external test set; preprocessing fixed by
 the dataset authors; power below 2 Hz dominates the relative spectra.
