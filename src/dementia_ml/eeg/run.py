@@ -40,14 +40,16 @@ def extract(bids_root: Path, cfg: dict, cache: Path) -> pd.DataFrame:
     parts = []
     for row in io.participants(bids_root).itertuples():
         raw = io.load_subject(bids_root, row.subject, cfg["use_derivatives"])
-        f = features.epoch_features(raw, cfg["epoch_s"], cfg["overlap"])
+        f = features.epoch_features(
+            raw, cfg["epoch_s"], cfg["overlap"], fmin=cfg.get("fmin", features.FMIN)
+        )
         parts.append(f.assign(subject=row.subject, group=row.group))
     out = pd.concat(parts, ignore_index=True)
     out.to_parquet(cache)
     return out
 
 
-def _band_figure(feats: pd.DataFrame, path: Path) -> None:
+def _band_figure(feats: pd.DataFrame, path: Path, fmin: float = features.FMIN) -> None:
     per_subject = feats.drop(columns="group").groupby("subject").mean(numeric_only=True)
     group = feats.groupby("subject")["group"].first()
     fig, axes = plt.subplots(1, len(features.BANDS), figsize=(12, 3.2))
@@ -64,6 +66,7 @@ def _band_figure(feats: pd.DataFrame, path: Path) -> None:
             patch.set_facecolor(COLORS[g])
             patch.set_alpha(0.6)
         lo, hi = features.BANDS[band]
+        lo = max(lo, fmin)
         ax.set_title(f"{band} ({lo:g}-{hi:g} Hz)", fontsize=9)
     axes[0].set_ylabel("Relative power (mean of 19 channels)")
     fig.tight_layout()
@@ -120,6 +123,7 @@ def run(cfg: dict, out_root: Path | None = None) -> dict:
     feats = extract(bids_root, cfg, cache_path(paths.data_root() / "eeg", cfg))
     X = feats.drop(columns=["subject", "group"])
     res_dir, fig_dir = paths.results_dir("open", out_root), paths.figures_dir("open", out_root)
+    sfx = cfg.get("suffix", "")
     results, preds = {}, []
     for task in cfg["tasks"]:
         results[task] = {}
@@ -137,10 +141,12 @@ def run(cfg: dict, out_root: Path | None = None) -> dict:
             results[task][model] = r
             preds.append(r["subject_predictions"].assign(task=task, model=model))
         if task != "3class":
-            _roc_figure(results[task], fig_dir / f"eeg_roc_{task}.png")
-    _band_figure(feats, fig_dir / "eeg_band_power_by_group.png")
-    _topomap_figure(feats, fig_dir / "eeg_topomap_theta_alpha.png")
-    pd.concat(preds).rename_axis("subject").to_csv(res_dir / "eeg_subject_predictions.csv")
+            _roc_figure(results[task], fig_dir / f"eeg_roc_{task}{sfx}.png")
+    _band_figure(
+        feats, fig_dir / f"eeg_band_power_by_group{sfx}.png", cfg.get("fmin", features.FMIN)
+    )
+    _topomap_figure(feats, fig_dir / f"eeg_topomap_theta_alpha{sfx}.png")
+    pd.concat(preds).rename_axis("subject").to_csv(res_dir / f"eeg_subject_predictions{sfx}.csv")
     summary = {
         "question": "Does resting-state EEG separate AD, FTD and controls at the participant level?",
         "dataset": "OpenNeuro ds004504",
@@ -154,5 +160,5 @@ def run(cfg: dict, out_root: Path | None = None) -> dict:
             "OpenNeuro ds004504", source_config("eeg_ds004504")["doi"], cfg, cfg["seed"]
         ),
     }
-    (res_dir / "eeg_metrics.json").write_text(json.dumps(summary, indent=2))
+    (res_dir / f"eeg_metrics{sfx}.json").write_text(json.dumps(summary, indent=2))
     return summary

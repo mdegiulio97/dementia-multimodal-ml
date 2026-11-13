@@ -1,0 +1,12 @@
+# Sensitivity analysis: delta band and total power from 1 Hz instead of 0.5 Hz
+bids_dir: eeg/ds004504
+use_derivatives: true
+epoch_s: 4.0
+overlap: 0.5
+fmin: 1.0
+suffix: _delta1
+tasks: [AD_vs_CN, FTD_vs_CN, AD_vs_FTD, 3class]
+models: [logreg, lgbm]
+n_repeats: 5
+n_boot: 1000
+seed: 0

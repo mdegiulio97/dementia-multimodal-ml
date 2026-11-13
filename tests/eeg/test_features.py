@@ -51,3 +51,12 @@ def test_epoch_count_and_columns(feats):
     # 60 s, 4 s windows, 50 % overlap -> 29 epochs
     assert len(feats) == 29
     assert {"O1_theta_alpha", "O1_spectral_entropy", "peak_alpha_hz"} <= set(feats.columns)
+
+
+def test_relative_powers_sum_to_one_with_fmin_1():
+    f = features.epoch_features(_raw(), epoch_s=4.0, overlap=0.5, fmin=1.0)
+    total = sum(f[f"C3_rel_{b}"] for b in features.BANDS)
+    assert np.allclose(total, 1.0, atol=1e-6)
+    # without the 0.5-1 Hz bin, delta must lose share
+    f05 = features.epoch_features(_raw(), epoch_s=4.0, overlap=0.5)
+    assert f["C3_rel_delta"].mean() < f05["C3_rel_delta"].mean()

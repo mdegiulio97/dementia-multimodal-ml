@@ -17,20 +17,24 @@ FMIN, FMAX = 0.5, 45.0
 ALPHA_SEARCH = (7.0, 13.0)
 
 
-def epoch_features(raw: mne.io.BaseRaw, epoch_s: float = 4.0, overlap: float = 0.5) -> pd.DataFrame:
+def epoch_features(
+    raw: mne.io.BaseRaw, epoch_s: float = 4.0, overlap: float = 0.5, fmin: float = FMIN
+) -> pd.DataFrame:
+    """Relative band power is computed over ``fmin``-45 Hz; delta starts at ``fmin``."""
     epochs = mne.make_fixed_length_epochs(
         raw, duration=epoch_s, overlap=epoch_s * overlap, preload=True, verbose=False
     )
     sfreq = raw.info["sfreq"]
     n_fft = int(2 * sfreq)  # 2-s Welch segments -> 0.5 Hz resolution
     spec = epochs.compute_psd(
-        method="welch", fmin=FMIN, fmax=FMAX, n_fft=n_fft, n_overlap=n_fft // 2, verbose=False
+        method="welch", fmin=fmin, fmax=FMAX, n_fft=n_fft, n_overlap=n_fft // 2, verbose=False
     )
     psd, freqs = spec.get_data(return_freqs=True)  # (epochs, channels, freqs)
     total = psd.sum(axis=-1)
     cols: dict[str, np.ndarray] = {}
     rel = {}
     for band, (lo, hi) in BANDS.items():
+        lo = max(lo, fmin)
         m = (freqs >= lo) & ((freqs < hi) | ((hi == FMAX) & (freqs <= hi)))
         rel[band] = psd[..., m].sum(axis=-1) / total
     p = psd / total[..., None]
