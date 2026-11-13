@@ -1,0 +1,1702 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mdegiulio97.github.io/dementia-multimodal-ml/RESULTS/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../FIGURES/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.1">
+    
+    
+      
+        <title>Results - dementia-multimodal-ml</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#results-v01" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="dementia-multimodal-ml" class="md-header__button md-logo" aria-label="dementia-multimodal-ml" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            dementia-multimodal-ml
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Results
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mdegiulio97/dementia-multimodal-ml" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="dementia-multimodal-ml" class="md-nav__button md-logo" aria-label="dementia-multimodal-ml" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    dementia-multimodal-ml
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mdegiulio97/dementia-multimodal-ml" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Results
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#resting-state-eeg-ad-ftd-and-controls-openneuro-ds004504" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resting-state EEG: AD, FTD and controls (OpenNeuro ds004504)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resting-state EEG: AD, FTD and controls (OpenNeuro ds004504)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensitivity-analyses-and-deep-learning-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensitivity analyses and deep learning (phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mendelian-randomisation-circulating-proteins-and-metabolites-on-alzheimers-disease" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mendelian randomisation: circulating proteins and metabolites on Alzheimer's disease
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mci-to-dementia-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCI-to-dementia conversion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCI-to-dementia conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-check-on-the-synthetic-cohort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method check on the synthetic cohort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cognitive-trajectories-synthetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cognitive trajectories (synthetic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adni-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADNI results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADNI results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adni-method-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADNI (method notes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FIGURES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Figures
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DATA_SOURCES/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data sources
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ADNI_DOWNLOAD_LIST/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ADNI download list
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Model cards
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Model cards
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_cards/conversion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conversion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_cards/eeg/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    EEG
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../model_cards/mr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mendelian randomisation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#resting-state-eeg-ad-ftd-and-controls-openneuro-ds004504" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resting-state EEG: AD, FTD and controls (OpenNeuro ds004504)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Resting-state EEG: AD, FTD and controls (OpenNeuro ds004504)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensitivity-analyses-and-deep-learning-phase-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensitivity analyses and deep learning (phase 2)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mendelian-randomisation-circulating-proteins-and-metabolites-on-alzheimers-disease" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mendelian randomisation: circulating proteins and metabolites on Alzheimer's disease
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mci-to-dementia-conversion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MCI-to-dementia conversion
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MCI-to-dementia conversion">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#method-check-on-the-synthetic-cohort" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Method check on the synthetic cohort
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cognitive-trajectories-synthetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cognitive trajectories (synthetic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adni-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADNI results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ADNI results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adni-method-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ADNI (method notes)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="results-v01">Results (v0.1)</h1>
+<p>Each number below comes from a result file in <code>results/</code> that records its own provenance
+(dataset version or checksum, git commit, configuration, seed). Comparisons with published work
+cite only papers whose records were checked (see
+<a href="../DATA_SOURCES/#6-comparison-literature">DATA_SOURCES.md, section 6</a>).</p>
+<p>Marks: ✓ consistent with the reference; ⚠ consistent with caveats; ✗ inconsistent.</p>
+<h2 id="resting-state-eeg-ad-ftd-and-controls-openneuro-ds004504">Resting-state EEG: AD, FTD and controls (OpenNeuro ds004504)</h2>
+<p>88 participants, 34,788 four-second epochs. All metrics are per participant and come from
+5 × 5-fold CV split by participant, with 95% bootstrap intervals. The intervals resample
+participants over pooled out-of-fold predictions, so they do not include the variance from
+refitting the models.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>n</th>
+<th>Model</th>
+<th>AUC</th>
+<th>Balanced accuracy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AD vs CN</td>
+<td>65</td>
+<td>logistic</td>
+<td>0.91 (0.82-0.97)</td>
+<td>0.81 (0.70-0.91)</td>
+</tr>
+<tr>
+<td>AD vs CN</td>
+<td>65</td>
+<td>LightGBM</td>
+<td>0.90 (0.81-0.97)</td>
+<td>0.81 (0.70-0.91)</td>
+</tr>
+<tr>
+<td>FTD vs CN</td>
+<td>52</td>
+<td>logistic</td>
+<td>0.74 (0.59-0.87)</td>
+<td>0.65 (0.53-0.76)</td>
+</tr>
+<tr>
+<td>FTD vs CN</td>
+<td>52</td>
+<td>LightGBM</td>
+<td>0.83 (0.70-0.94)</td>
+<td>0.73 (0.61-0.84)</td>
+</tr>
+<tr>
+<td>AD vs FTD</td>
+<td>59</td>
+<td>logistic</td>
+<td>0.61 (0.44-0.76)</td>
+<td>0.57 (0.48-0.66)</td>
+</tr>
+<tr>
+<td>AD vs FTD</td>
+<td>59</td>
+<td>LightGBM</td>
+<td>0.53 (0.36-0.69)</td>
+<td>0.59 (0.51-0.69)</td>
+</tr>
+<tr>
+<td>3-class</td>
+<td>88</td>
+<td>LightGBM</td>
+<td>0.74 (0.66-0.82) (one-vs-rest)</td>
+<td>0.63 (0.54-0.71)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Comparison with the literature.</strong> The AHEPA benchmark (Miltiadous et al. 2026,
+doi:10.1007/s11571-026-10464-w) averages the 12 subject-level studies on this dataset.</p>
+<ul>
+<li><strong>AD vs CN ✓.</strong> The benchmark reports 82.1% accuracy, and our balanced accuracy is 0.81.
+  Mlinarič et al. 2026 (doi:10.1038/s41598-026-35316-9, leave-one-subject-out) report ROC-AUC
+  0.82; we get 0.90-0.91.</li>
+<li><strong>FTD vs CN ✓.</strong> The benchmark reports 75.2% accuracy; our balanced accuracy is 0.73 with
+  LightGBM.</li>
+<li><strong>AD vs FTD ⚠.</strong> The benchmark reports 71.4% accuracy, but that number disagrees with its own
+  table. Mlinarič report AUC 0.65. We are close to chance.</li>
+</ul>
+<p>Studies that let epochs of one person cross folds report 9-17 points more. The benchmark names
+this leakage as the reason; our splits exclude it by construction and a test checks it.</p>
+<p><strong>Limitations.</strong>
+- One small single-centre dataset, with no external test set.
+- We used the preprocessing shipped with the dataset.
+- In these recordings most power lies below 2 Hz, so relative delta power is about 0.88 in every
+  group. The spectrum of two controls was checked and the dominance is a property of the data,
+  not a computation error. Phase 2 adds a sensitivity analysis with delta at 1-4 Hz.</p>
+<h3 id="sensitivity-analyses-and-deep-learning-phase-2">Sensitivity analyses and deep learning (phase 2)</h3>
+<p><strong>Delta from 1 Hz instead of 0.5 Hz.</strong> The results do not change.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Model</th>
+<th>AUC, 0.5-45 Hz</th>
+<th>AUC, 1-45 Hz</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AD vs CN</td>
+<td>logistic</td>
+<td>0.91</td>
+<td>0.90 (0.81-0.97)</td>
+</tr>
+<tr>
+<td>AD vs CN</td>
+<td>LightGBM</td>
+<td>0.90</td>
+<td>0.90 (0.80-0.97)</td>
+</tr>
+<tr>
+<td>FTD vs CN</td>
+<td>logistic</td>
+<td>0.74</td>
+<td>0.76 (0.60-0.88)</td>
+</tr>
+<tr>
+<td>FTD vs CN</td>
+<td>LightGBM</td>
+<td>0.83</td>
+<td>0.83 (0.70-0.94)</td>
+</tr>
+</tbody>
+</table>
+<p>Even from 1 Hz, delta keeps about 80% of the relative power in every group (medians 0.80-0.82).
+The slow-activity dominance is a property of these recordings, not of the band edge.</p>
+<p><strong>EEGNet on raw 4-s windows</strong> (125 Hz, z-scored per channel). It uses the same outer folds by
+participant, early stopping on an inner split that is also by participant, and one prediction
+per participant.</p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>n</th>
+<th>EEGNet AUC</th>
+<th>EEGNet balanced accuracy</th>
+<th>Best spectral model AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AD vs CN</td>
+<td>65 (13,282 windows)</td>
+<td>0.81 (0.69-0.90)</td>
+<td>0.63 (0.53-0.73)</td>
+<td>0.91</td>
+</tr>
+<tr>
+<td>FTD vs CN</td>
+<td>52 (10,152 windows)</td>
+<td>0.64 (0.48-0.78)</td>
+<td>0.56 (0.46-0.66)</td>
+<td>0.83</td>
+</tr>
+</tbody>
+</table>
+<p><strong>With 52-65 participants, the convolutional network does worse than spectral features.</strong> Its
+training loss falls from 0.63 to 0.17, while performance on held-out participants stays below the
+spectral models. The network fits the participants it has seen. Thousands of windows do not make
+up for few people, because the windows of one person are not independent examples. This is the
+expected behaviour of deep learning on small clinical cohorts, and it is why the spectral models
+remain the primary EEG result.</p>
+<h2 id="mendelian-randomisation-circulating-proteins-and-metabolites-on-alzheimers-disease">Mendelian randomisation: circulating proteins and metabolites on Alzheimer's disease</h2>
+<p><strong>Inputs.</strong>
+- Exposures: UKB-PPP cis-pQTL (Sun et al. 2023, doi:10.1038/s41586-023-06592-6) and NMR
+  metabolite QTL (Karjalainen et al. 2024, doi:10.1038/s41586-024-07148-y).
+- Outcome: Bellenguez et al. 2022 (doi:10.1038/s41588-022-01024-z, GCST90027158).</p>
+<p><strong>Instruments.</strong> We excluded the APOE region and pruned to one variant per 500 kb.</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Tested</th>
+<th>FDR &lt; 0.05</th>
+<th>Selected for ADNI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proteins (cis-pQTL)</td>
+<td>1,584</td>
+<td>44</td>
+<td>44</td>
+</tr>
+<tr>
+<td>Metabolites (NMR)</td>
+<td>233</td>
+<td>7</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Strongest protein signals.</strong> CR1, TREM2, PILRA/PILRB, CD2AP, GRN, EPHA1, ACE, CD55, CD33 and
+others.
+- Most of these sit in known AD GWAS loci. That is expected, because a cis-pQTL at a GWAS locus
+  gives a strong Wald ratio.
+- It is also the main caveat: without colocalisation, the protein and the disease may share a
+  locus without sharing a causal variant.
+- The full table is <code>results/open/mr_candidates.csv</code>, and the list passed to ADNI is
+  <code>results/open/mr_candidates_selected.txt</code>.</p>
+<p><strong>Metabolites.</strong> The seven FDR-significant traits are lipoprotein composition measures and
+glutamine, each with 18-47 instruments, so the sensitivity estimators apply. Six (Gln, L-VLDL-TG%, M-LDL-FC%, M-LDL-PL%, XS-VLDL-FC, XXL-VLDL-CE%)
+are passed to ADNI. L-VLDL-C% is held back because its Egger intercept is borderline
+(p = 0.049).</p>
+<p><strong>Known-answer check ✓.</strong> For CD33 we estimate +0.032 log-odds of AD per SD (95% CI
+0.017-0.047). This is the same direction as the colocalised estimate in Zheng et al. 2020
+(doi:10.1038/s41588-020-0682-6, Table S7: +0.100). The magnitudes differ because the studies
+use different pQTL sources, outcome GWAS and scaling.</p>
+<p><strong>Sensitivity: an AD GWAS without UK Biobank ✓.</strong> UK Biobank is in both the pQTL study and
+Bellenguez 2022, so the screen was repeated with Kunkle et al. 2019
+(doi:10.1038/s41588-019-0358-2, GCST007511, no UK Biobank).
+- Kunkle has no allele frequencies, so every palindromic instrument is dropped (1,100).
+- Of the 50 selected molecules, 45 could be tested:
+  - 42 keep the same sign, and 26 of them reach p &lt; 0.05;
+  - FES, ARHGAP45 and LRP11 change sign, all with Kunkle p &gt; 0.3;
+  - TREM2, CD2AP, F13B, FCRLB and SULT1A1 have no usable instrument.
+- Nine proteins pass FDR with Kunkle: CR1, EPHA1, CELA2A, PILRA, PILRB, C1S, C1R, CD33 and
+  IL34. All but CELA2A were already selected.
+- Across all 1,465 traits tested with both outcomes, the estimates correlate at r = 0.42, mostly
+  noise around zero; the selected molecules sit along the diagonal (<code>figures/open/mr_bellenguez_vs_kunkle.png</code>).</p>
+<p>The sample overlap therefore does not create the signal: the selected molecules keep their
+direction in an independent GWAS.</p>
+<p><strong>Colocalisation of the strongest candidates ✓/⚠.</strong> The question is whether the protein and
+AD share the same causal variant. If they do not, the MR signal could come from linkage
+disequilibrium with a different variant.</p>
+<p><strong>Method.</strong> coloc ABF (Giambartolomei et al. 2014, doi:10.1371/journal.pgen.1004383): priors
+p1 = p2 = 1e-4 and p12 = 1e-5, a ±500 kb window around the cis lead variant, UKB-PPP European
+discovery regional summary statistics against Bellenguez 2022 (GRCh38). It was run on the nine
+candidates that held up with Kunkle 2019.</p>
+<table>
+<thead>
+<tr>
+<th>Protein</th>
+<th>Variants</th>
+<th>PP.H4 (shared)</th>
+<th>PP.H3 (distinct)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CR1</td>
+<td>4,261</td>
+<td>0.996</td>
+<td>0.004</td>
+</tr>
+<tr>
+<td>PILRA</td>
+<td>3,253</td>
+<td>0.995</td>
+<td>0.005</td>
+</tr>
+<tr>
+<td>PILRB</td>
+<td>3,251</td>
+<td>0.995</td>
+<td>0.005</td>
+</tr>
+<tr>
+<td>IL34</td>
+<td>2,629</td>
+<td>0.970</td>
+<td>0.025</td>
+</tr>
+<tr>
+<td>C1S</td>
+<td>3,958</td>
+<td>0.961</td>
+<td>0.033</td>
+</tr>
+<tr>
+<td>CD33</td>
+<td>5,555</td>
+<td>0.953</td>
+<td>0.024</td>
+</tr>
+<tr>
+<td>C1R</td>
+<td>3,978</td>
+<td>0.939</td>
+<td>0.051</td>
+</tr>
+<tr>
+<td>EPHA1</td>
+<td>2,549</td>
+<td>0.016</td>
+<td>0.984</td>
+</tr>
+<tr>
+<td>ACE</td>
+<td>3,227</td>
+<td>0.001</td>
+<td>0.999</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Seven proteins colocalise strongly</strong> (PP.H4 &gt; 0.93): CR1, PILRA/PILRB, IL34, C1S/C1R and
+  CD33.</li>
+<li><strong>CD33 matches the known answer ✓.</strong> Zheng et al. 2020 also report CD33 as colocalised.</li>
+<li><strong>ACE and EPHA1 do not colocalise under ABF</strong>, which assumes one causal variant per trait.
+  The two loci were therefore re-analysed with SuSiE (below).</li>
+</ul>
+<p><strong>SuSiE-based colocalisation for ACE and EPHA1.</strong></p>
+<p><em>Method.</em>
+- Fine-mapping with SuSiE-RSS (Zou et al. 2022, doi:10.1371/journal.pgen.1010299; L = 10) for
+  each trait.
+- The LD comes from UK Biobank (Alkes Price group, <code>s3://broad-alkesgroup-ukbb-ld</code>, GRCh37), the
+  same population as UKB-PPP.
+- Colocalisation is computed for every pair of credible sets (Wallace 2021,
+  doi:10.1371/journal.pgen.1009440).
+- Implemented in Python in <code>dementia_ml.mr.susie</code> and tested on simulated loci with a known
+  answer.</p>
+<table>
+<thead>
+<tr>
+<th>Protein</th>
+<th>Variants</th>
+<th>Credible sets (protein / AD)</th>
+<th>Best PP.H4</th>
+<th>MR, strongest pQTL</th>
+<th>MR, colocalising signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACE</td>
+<td>3,072</td>
+<td>5 / 1</td>
+<td><strong>0.98</strong></td>
+<td>−0.12 (SE 0.018)</td>
+<td><strong>−0.19 (−0.24 to −0.14), p = 2×10⁻¹⁵</strong></td>
+</tr>
+<tr>
+<td>EPHA1</td>
+<td>2,417</td>
+<td>10 / 1</td>
+<td>0.008</td>
+<td>−0.29 (SE 0.043)</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>ACE colocalises ✓.</strong> The ACE locus carries five independent signals for plasma ACE. One of
+  them, not the strongest, is shared with AD (PP.H4 = 0.98). The ABF result was an artefact of
+  its single-variant assumption.</li>
+<li><strong>Corrected ACE estimate.</strong> The first MR estimate used the strongest pQTL, which is not the AD
+  signal. With the colocalising variant as instrument (17:61548948 C/A, GRCh37) the estimate is
+  −0.19 log-odds of AD per SD of plasma ACE, stronger than before and in the same direction.
+  It is also the same direction as in ADNI CSF, where higher ACE predicts lower conversion
+  (HR 0.76).</li>
+<li><strong>EPHA1 does not colocalise ✗</strong>, even with multiple signals allowed. Its MR signal most likely
+  reflects LD with a different causal variant, so EPHA1 is no longer counted among the credible
+  candidates.</li>
+<li><strong>Caveat ⚠.</strong> Ten credible sets for EPHA1 at n ≈ 34,000 point to sensitivity to small LD
+  differences. The reference is UK Biobank, as are the pQTLs, which limits this.</li>
+</ul>
+<p><strong>Epitope-effect check ⚠.</strong> A variant that changes the protein sequence can change how the
+Olink antibody binds the protein without changing its amount. In that case the cis-pQTL partly
+measures binding, not abundance.</p>
+<p><em>Method.</em> For each colocalised protein, the instrument and its 1000 Genomes EUR proxies
+(r² ≥ 0.8) were annotated with Ensembl VEP. Protein-altering means missense, stop, start-lost,
+frameshift, in-frame indel or a splice donor/acceptor variant in the gene encoding the protein.</p>
+<table>
+<thead>
+<tr>
+<th>Protein</th>
+<th>Instrument</th>
+<th>Proxies (r² ≥ 0.8)</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACE (colocalising signal)</td>
+<td>rs4459609</td>
+<td>9</td>
+<td>no protein-altering variant ✓</td>
+</tr>
+<tr>
+<td>C1R</td>
+<td>rs10849546</td>
+<td>16</td>
+<td>no protein-altering variant ✓</td>
+</tr>
+<tr>
+<td>PILRB</td>
+<td>rs1859788</td>
+<td>7</td>
+<td>none in PILRB ✓, but the same variant is missense in PILRA ⚠</td>
+</tr>
+<tr>
+<td>PILRA</td>
+<td>rs1859788</td>
+<td>7</td>
+<td>instrument is missense ⚠</td>
+</tr>
+<tr>
+<td>IL34</td>
+<td>rs4985556</td>
+<td>1</td>
+<td>instrument is missense ⚠</td>
+</tr>
+<tr>
+<td>C1S</td>
+<td>rs12146727</td>
+<td>16</td>
+<td>instrument is missense ⚠</td>
+</tr>
+<tr>
+<td>CD33</td>
+<td>rs2455069</td>
+<td>13</td>
+<td>instrument is missense ⚠</td>
+</tr>
+<tr>
+<td>CR1</td>
+<td>rs679515</td>
+<td>21</td>
+<td>two protein-altering proxies (rs2296160, rs4844600) ⚠</td>
+</tr>
+</tbody>
+</table>
+<p>For five of the eight proteins the pQTL may partly reflect antibody binding. The colocalisation
+still holds: the variant is shared with AD. What weakens is the step from "this variant" to
+"the amount of this protein". A protein-altering variant can also be truly functional, and
+this check cannot tell the two apart. ACE and C1R are clean.</p>
+<p><strong>ACE is the only candidate supported by four independent checks:</strong>
+1. MR with a colocalising instrument;
+2. colocalisation of a shared variant;
+3. no protein-altering variant in LD with the instrument;
+4. the same direction in CSF in an independent cohort (ADNI).</p>
+<p><strong>Correcting a harmonisation bug mattered.</strong> An earlier version flipped the sign of
+palindromic instruments (A/T, C/G) whose alleles were listed in the opposite order. This
+corrupted the multi-instrument metabolite estimates (0 significant before the fix, 7 after),
+while the single-instrument protein results stayed the same. Tests now cover both orderings
+and the strand flip.</p>
+<p><strong>Excluding the APOE region mattered.</strong> In the first run, proteins next to APOE (BCAM, NECTIN2,
+PVR, CEACAM19) passed FDR. They disappear once APOE-region instruments are dropped, as they
+should if APOE drives them.</p>
+<p><strong>Limitations.</strong>
+- Almost every protein has one instrument, so Egger and the weighted median cannot be estimated.
+- There is no colocalisation.
+- UK Biobank is in both the exposure and the outcome GWAS (sample overlap).
+- Pruning is by distance, not by LD.</p>
+<h2 id="mci-to-dementia-conversion">MCI-to-dementia conversion</h2>
+<h3 id="method-check-on-the-synthetic-cohort">Method check on the synthetic cohort</h3>
+<p>The synthetic cohort has 1,500 participants with an ADNIMERGE-like structure. Of these, 787
+had MCI at baseline with follow-up, and 225 converted. They are generated from a known Weibull
+hazard. The metrics are out-of-fold, from 5-fold CV split by participant.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Harrell's C</th>
+<th>Uno's C (36 m)</th>
+<th>td-AUC 24 m</th>
+<th>td-AUC 36 m</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cox, age + MMSE + APOE4</td>
+<td>0.64 (0.60-0.68)</td>
+<td>0.67 (0.62-0.71)</td>
+<td>0.68</td>
+<td>0.66</td>
+</tr>
+<tr>
+<td>Cox (ridge), all baseline</td>
+<td><strong>0.72 (0.68-0.76)</strong></td>
+<td>0.74 (0.69-0.78)</td>
+<td>0.76</td>
+<td>0.76</td>
+</tr>
+<tr>
+<td>Random survival forest</td>
+<td>0.70 (0.66-0.73)</td>
+<td>0.71 (0.66-0.75)</td>
+<td>0.73</td>
+<td>0.74</td>
+</tr>
+<tr>
+<td>Gradient-boosted survival</td>
+<td>0.69 (0.65-0.73)</td>
+<td>0.70 (0.65-0.74)</td>
+<td>0.71</td>
+<td>0.73</td>
+</tr>
+</tbody>
+</table>
+<p>What should happen does happen:
+- The full model beats the baseline, because the simulated hazard uses ADAS13 and hippocampal
+  volume.
+- The correctly specified Cox model is not beaten by the flexible models.
+- Calibration at 36 months follows the diagonal.
+- The Cox coefficients recover the simulated log hazard ratios within ±0.15 (test).</p>
+<p>The 48-month horizon is skipped because it equals the end of follow-up.</p>
+<p><strong>Reference for the real-data run.</strong> Wang et al. 2023 (doi:10.1016/j.jclinepi.2023.03.009) is
+the closest design: ADNI MCI, Cox, 10-fold CV, c-index 0.74 (0.70-0.79). Published values on
+ADNI span 0.68 to 0.90, the higher values with richer feature sets.</p>
+<h3 id="cognitive-trajectories-synthetic">Cognitive trajectories (synthetic)</h3>
+<p>Mixed model with random intercept and slope:
+- MMSE declines 1.15 points/year faster in converters (95% CI 1.06-1.24).
+- ADAS13 worsens 1.77 points/year faster (1.62-1.92).</p>
+<h2 id="adni-results">ADNI results</h2>
+<p>Aggregate results on ADNI (ADNI 1, GO, 2, 3 and 4), published as summary data under the ADNI Data
+Use Agreement. Models, per-participant predictions and the ADNI table stay local.</p>
+<p><strong>Data.</strong>
+- The ADNIMERGE2 R package, downloaded from LONI IDA on 2026-11-13. ADNIMERGE2 replaces the
+  old single <code>ADNIMERGE.csv</code>; <code>pipelines/prepare_adni.py</code> rebuilds the table from its <code>ADSL</code>,
+  <code>ADRS</code> and <code>ADQS</code> tables.
+- Hippocampal and intracranial volumes from FreeSurfer, ComBat-harmonised across scanners
+  (<code>ADSP_PHC_T1_FS</code>).
+- CSF Aβ42, t-tau and p-tau181 from Roche Elecsys (UPENN).
+- Imaging and CSF are the record closest to enrolment, within 180 days.</p>
+<p><strong>Cohort.</strong>
+- 1,271 participants had MCI at baseline. 125 had no follow-up diagnosis and were excluded,
+  which leaves <strong>1,146 participants and 420 conversions to dementia</strong>.
+- Observed at baseline: hippocampal volume for 1,061, CSF for 716, APOE for 1,135.</p>
+<table>
+<thead>
+<tr>
+<th>Model</th>
+<th>Harrell's C</th>
+<th>Uno's C (36 m)</th>
+<th>td-AUC 24 m</th>
+<th>td-AUC 36 m</th>
+<th>td-AUC 48 m</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cox, age + MMSE + APOE4</td>
+<td>0.69 (0.67-0.72)</td>
+<td>0.69 (0.66-0.72)</td>
+<td>0.72</td>
+<td>0.74</td>
+<td>0.77</td>
+</tr>
+<tr>
+<td>Cox (ridge), all baseline</td>
+<td>0.83 (0.81-0.85)</td>
+<td>0.83 (0.81-0.85)</td>
+<td>0.86</td>
+<td>0.89</td>
+<td>0.90</td>
+</tr>
+<tr>
+<td>Random survival forest</td>
+<td>0.83 (0.81-0.85)</td>
+<td>0.83 (0.81-0.85)</td>
+<td>0.86</td>
+<td>0.88</td>
+<td>0.89</td>
+</tr>
+<tr>
+<td>Gradient-boosted survival</td>
+<td>0.83 (0.81-0.85)</td>
+<td>0.84 (0.82-0.85)</td>
+<td>0.87</td>
+<td>0.89</td>
+<td>0.89</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Calibration.</strong> Predicted conversion by 36 months follows the observed (Kaplan-Meier) one
+across fifths of risk: 0.05/0.00, 0.10/0.08, 0.20/0.22, 0.44/0.49, 0.77/0.75, with about 230
+participants per fifth.</p>
+<p><strong>Comparison ✓.</strong> Wang et al. 2023 (doi:10.1016/j.jclinepi.2023.03.009) report a c-index of
+0.74 with clinical variables. Saeed et al. 2024 (doi:10.1371/journal.pone.0314725) report
+0.82-0.90 with multimodal random survival forests. Our clinical baseline (0.69) and full
+models (0.83) sit inside that range.</p>
+<p>The three flexible and linear models reach the same discrimination. A ridge Cox model on
+baseline values is as good as the forests here, so it stays the model behind the agent.</p>
+<p><strong>Caveat ⚠.</strong> CDR-SB and FAQ measure daily function, and functional impairment is part of the
+clinical definition of dementia. Part of their predictive weight is therefore built into the
+outcome. The baseline model without them (0.69) is the honest lower bound.</p>
+<p><strong>Do the MR candidates predict conversion in ADNI? Mostly no.</strong> Each molecule measured at
+baseline (within 180 days of enrolment) was tested in its own Cox model of conversion. The
+molecule was inverse-normal transformed, so hazard ratios are per SD, and each model was
+adjusted for age, sex and APOE4. FDR was computed across all molecules of each platform.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>MCI participants (conversions)</th>
+<th>Molecules tested</th>
+<th>FDR &lt; 0.05</th>
+<th>MR candidates measured</th>
+<th>Candidates at p &lt; 0.05</th>
+<th>Enrichment vs other molecules</th>
+<th>Same direction as MR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CSF proteins, SomaScan 7k (CruchagaLab)</td>
+<td>389 (170)</td>
+<td>7,008 aptamers</td>
+<td>81 (78 genes)</td>
+<td>37 genes, 48 aptamers</td>
+<td>4 / 48 (others: 12%)</td>
+<td>Mann-Whitney p = 0.49</td>
+<td>19 / 48</td>
+</tr>
+<tr>
+<td>Serum NMR metabolites (ADMC Nightingale)</td>
+<td>786 (342)</td>
+<td>250</td>
+<td>0</td>
+<td>6</td>
+<td>0 / 6 (others: 14%)</td>
+<td>p = 0.98</td>
+<td>4 / 6</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>The screen does detect signal.</strong> The CSF proteins most associated with conversion are
+  markers of neuronal and synaptic injury: the 14-3-3 family (YWHAG, YWHAZ, YWHAB, YWHAE) and
+  neurofilament heavy chain (NEFH), with HR 1.5-1.8 per SD. They act as a positive control for
+  the pipeline.</li>
+<li><strong>The candidates do not stand out.</strong> Taken together, the 48 aptamers of the MR candidates are
+  no more associated with conversion than the rest of the proteome. Their direction agrees with
+  MR in 19 of 48, which is chance level.</li>
+<li><strong>ACE is the exception ✓.</strong> Higher CSF ACE predicts lower conversion: HR 0.76 per SD,
+  p = 0.0006, which survives Bonferroni across the 48 candidate aptamers. MR points the same
+  way: genetically higher ACE means lower AD risk.</li>
+<li><strong>Two discordant candidates.</strong> CD2AP (HR 0.80) and ACHE (HR 1.28) are nominally associated
+  in the direction opposite to MR.</li>
+</ul>
+<p><strong>Why a negative result is plausible ⚠.</strong> Several differences separate the two analyses:
+- <strong>Tissue.</strong> MR used plasma protein levels; ADNI measures CSF.
+- <strong>Question.</strong> MR asks about lifetime risk of AD; ADNI asks about progression from MCI over a
+  few years, a stage where markers of ongoing injury dominate.
+- <strong>Instruments.</strong> Most MR hits rest on a single cis variant at a known GWAS locus, without
+  colocalisation.
+- <strong>Power.</strong> 389 participants detect only fairly large effects.</p>
+<p>So the MR candidates are not validated as markers of progression; ACE is the one worth
+following up. Full tables: <code>results/adni_public/omics_proteins.csv</code> and <code>omics_metabolites.csv</code>.</p>
+<p><strong>Multimodal fusion: what do biomarkers add to the clinical prediction?</strong></p>
+<p><strong>Blocks.</strong>
+- Clinical: age, education, APOE4, MMSE, ADAS13, CDR-SB, FAQ.
+- MRI: hippocampus and ICV, plus regional FreeSurfer volumes (amygdala, ventricles) and the
+  thickness of seven AD-signature regions.
+- CSF: Aβ42, t-tau, p-tau.
+- CSF proteomics: SomaScan 7k, reduced to 20 principal components.
+- Serum metabolomics: NMR, reduced to 10 components.</p>
+<p><strong>Method.</strong>
+- Imputation, scaling and PCA are fitted inside each training fold.
+- Participants without a block get zeros for it, plus an indicator. This way all 1,146
+  participants are kept, although only 389 have proteomics and 785 have metabolomics.
+- Differences against the clinical model come from a paired bootstrap on the same
+  participants.</p>
+<table>
+<thead>
+<tr>
+<th>Blocks</th>
+<th>C-index, ridge Cox</th>
+<th>C-index, boosted</th>
+<th>Difference vs clinical (Cox; boosted)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Baseline (age, MMSE, APOE4)</td>
+<td>0.69 (0.67-0.72)</td>
+<td>0.70 (0.67-0.72)</td>
+<td>−0.12; −0.13</td>
+</tr>
+<tr>
+<td><strong>Clinical</strong></td>
+<td>0.82 (0.80-0.83)</td>
+<td>0.82 (0.81-0.84)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>+ hippocampus</td>
+<td>0.82</td>
+<td>0.83</td>
+<td>+0.005 (−0.003, +0.013); +0.004</td>
+</tr>
+<tr>
+<td>+ regional MRI</td>
+<td>0.83</td>
+<td>0.83</td>
+<td>+0.010 (−0.001, +0.019); +0.011 (+0.001, +0.019)</td>
+</tr>
+<tr>
+<td>+ CSF</td>
+<td>0.82</td>
+<td>0.83</td>
+<td>+0.006; +0.006 (both CIs include 0)</td>
+</tr>
+<tr>
+<td>+ proteomics</td>
+<td>0.82</td>
+<td>0.83</td>
+<td>0.000; +0.003 (both include 0)</td>
+</tr>
+<tr>
+<td>+ metabolomics</td>
+<td>0.82</td>
+<td>0.82</td>
+<td>+0.004; +0.001 (both include 0)</td>
+</tr>
+<tr>
+<td><strong>All blocks</strong></td>
+<td>0.83 (0.82-0.85)</td>
+<td>0.84 (0.82-0.86)</td>
+<td><strong>+0.018 (+0.006, +0.030); +0.016 (+0.005, +0.025)</strong></td>
+</tr>
+<tr>
+<td>Baseline + biomarkers (no CDR-SB, FAQ)</td>
+<td>0.79 (0.76-0.81)</td>
+<td>0.78 (0.75-0.80)</td>
+<td>−0.028; −0.046</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Clinical scales carry most of the information.</strong> All biomarkers together add about 0.02 in
+  C-index, which is real but small. Regional MRI is the single block that comes closest to
+  adding something on its own.</li>
+<li><strong>The biology is there, but it overlaps with the clinical scales.</strong> Without CDR-SB and FAQ,
+  biomarkers raise the baseline from 0.69 to 0.79. This answers the circularity caveat above:
+  the biomarkers predict conversion independently of the functional scales, but they add little
+  once those scales are known.</li>
+<li><strong>Complete-case check ⚠.</strong> Among the 358 participants with every block, all data together
+  reach 0.81 (0.77-0.84), the same as the clinical model (0.81). The small gain of the full
+  cohort does not show up in this subset.</li>
+</ul>
+<p><strong>Cognitive trajectories</strong> (mixed model, 1,146 participants). Converters decline faster than
+stable MCI:
+- MMSE: 1.27 points/year faster (1.15-1.39);
+- ADAS13: 2.85 points/year faster (2.57-3.14);
+- CDR-SB: 1.07 points/year faster (1.00-1.15).</p>
+<p>Data used in the preparation of these results were obtained from the Alzheimer's Disease
+Neuroimaging Initiative (ADNI) database (adni.loni.usc.edu); see the acknowledgement in the
+README.</p>
+<h3 id="adni-method-notes">ADNI (method notes)</h3>
+<p>The same code runs locally on ADNIMERGE. ADNI results will be added here as aggregate tables
+and figures only, with no per-participant data, as the ADNI Data Use Agreement allows. Trained
+ADNI models and per-participant predictions always stay in the gitignored <code>results/adni/</code> and
+<code>models/</code>.</p>
+<h2 id="agent">Agent</h2>
+<p>Tool selection by the local model <code>qwen2.5:7b-instruct</code> (Ollama, CPU) on the 12 golden
+questions: <strong>11/12</strong> (run on 2026-11-12; median 40 s per question on CPU).</p>
+<ul>
+<li><strong>The miss.</strong> "How much faster does MMSE decline in converters?" went to <code>cohort_summary</code>
+  instead of <code>get_result("trajectories")</code>. The model wrote the variable in lower case, the tool
+  refused it, and the agent returned the refusal rather than a number.</li>
+<li><strong>Correct answers.</strong> Risk questions were answered with the tool's probability and bootstrap
+  interval, for example "31.5% (28.1%-36.1%) at 3 years" for a synthetic profile. The request
+  for a single participant's MMSE was refused.</li>
+</ul>
+<p>In CI, a scripted backend checks routing, refusals (small cells, participant identifiers),
+provenance and abstention on every run.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.a5f9d56c.min.js"></script>
+      
+    
+  </body>
+</html>
