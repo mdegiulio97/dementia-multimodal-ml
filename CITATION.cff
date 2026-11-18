@@ -4,7 +4,8 @@ title: "dementia-multimodal-ml: multimodal biostatistics and machine learning fo
 authors:
   - family-names: De Giulio
     given-names: Michele Maria
-version: 0.1.0
-date-released: 2026-11-12
+    orcid: https://orcid.org/0009-0004-7712-7576
+version: 0.10.0
+date-released: 2026-11-18
 license: MIT
 repository-code: https://github.com/mdegiulio97/dementia-multimodal-ml
