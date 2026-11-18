@@ -5,7 +5,8 @@ authors:
   - family-names: De Giulio
     given-names: Michele Maria
     orcid: https://orcid.org/0009-0004-7712-7576
-version: 0.10.0
+version: 0.11.0
 date-released: 2026-11-18
+doi: 10.5281/zenodo.24342698
 license: MIT
 repository-code: https://github.com/mdegiulio97/dementia-multimodal-ml

@@ -211,6 +211,25 @@ falls inside it.
 Every published set is recovered. The two extra sets at EPHA1 are expected when an external LD
 reference replaces in-sample LD.
 
+**Agreement with the R reference packages** (`pipelines/benchmark_r_reference.py`,
+`benchmarks/r_reference.R`; R 4.6.2, susieR 0.14.2, coloc 5.2.3, MendelianRandomization 0.10.0).
+Both implementations received identical inputs: the ACE and EPHA1 regions with UK Biobank LD,
+and every harmonised instrument of the MR screen.
+
+| Comparison | Result |
+|---|---|
+| IVW (1,817 traits), MR-Egger and weighted median (231 traits with 3 or more instruments) | identical estimates (largest difference about 1e-15); weighted-median SE within 0.009, both being bootstrap estimates |
+| coloc ABF, ACE and EPHA1 | identical posterior probabilities (difference below 1e-15) |
+| SuSiE-RSS, EPHA1 | 10 of 10 credible sets identical |
+| SuSiE-RSS, ACE | 4 of 5 credible sets identical |
+| coloc-SuSiE best PP.H4 | ACE 0.982 vs 0.983, same lead variant; EPHA1 0.008 in both |
+
+At ACE the fifth set differs. Ours (3 variants, weak signal) is exactly the published UKB-PPP set
+of rs9897336; the susieR set (13 variants) overlaps none of the published sets. With summary
+statistics and an external LD reference the two algorithms reach different local solutions for
+this signal. The colocalisation result does not depend on it.
+
+
 **Epitope-effect check ⚠.** A variant that changes the protein sequence can change how the
 Olink antibody binds the protein without changing its amount. In that case the cis-pQTL partly
 measures binding, not abundance.

@@ -1,6 +1,6 @@
 [project]
 name = "dementia-ml"
-version = "0.10.0"
+version = "0.11.0"
 description = "Multimodal biostatistics and machine learning for MCI-to-Alzheimer conversion, open-data Mendelian randomisation and EEG, with a local tool-using agent"
 readme = "README.md"
 authors = [
