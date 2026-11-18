@@ -1,0 +1,143 @@
+{
+  "question": "Does CSF ACE predict MCI-to-dementia conversion independently of amyloid, tau and barrier markers?",
+  "models": {
+    "base": {
+      "n": 385,
+      "events": 167,
+      "hr_ace_per_sd": 0.761778831620045,
+      "ci_low": 0.6513057753386822,
+      "ci_high": 0.8909900852677661,
+      "p": 0.0006644455734932188,
+      "covariates": [
+        "AGE",
+        "MALE",
+        "APOE4"
+      ]
+    },
+    "+csf": {
+      "n": 384,
+      "events": 167,
+      "hr_ace_per_sd": 0.6262830610081533,
+      "ci_low": 0.5231972936402586,
+      "ci_high": 0.7496798574333474,
+      "p": 3.399804606020578e-07,
+      "covariates": [
+        "AGE",
+        "MALE",
+        "APOE4",
+        "ABETA",
+        "PTAU"
+      ]
+    },
+    "+barrier": {
+      "n": 380,
+      "events": 166,
+      "hr_ace_per_sd": 0.7214393799966373,
+      "ci_low": 0.6100525463572039,
+      "ci_high": 0.8531638497664412,
+      "p": 0.00013567781637026518,
+      "covariates": [
+        "AGE",
+        "MALE",
+        "APOE4",
+        "PDGFRB",
+        "ALB"
+      ]
+    },
+    "+all": {
+      "n": 379,
+      "events": 166,
+      "hr_ace_per_sd": 0.619011736955008,
+      "ci_low": 0.5127425300129638,
+      "ci_high": 0.7473059246292054,
+      "p": 6.006303632008263e-07,
+      "covariates": [
+        "AGE",
+        "MALE",
+        "APOE4",
+        "ABETA",
+        "PTAU",
+        "PDGFRB",
+        "ALB"
+      ]
+    },
+    "+clinical": {
+      "n": 383,
+      "events": 165,
+      "hr_ace_per_sd": 0.777047443299036,
+      "ci_low": 0.6544674601642952,
+      "ci_high": 0.9225863253552621,
+      "p": 0.003978851744706703,
+      "covariates": [
+        "AGE",
+        "MALE",
+        "APOE4",
+        "MMSE",
+        "ADAS13",
+        "CDRSB",
+        "FAQ"
+      ]
+    }
+  },
+  "spearman_with_ace": {
+    "TAU": {
+      "rho": 0.4119654390290004,
+      "p": 3.325040875943818e-17,
+      "n": 385
+    },
+    "PTAU": {
+      "rho": 0.3769748851328869,
+      "p": 2.0566620502955484e-14,
+      "n": 384
+    },
+    "ABETA": {
+      "rho": 0.2431822528449842,
+      "p": 1.3739770534787858e-06,
+      "n": 385
+    },
+    "PDGFRB": {
+      "rho": 0.23159541031611103,
+      "p": 4.7851954492772104e-06,
+      "n": 382
+    },
+    "ALB": {
+      "rho": -0.23055153361621628,
+      "p": 5.144810904582888e-06,
+      "n": 383
+    }
+  },
+  "provenance": {
+    "dataset": "ADNI (ADNIMERGE2, SomaScan 7k CSF, Elecsys)",
+    "dataset_version": "raw_2026-11-13",
+    "config": {
+      "models": {
+        "base": [],
+        "+csf": [
+          "ABETA",
+          "PTAU"
+        ],
+        "+barrier": [
+          "PDGFRB",
+          "ALB"
+        ],
+        "+all": [
+          "ABETA",
+          "PTAU",
+          "PDGFRB",
+          "ALB"
+        ],
+        "+clinical": [
+          "MMSE",
+          "ADAS13",
+          "CDRSB",
+          "FAQ"
+        ]
+      }
+    },
+    "seed": 0,
+    "git_commit": "13c8113826e98da60c2843b5e508fc9ede8bb890-dirty",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-18T10:37:39+00:00"
+  },
+  "publication": "ADNI summary data (Data Use Agreement term 3); see README"
+}

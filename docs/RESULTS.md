@@ -212,6 +212,48 @@ this check cannot tell the two apart. ACE and C1R are clean.
 3. no protein-altering variant in LD with the instrument;
 4. the same direction in CSF in an independent cohort (ADNI).
 
+**ACE in CSF: adjustment for amyloid, tau and barrier markers ✓.** ADNI, MCI participants with
+CSF SomaScan. Cox models of conversion; variables inverse-normal transformed, so hazard ratios
+are per SD.
+
+| Model | n (events) | HR of CSF ACE per SD (95% CI) | p |
+|---|---|---|---|
+| Age, sex, APOE4 | 385 (167) | 0.76 (0.65-0.89) | 0.0007 |
+| + CSF Aβ42 and p-tau181 (Elecsys) | 384 (167) | 0.63 (0.52-0.75) | < 0.0001 |
+| + sPDGFRβ and CSF albumin (barrier) | 380 (166) | 0.72 (0.61-0.85) | 0.0001 |
+| + all of the above | 379 (166) | 0.62 (0.51-0.75) | < 0.0001 |
+| + MMSE, ADAS13, CDR-SB, FAQ | 383 (165) | 0.78 (0.65-0.92) | 0.004 |
+
+CSF ACE rises with t-tau (Spearman ρ = 0.41) and p-tau (0.38), while tau predicts conversion.
+Adjusting for tau therefore uncovers a stronger inverse association. The objection that CSF ACE
+only tracks tau or vascular injury does not hold: the association grows once these markers are
+accounted for.
+
+**How the ACE findings stand against the literature (checked on 2026-11-13 and 2026-11-18,
+DOIs verified).**
+- **Genetics, already published ✗.** Lower ACE has been linked to higher AD risk by several MR
+  studies, for example Ryan et al. 2022 (doi:10.1212/NXG.0000000000200014).
+- **Plasma signal decomposition ✗.** The UKB-PPP paper already reports five independent cis
+  credible sets for plasma ACE (Sun et al. 2023, Supplementary Table 16,
+  doi:10.1038/s41586-023-06592-6). Our colocalising set matches their rs4308 set, which contains
+  rs4459609.
+- **CSF colocalisation and MR ✗.** The CSF pQTL study of Western et al. 2024
+  (doi:10.1038/s41588-024-01972-8) reports colocalisation of the primary CSF ACE signal with AD and
+  a Wald ratio of −0.192 per SD, essentially our estimate. rs4459609 was reported as a CSF ACE
+  pQTL associated with AD a decade earlier.
+- **CSF ACE and progression in ADNI ✗.** Sheng et al. 2026 (doi:10.1002/alz.71122) report the
+  same direction on the same SomaScan matrix (693 participants, CN and MCI together, adjusted for
+  age, sex, education and APOE4).
+- **What is ours ⚠, and small.**
+  - In plasma, the dominant pQTL does not colocalise with AD while the promoter signal does.
+  - In ADNI, the analysis is restricted to MCI and the CSF ACE association is shown to be
+    independent of amyloid, tau and barrier markers.
+- **Weak-instrument caveat ⚠.** The colocalising plasma signal moves ACE only slightly, so the
+  larger MR estimate (−0.19) may be inflated by a small denominator.
+
+**Verdict.** The ACE results replicate published findings with independent methods and data,
+which supports the pipeline. They are not a standalone discovery.
+
 **Correcting a harmonisation bug mattered.** An earlier version flipped the sign of
 palindromic instruments (A/T, C/G) whose alleles were listed in the opposite order. This
 corrupted the multi-instrument metabolite estimates (0 significant before the fix, 7 after),

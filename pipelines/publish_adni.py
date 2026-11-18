@@ -18,6 +18,7 @@ FILES = [
     "omics_proteins.csv",
     "omics_metabolites.csv",
     "fusion_metrics.json",
+    "ace_sensitivity.json",
 ]
 
 

@@ -101,6 +101,7 @@ licences and checksums are listed in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md
 | MR, metabolites on AD | Karjalainen 2024 + Bellenguez 2022 | 7 of 233 at FDR < 0.05, mostly LDL/VLDL lipid composition; 6 pass the pleiotropy check |
 | MR, independent outcome | Kunkle 2019 (no UK Biobank) | 42 of 45 testable candidates keep their sign |
 | Colocalisation (coloc ABF) | UKB-PPP regional + Bellenguez 2022 | 7 of 9 strongest candidates share the causal variant with AD (CR1, PILRA/B, IL34, C1S/C1R, CD33; PP.H4 > 0.93) |
+| CSF ACE vs conversion, adjusted for amyloid, tau, barrier | ADNI, 379 MCI | HR 0.62 per SD (0.51-0.75), stronger than unadjusted 0.76; replicates published ACE findings (see RESULTS) |
 | Epitope-effect check (Ensembl VEP, LD proxies) | 8 colocalised proteins | ACE and C1R clean; PILRA, IL34, C1S, CD33 have a missense instrument and CR1 has protein-altering proxies, so their pQTLs may partly reflect antibody binding |
 | Colocalisation (SuSiE, multiple signals) | + UK Biobank LD | ACE colocalises (PP.H4 0.98) through one of its five signals, giving a corrected MR estimate of −0.19 (−0.24 to −0.14); EPHA1 does not (0.008) |
 | EEG, EEGNet vs spectral | ds004504 | EEGNet AUC 0.81 (AD vs CN), 0.64 (FTD vs CN): below spectral features with ~60 people |
@@ -167,7 +168,7 @@ tests/             152 tests; CI on Ubuntu and Windows
   - Done: SuSiE-based colocalisation for ACE and EPHA1, and the ACE estimate corrected with the
     colocalising instrument.
   - Done: epitope-effect check of the colocalised pQTLs (ACE and C1R clean).
-  - Next: replicate the ADNI proteomics findings (ACE) in a second cohort.
+  - Done: ACE sensitivity analysis and literature check (the ACE findings replicate published work).
 - **Phase 3.** A multimodal fusion model with missing modalities, compared with the best single
   modality and the baseline.
 
