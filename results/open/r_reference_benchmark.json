@@ -1,0 +1,131 @@
+{
+  "question": "Do the package's Python implementations agree with the R reference packages on identical inputs?",
+  "reference_versions": {
+    "R": "4.6.2",
+    "coloc": "5.2.3",
+    "susieR": "0.14.2",
+    "MendelianRandomization": "0.10.0"
+  },
+  "susie_coloc": {
+    "ACE": {
+      "variants": 3072,
+      "credible_sets_protein": {
+        "ours": 5,
+        "reference": 5,
+        "reference_sets_matched": 4,
+        "ours_matched": 4,
+        "median_jaccard": 1.0
+      },
+      "credible_sets_ad": {
+        "ours": 1,
+        "reference": 1,
+        "reference_sets_matched": 1,
+        "ours_matched": 1,
+        "median_jaccard": 1.0
+      },
+      "protein_sets_overlapping_published_ukbppp": {
+        "ours": 5,
+        "reference": 4
+      },
+      "pip_max_abs_diff": 0.6762928194170663,
+      "pip_correlation_protein": 0.892101800708963,
+      "coloc_susie_best_PP.H4": {
+        "ours": 0.9822075632737656,
+        "reference": 0.982585136787866,
+        "same_protein_lead": true
+      },
+      "coloc_abf_max_abs_diff": 4.440892098500626e-16,
+      "coloc_abf_PP.H4": {
+        "ours": 0.0012495997991982372,
+        "reference": 0.00124959979919824
+      },
+      "seconds": {
+        "ours": {
+          "susie_two_traits": 2.9324999999953434,
+          "coloc_susie": 0.22218959999736398,
+          "coloc_abf": 0.0022644000127911568
+        },
+        "reference": {
+          "susie_two_traits": 30.91,
+          "coloc_susie": 0.0300000000000011,
+          "coloc_abf": 0.0200000000000031
+        }
+      }
+    },
+    "EPHA1": {
+      "variants": 2417,
+      "credible_sets_protein": {
+        "ours": 10,
+        "reference": 10,
+        "reference_sets_matched": 10,
+        "ours_matched": 10,
+        "median_jaccard": 1.0
+      },
+      "credible_sets_ad": {
+        "ours": 1,
+        "reference": 1,
+        "reference_sets_matched": 1,
+        "ours_matched": 1,
+        "median_jaccard": 1.0
+      },
+      "protein_sets_overlapping_published_ukbppp": {
+        "ours": 8,
+        "reference": 8
+      },
+      "pip_max_abs_diff": 0.013025242219204702,
+      "pip_correlation_protein": 0.9999699953033859,
+      "coloc_susie_best_PP.H4": {
+        "ours": 0.007663971019161343,
+        "reference": 0.00768326427062495,
+        "same_protein_lead": true
+      },
+      "coloc_abf_max_abs_diff": 2.220446049250313e-16,
+      "coloc_abf_PP.H4": {
+        "ours": 0.01636895361026373,
+        "reference": 0.0163689536102637
+      },
+      "seconds": {
+        "ours": {
+          "susie_two_traits": 2.4541380999726243,
+          "coloc_susie": 0.0,
+          "coloc_abf": 0.0008430999587289989
+        },
+        "reference": {
+          "susie_two_traits": 6.66,
+          "coloc_susie": 0.0499999999999972,
+          "coloc_abf": 0.00999999999999801
+        }
+      }
+    }
+  },
+  "mr": {
+    "ivw": {
+      "traits": 1817,
+      "max_abs_diff_estimate": 5.551115123125783e-16,
+      "max_abs_diff_se": 5.134781488891349e-16
+    },
+    "egger": {
+      "traits": 231,
+      "max_abs_diff_estimate": 1.6653345369377348e-15,
+      "max_abs_diff_se": 6.938893903907228e-16
+    },
+    "weighted_median": {
+      "traits": 231,
+      "max_abs_diff_estimate": 4.996003610813204e-16,
+      "max_abs_diff_se": 0.008827300244254599
+    },
+    "seconds": {
+      "ours": 8.06973480002489,
+      "reference": 10.76
+    }
+  },
+  "provenance": {
+    "dataset": "coloc_regions ACE/EPHA1 + mr_harmonisation_log.csv",
+    "dataset_version": "regional",
+    "config": {},
+    "seed": 0,
+    "git_commit": "b90611571e17aa7f44d2c376195860bef2976478",
+    "package_version": "0.10.0",
+    "created_utc": "2026-11-18T13:32:21+00:00"
+  }
+}
