@@ -240,7 +240,7 @@ DOIs verified).**
 - **CSF colocalisation and MR ✗.** The CSF pQTL study of Western et al. 2024
   (doi:10.1038/s41588-024-01972-8) reports colocalisation of the primary CSF ACE signal with AD and
   a Wald ratio of −0.192 per SD, essentially our estimate. rs4459609 was reported as a CSF ACE
-  pQTL associated with AD a decade earlier.
+  pQTL associated with AD by Kauwe et al. 2014 (doi:10.1371/journal.pgen.1004758).
 - **CSF ACE and progression in ADNI ✗.** Sheng et al. 2026 (doi:10.1002/alz.71122) report the
   same direction on the same SomaScan matrix (693 participants, CN and MCI together, adjusted for
   age, sex, education and APOE4).
