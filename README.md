@@ -3,6 +3,7 @@
 [![CI](https://github.com/mdegiulio97/dementia-multimodal-ml/actions/workflows/ci.yml/badge.svg)](https://github.com/mdegiulio97/dementia-multimodal-ml/actions/workflows/ci.yml)
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24342698.svg)](https://doi.org/10.5281/zenodo.24342698)
 
 **Who among people with mild cognitive impairment (MCI) progresses to dementia, and when?**
 
@@ -106,6 +107,7 @@ licences and checksums are listed in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md
 | Colocalisation (SuSiE, multiple signals) | + UK Biobank LD | ACE colocalises (PP.H4 0.98) through one of its five signals, giving a corrected MR estimate of −0.19 (−0.24 to −0.14); EPHA1 does not (0.008) |
 | EEG, leaky vs participant-level folds | ds004504 | epoch-level folds inflate AUC, most for AD vs FTD: 0.93 vs 0.53 (LightGBM) |
 | SuSiE-RSS vs published UKB-PPP SuSiE | ACE, EPHA1 | all 5 and 8 published credible sets recovered (4 and 7 with identical lead) |
+| Python vs R reference packages | same inputs | IVW, MR-Egger, weighted median and coloc ABF identical to MendelianRandomization and coloc; SuSiE matches susieR in 14 of 15 credible sets |
 | EEG, EEGNet vs spectral | ds004504 | EEGNet AUC 0.81 (AD vs CN), 0.64 (FTD vs CN): below spectral features with ~60 people |
 | Conversion, method check | synthetic, 787 MCI | full Cox C-index 0.72 (0.68-0.76) vs baseline 0.64 (0.60-0.68) |
 
@@ -187,4 +189,5 @@ summary statistics are cited in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
 ## Licence and citation
 
-Code: MIT. If you use it, please cite it through [CITATION.cff](CITATION.cff).
+Code: MIT. Every release is archived on Zenodo (all versions: doi:10.5281/zenodo.24342698).
+If you use it, please cite it through [CITATION.cff](CITATION.cff).
