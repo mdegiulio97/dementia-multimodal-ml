@@ -180,7 +180,7 @@ were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) databa
 of ADNI and/or provided data but did not participate in the analysis or writing of this work. A
 complete listing of ADNI investigators can be found at
 http://adni.loni.usc.edu/wp-content/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf.
-The EEG data are OpenNeuro ds004504 (doi:10.18112/openneuro.ds004504.v1.0.9, CC0). The genetic
+The EEG data are OpenNeuro ds004504 (version 1.0.9, https://openneuro.org/datasets/ds004504/versions/1.0.9, CC0). The genetic
 summary statistics are cited in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
 ## Licence and citation

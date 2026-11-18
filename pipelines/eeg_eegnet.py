@@ -63,7 +63,7 @@ def main() -> None:
             for t, r in results.items()
         },
         "provenance": provenance.block(
-            "OpenNeuro ds004504", source_config("eeg_ds004504")["doi"], cfg, cfg["seed"]
+            "OpenNeuro ds004504", source_config("eeg_ds004504")["version_url"], cfg, cfg["seed"]
         ),
     }
     (res_dir / "eeg_metrics_eegnet.json").write_text(json.dumps(summary, indent=2))

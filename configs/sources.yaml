@@ -10,7 +10,8 @@ eeg_ds004504:
     s3: s3://openneuro.org/ds004504            # aws s3 sync --no-sign-request
     https: https://s3.amazonaws.com/openneuro.org/ds004504
     datalad: https://github.com/OpenNeuroDatasets/ds004504.git  # not executed in Phase 0
-  doi: 10.18112/openneuro.ds004504.v1.0.9
+  doi: null  # v1.0.9 DOI not registered at DataCite (checked 2026-11-18); last registered: 10.18112/openneuro.ds004504.v1.0.8
+  version_url: https://openneuro.org/datasets/ds004504/versions/1.0.9
   paper_doi: 10.3390/data8060095
   also_cite:
     - 10.1109/ACCESS.2023.3294618
