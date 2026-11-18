@@ -1,0 +1,146 @@
+{
+  "question": "Inflation of EEG classification performance when epochs of one participant cross folds",
+  "results": {
+    "AD_vs_CN/logreg": {
+      "leaky_epoch_level": {
+        "auc": {
+          "estimate": 0.9150279868035139,
+          "ci_low": 0.9116711035955819,
+          "ci_high": 0.9179551588910042
+        },
+        "balanced_accuracy": 0.835080879572405,
+        "n_epochs": 26526
+      },
+      "participant_level": {
+        "auc": {
+          "estimate": 0.9080459770114943,
+          "ci_low": 0.8235157106320788,
+          "ci_high": 0.9679148480778915
+        },
+        "balanced_accuracy": 0.8132183908045978
+      }
+    },
+    "AD_vs_CN/lgbm": {
+      "leaky_epoch_level": {
+        "auc": {
+          "estimate": 0.9446895085072018,
+          "ci_low": 0.9416406742091015,
+          "ci_high": 0.9469080284338313
+        },
+        "balanced_accuracy": 0.8691923688823234,
+        "n_epochs": 26526
+      },
+      "participant_level": {
+        "auc": {
+          "estimate": 0.9003831417624522,
+          "ci_low": 0.8083778772040968,
+          "ci_high": 0.967561423396338
+        },
+        "balanced_accuracy": 0.8132183908045978
+      }
+    },
+    "FTD_vs_CN/logreg": {
+      "leaky_epoch_level": {
+        "auc": {
+          "estimate": 0.8899249100774156,
+          "ci_low": 0.8857499060160107,
+          "ci_high": 0.8938817283118509
+        },
+        "balanced_accuracy": 0.798833700794485,
+        "n_epochs": 20274
+      },
+      "participant_level": {
+        "auc": {
+          "estimate": 0.7376311844077961,
+          "ci_low": 0.5852463028222041,
+          "ci_high": 0.8706001411059177
+        },
+        "balanced_accuracy": 0.6484257871064467
+      }
+    },
+    "FTD_vs_CN/lgbm": {
+      "leaky_epoch_level": {
+        "auc": {
+          "estimate": 0.9631317705936441,
+          "ci_low": 0.9610767186656143,
+          "ci_high": 0.9650025679122649
+        },
+        "balanced_accuracy": 0.892786044746829,
+        "n_epochs": 20274
+      },
+      "participant_level": {
+        "auc": {
+          "estimate": 0.8335832083958021,
+          "ci_low": 0.6953639425267717,
+          "ci_high": 0.9416366647465437
+        },
+        "balanced_accuracy": 0.7308845577211394
+      }
+    },
+    "AD_vs_FTD/logreg": {
+      "leaky_epoch_level": {
+        "auc": {
+          "estimate": 0.8308725834941229,
+          "ci_low": 0.8249188677266367,
+          "ci_high": 0.8358031117290884
+        },
+        "balanced_accuracy": 0.7130894779277543,
+        "n_epochs": 22776
+      },
+      "participant_level": {
+        "auc": {
+          "estimate": 0.605072463768116,
+          "ci_low": 0.43760564080704745,
+          "ci_high": 0.760474537037037
+        },
+        "balanced_accuracy": 0.5670289855072463
+      }
+    },
+    "AD_vs_FTD/lgbm": {
+      "leaky_epoch_level": {
+        "auc": {
+          "estimate": 0.9256185323383457,
+          "ci_low": 0.9224063865398459,
+          "ci_high": 0.9288819606776493
+        },
+        "balanced_accuracy": 0.8119698167366814,
+        "n_epochs": 22776
+      },
+      "participant_level": {
+        "auc": {
+          "estimate": 0.5289855072463768,
+          "ci_low": 0.360687656641604,
+          "ci_high": 0.6933480514298742
+        },
+        "balanced_accuracy": 0.5948067632850241
+      }
+    }
+  },
+  "provenance": {
+    "dataset": "OpenNeuro ds004504",
+    "dataset_version": "1.0.9",
+    "config": {
+      "bids_dir": "eeg/ds004504",
+      "use_derivatives": true,
+      "epoch_s": 4.0,
+      "overlap": 0.5,
+      "tasks": [
+        "AD_vs_CN",
+        "FTD_vs_CN",
+        "AD_vs_FTD",
+        "3class"
+      ],
+      "models": [
+        "logreg",
+        "lgbm"
+      ],
+      "n_repeats": 5,
+      "n_boot": 1000,
+      "seed": 0
+    },
+    "seed": 0,
+    "git_commit": "39dcceb58b8edf0161dd08256f44eea54e2d3ae5-dirty",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-18T11:13:29+00:00"
+  }
+}

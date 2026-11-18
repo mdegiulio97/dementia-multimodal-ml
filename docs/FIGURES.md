@@ -173,3 +173,10 @@ Posterior probabilities from coloc ABF for the nine strongest MR candidates agai
 UKB-PPP regional statistics (±500 kb) and Bellenguez 2022. Green: shared causal variant (H4).
 Red: distinct variants in the same region (H3). Seven proteins colocalise; ACE and EPHA1 do not
 under the single-variant model.
+
+### `figures/open/eeg_leakage_demo.png`
+The same EEG features and models evaluated two ways on ds004504. Orange: epoch-level folds, so
+epochs of one participant appear in both training and test and metrics are computed over
+epochs. Dark: the package's participant-level folds. The leaky scheme inflates AUC most where
+the task is hardest. For AD vs FTD with LightGBM it reports 0.93, while participant-level
+evaluation shows chance (0.53).
