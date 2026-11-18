@@ -1,0 +1,29 @@
+{
+  "question": "Do our SuSiE-RSS credible sets match the published UKB-PPP SuSiE credible sets?",
+  "reference": "Sun et al. 2023 Nature, doi:10.1038/s41586-023-06592-6, Supplementary Table 16",
+  "results": {
+    "ACE": {
+      "published_sets": 5,
+      "our_sets": 5,
+      "published_recovered": 5,
+      "identical_lead": 4,
+      "our_sets_not_in_published": 0
+    },
+    "EPHA1": {
+      "published_sets": 8,
+      "our_sets": 10,
+      "published_recovered": 8,
+      "identical_lead": 7,
+      "our_sets_not_in_published": 2
+    }
+  },
+  "provenance": {
+    "dataset": "UKB-PPP ST16 + coloc_susie.json",
+    "dataset_version": "regional",
+    "config": {},
+    "seed": 0,
+    "git_commit": "56fdc0b5bf516417f7a5443e832ca830844a384a",
+    "package_version": "0.1.0.dev0",
+    "created_utc": "2026-11-18T11:17:01+00:00"
+  }
+}

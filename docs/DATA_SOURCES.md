@@ -30,7 +30,7 @@ Neurology, AHEPA University Hospital, Thessaloniki.
 |---|---|---|---|
 | URL | https://openneuro.org/datasets/ds004504 | ✓ | OpenNeuro GraphQL `https://openneuro.org/crn/graphql` |
 | Latest version | 1.0.9 (snapshot created 2026-05-20); earlier tags 1.0.0 to 1.0.8 (2023-02-17 to 2024-10-30) | ✓ | GraphQL `snapshots`, `CHANGES` |
-| Dataset DOI | 10.18112/openneuro.ds004504.v1.0.9 | ✓ | `dataset_description.json` |
+| Dataset DOI | none for v1.0.9: the DOI in `dataset_description.json` (10.18112/openneuro.ds004504.v1.0.9) is not registered at DataCite (checked 2026-11-18). Cite https://openneuro.org/datasets/ds004504/versions/1.0.9; the last registered DOI is 10.18112/openneuro.ds004504.v1.0.8 | ⚠ | DataCite, doi.org |
 | Descriptor paper DOI | 10.3390/data8060095 (Miltiadous et al., *Data* 2023, 8(6):95, CC BY 4.0) | ✓ | `dataset_description.json`, Crossref |
 | First study on the data | 10.1109/ACCESS.2023.3294618 (DICE-Net, *IEEE Access* 2023) | ✓ | `HowToAcknowledge`, Crossref |
 | Benchmark paper | 10.1007/s11571-026-10464-w (AHEPA EEG benchmark, *Cogn Neurodyn* 2026, PMID 42165009) | ✓ | `HowToAcknowledge`, Crossref, PubMed |

@@ -104,6 +104,8 @@ licences and checksums are listed in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md
 | CSF ACE vs conversion, adjusted for amyloid, tau, barrier | ADNI, 379 MCI | HR 0.62 per SD (0.51-0.75), stronger than unadjusted 0.76; replicates published ACE findings (see RESULTS) |
 | Epitope-effect check (Ensembl VEP, LD proxies) | 8 colocalised proteins | ACE and C1R clean; PILRA, IL34, C1S, CD33 have a missense instrument and CR1 has protein-altering proxies, so their pQTLs may partly reflect antibody binding |
 | Colocalisation (SuSiE, multiple signals) | + UK Biobank LD | ACE colocalises (PP.H4 0.98) through one of its five signals, giving a corrected MR estimate of −0.19 (−0.24 to −0.14); EPHA1 does not (0.008) |
+| EEG, leaky vs participant-level folds | ds004504 | epoch-level folds inflate AUC, most for AD vs FTD: 0.93 vs 0.53 (LightGBM) |
+| SuSiE-RSS vs published UKB-PPP SuSiE | ACE, EPHA1 | all 5 and 8 published credible sets recovered (4 and 7 with identical lead) |
 | EEG, EEGNet vs spectral | ds004504 | EEGNet AUC 0.81 (AD vs CN), 0.64 (FTD vs CN): below spectral features with ~60 people |
 | Conversion, method check | synthetic, 787 MCI | full Cox C-index 0.72 (0.68-0.76) vs baseline 0.64 (0.60-0.68) |
 
@@ -180,7 +182,7 @@ were obtained from the Alzheimer's Disease Neuroimaging Initiative (ADNI) databa
 of ADNI and/or provided data but did not participate in the analysis or writing of this work. A
 complete listing of ADNI investigators can be found at
 http://adni.loni.usc.edu/wp-content/uploads/how_to_apply/ADNI_Acknowledgement_List.pdf.
-The EEG data are OpenNeuro ds004504 (doi:10.18112/openneuro.ds004504.v1.0.9, CC0). The genetic
+The EEG data are OpenNeuro ds004504 (version 1.0.9, https://openneuro.org/datasets/ds004504/versions/1.0.9, CC0). The genetic
 summary statistics are cited in [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
 ## Licence and citation

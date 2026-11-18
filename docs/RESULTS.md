@@ -75,6 +75,22 @@ up for few people, because the windows of one person are not independent example
 expected behaviour of deep learning on small clinical cohorts, and it is why the spectral models
 remain the primary EEG result.
 
+**How much a leaky split inflates the results** (`pipelines/eeg_leakage_demo.py`). The same
+features and models were evaluated with epoch-level folds: epochs of one participant appear in
+training and test, and metrics are computed over epochs. AUC, epoch-level (leaky) vs
+participant-level:
+
+| Task | Logistic regression | LightGBM |
+|---|---|---|
+| AD vs CN | 0.92 vs 0.91 | 0.94 vs 0.90 |
+| FTD vs CN | 0.89 vs 0.74 | 0.96 vs 0.83 |
+| AD vs FTD | 0.83 vs 0.61 | 0.93 vs 0.53 |
+
+The leaky scheme inflates every task, and most where the task is hardest: for AD vs FTD with
+LightGBM it reports 0.93 where participant-level evaluation shows chance. The size of the gap
+matches the 9-17 points that the AHEPA benchmark attributes to this leakage
+(figure: `figures/open/eeg_leakage_demo.png`).
+
 ## Mendelian randomisation: circulating proteins and metabolites on Alzheimer's disease
 
 **Inputs.**
@@ -181,6 +197,19 @@ candidates that held up with Kunkle 2019.
   candidates.
 - **Caveat ⚠.** Ten credible sets for EPHA1 at n ≈ 34,000 point to sensitivity to small LD
   differences. The reference is UK Biobank, as are the pQTLs, which limits this.
+
+**Check against published SuSiE results** (`pipelines/benchmark_susie_ukbppp.py`). UKB-PPP ran
+SuSiE on individual-level data (Sun et al. 2023, doi:10.1038/s41586-023-06592-6, Supplementary
+Table 16). A published credible set counts as recovered when the lead variant of one of our sets
+falls inside it.
+
+| Locus | Published sets | Our sets | Published recovered | Identical lead |
+|---|---|---|---|---|
+| ACE | 5 | 5 | 5 ✓ | 4 |
+| EPHA1 | 8 | 10 | 8 ✓ | 7 |
+
+Every published set is recovered. The two extra sets at EPHA1 are expected when an external LD
+reference replaces in-sample LD.
 
 **Epitope-effect check ⚠.** A variant that changes the protein sequence can change how the
 Olink antibody binds the protein without changing its amount. In that case the cis-pQTL partly
